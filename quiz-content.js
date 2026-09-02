@@ -100,9 +100,18 @@
         return shuffle([answer.term, ...distractors.map(item => item.term)]);
     }
 
+    function shouldOpenQuizDictionary({ isQuizActive, quizType, answered }) {
+        return Boolean(
+            isQuizActive
+            && !answered
+            && ['short-answer', 'application'].includes(quizType)
+        );
+    }
+
     return {
         buildMultipleChoiceOptions,
         getDistractorCandidates,
         searchGlossaryTerms,
+        shouldOpenQuizDictionary,
     };
 }));

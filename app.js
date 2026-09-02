@@ -172,6 +172,7 @@ const {
 const {
     buildMultipleChoiceOptions,
     searchGlossaryTerms,
+    shouldOpenQuizDictionary,
 } = ITQuizContent;
 
 function initializeAccessibility() {
@@ -1400,8 +1401,16 @@ document.addEventListener('DOMContentLoaded', () => {
         card.addEventListener('click', () => {
             const type = card.dataset.type;
             if (type === 'dictionary') {
-                showScreen(dictionaryScreen);
-                setTimeout(() => showWelcomeMessage(), 100); // 약간의 지연을 줘서 DOM이 준비될 시간을 제공
+                if (shouldOpenQuizDictionary({
+                    isQuizActive: quizScreen.classList.contains('active'),
+                    quizType: currentQuizType,
+                    answered,
+                })) {
+                    openQuizDictionary();
+                } else {
+                    showScreen(dictionaryScreen);
+                    setTimeout(() => showWelcomeMessage(), 100); // 약간의 지연을 줘서 DOM이 준비될 시간을 제공
+                }
             } else {
                 startQuiz(type);
             }
