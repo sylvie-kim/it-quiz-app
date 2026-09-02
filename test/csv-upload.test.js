@@ -86,3 +86,43 @@ test('실제 CSV 파서는 따옴표 안 쉼표와 이중 따옴표를 한 셀�
         },
     ]);
 });
+
+test('CSV 파서는 여러 줄 셀을 보존하고 깨진 따옴표·파일 읽기 실패를 거부한다', async () => {
+    class FakeFileReader {
+        readAsText(file) {
+            if (file.readError) {
+                this.onerror();
+                return;
+            }
+            this.onload({ target: { result: file.content } });
+        }
+    }
+
+    const context = {
+        console: { log() {}, warn() {}, error() {} },
+        FileReader: FakeFileReader,
+        localStorage: {
+            getItem() { return null; },
+            setItem() {},
+            removeItem() {},
+        },
+        window: {},
+    };
+    vm.createContext(context);
+    vm.runInContext(
+        fs.readFileSync(path.join(projectRoot, 'google-sheets-integration.js'), 'utf8'),
+        context
+    );
+    const load = context.window.GoogleSheetsIntegration.loadFromCSVFile;
+
+    const multiline = await load({
+        content: '"용어","정의"\r\n"여러 줄","첫 줄\n둘째 줄"',
+    });
+    assert.equal(multiline[0].definition, '첫 줄\n둘째 줄');
+
+    await assert.rejects(
+        load({ content: '"용어","정의"\n"닫히지 않음","정의' }),
+        /큰따옴표가 닫히지 않았습니다/
+    );
+    await assert.rejects(load({ readError: true }), /파일 읽기에 실패했습니다/);
+});

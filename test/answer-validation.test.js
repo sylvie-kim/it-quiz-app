@@ -46,3 +46,32 @@ test('괄호로 함께 표기한 단일 용어의 영어·한글 이름은 계�
         true
     );
 });
+
+test('데이터에 명시한 Rails·TDD·CRUD 동의어와 표기 차이를 인정한다', () => {
+    assert.equal(
+        context.isAnswerCorrect(
+            'rails',
+            'Ruby on Rails(줄여서 Rails, 레일스)',
+            'Ruby on Rails(줄여서 Rails, 레일스)'
+        ),
+        true
+    );
+    assert.equal(
+        context.isAnswerCorrect(
+            '테스트 주도 개발',
+            'TDD(Test-Driven Development, 테스트 주도 개발)',
+            'TDD(Test-Driven Development, 테스트 주도 개발)'
+        ),
+        true
+    );
+    assert.equal(
+        context.isAnswerCorrect(
+            'Create, Read, Update, Delete',
+            'CRUD(Create, Read, Update, Delete)',
+            'CRUD(Create, Read, Update, Delete)'
+        ),
+        true
+    );
+    assert.equal(context.isAnswerCorrect('  FIGMA-MAKE  ', 'Figma Make', 'Figma Make'), true);
+    assert.equal(context.isAnswerCorrect('', 'Figma Make', 'Figma Make'), false);
+});
