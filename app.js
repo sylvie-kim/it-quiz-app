@@ -1169,7 +1169,7 @@ function showSearchResults(results, query) {
             resultsListDiv.innerHTML = `
                 <div class="no-results">
                     <div class="no-results-icon">🔍</div>
-                    <h3>"${query}"에 대한 검색 결과가 없습니다</h3>
+                    <h3>"${escapeHTML(query)}"에 대한 검색 결과가 없습니다</h3>
                     <p>다른 검색어를 시도해보세요.</p>
                 </div>
             `;

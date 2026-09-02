@@ -180,3 +180,9 @@ test('정적 배포의 CSS와 JavaScript는 같은 버전 주소로 함께 갱�
     assert.equal(assetVersions.length, 5, '배포에 필요한 CSS와 JavaScript 5개 모두 버전 주소가 있어야 한다');
     assert.equal(new Set(assetVersions).size, 1, 'CSS와 JavaScript가 서로 다른 캐시 버전을 사용하면 안 된다');
 });
+
+test('사전의 검색 결과 없음 문구는 사용자 검색어를 HTML로 실행하지 않는다', () => {
+    const appSource = fs.readFileSync(path.join(projectRoot, 'app.js'), 'utf8');
+
+    assert.match(appSource, /<h3>"\$\{escapeHTML\(query\)\}"에 대한 검색 결과가 없습니다<\/h3>/);
+});
