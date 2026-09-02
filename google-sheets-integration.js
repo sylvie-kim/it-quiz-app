@@ -94,8 +94,9 @@ async function updateTermsFromGoogleSheets() {
         // 전역 termsData 변수 업데이트
         if (typeof termsData !== 'undefined') {
             console.log('업데이트 전 termsData 개수:', termsData.length);
-            termsData.length = 0; // 기존 배열 비우기
-            termsData.push(...newTermsData); // 새 데이터 추가
+            const mergedTerms = ITQuizTerms.mergeTerms(termsData, newTermsData);
+            termsData.length = 0;
+            termsData.push(...mergedTerms);
             console.log('업데이트 후 termsData 개수:', termsData.length);
             console.log('업데이트 후 termsData 샘플:', termsData.slice(0, 3));
             
@@ -261,6 +262,55 @@ function downloadTemplateCSV() {
 /**
  * CSV 파일에서 데이터 가져오기
  */
+function parseCSVRows(csv) {
+    const rows = [];
+    let row = [];
+    let field = '';
+    let inQuotes = false;
+
+    for (let index = 0; index < csv.length; index += 1) {
+        const character = csv[index];
+
+        if (inQuotes) {
+            if (character === '"') {
+                if (csv[index + 1] === '"') {
+                    field += '"';
+                    index += 1;
+                } else {
+                    inQuotes = false;
+                }
+            } else {
+                field += character;
+            }
+            continue;
+        }
+
+        if (character === '"' && field.trim() === '') {
+            field = '';
+            inQuotes = true;
+        } else if (character === ',') {
+            row.push(field);
+            field = '';
+        } else if (character === '\n' || character === '\r') {
+            if (character === '\r' && csv[index + 1] === '\n') index += 1;
+            row.push(field);
+            if (row.some(cell => cell.trim())) rows.push(row);
+            row = [];
+            field = '';
+        } else {
+            field += character;
+        }
+    }
+
+    if (inQuotes) throw new Error('CSV의 큰따옴표가 닫히지 않았습니다.');
+    if (field || row.length) {
+        row.push(field);
+        if (row.some(cell => cell.trim())) rows.push(row);
+    }
+
+    return rows;
+}
+
 function loadFromCSVFile(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -268,16 +318,13 @@ function loadFromCSVFile(file) {
         reader.onload = function(e) {
             try {
                 const csv = e.target.result;
-                const lines = csv.split('\n');
-                const headers = lines[0].split(',').map(h => h.replace(/"/g, '').trim());
-                
-                const data = lines.slice(1)
-                    .filter(line => line.trim())
-                    .map(line => {
-                        const values = line.split(',').map(v => v.replace(/"/g, '').trim());
+                const rows = parseCSVRows(csv);
+
+                const data = rows.slice(1)
+                    .map(values => {
                         return {
-                            term: values[0] || '',
-                            definition: values[1] || ''
+                            term: (values[0] || '').replace(/^\uFEFF/, '').trim(),
+                            definition: (values[1] || '').trim()
                         };
                     })
                     .filter(item => item.term && item.definition);
@@ -355,8 +402,9 @@ function initializeTermsData() {
     const savedData = loadTermsFromLocalStorage();
     if (savedData && savedData.length > 0) {
         if (typeof termsData !== 'undefined') {
-            termsData.length = 0; // 기존 배열 비우기
-            termsData.push(...savedData); // 저장된 데이터 로드
+            const mergedTerms = ITQuizTerms.mergeTerms(termsData, savedData);
+            termsData.length = 0;
+            termsData.push(...mergedTerms);
             console.log('🔄 저장된 데이터로 termsData를 초기화했습니다.');
             console.log('로드된 용어 개수:', termsData.length);
             
@@ -384,4 +432,4 @@ window.GoogleSheetsIntegration = {
     loadTermsFromLocalStorage,
     clearSavedTermsData,
     initializeTermsData
-}; 
+};
