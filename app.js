@@ -27,6 +27,8 @@ const homeBtn = document.getElementById('home-btn');
 const restartBtn = document.getElementById('restart-btn');
 const homeResultBtn = document.getElementById('home-result-btn');
 const questionActionHint = document.getElementById('question-action-hint');
+const questionActions = document.getElementById('question-actions');
+const quizContainer = document.getElementById('quiz-container');
 
 // 사전 관련 DOM 요소
 const searchInput = document.getElementById('search-input');
@@ -669,6 +671,28 @@ function showScreen(screen) {
     } else {
         document.body.classList.remove('quiz-mode');
     }
+
+    if (screenId !== 'quiz-screen') {
+        questionActions.classList.remove('is-docked');
+        quizContainer.classList.remove('has-docked-actions');
+    }
+}
+
+function updateQuestionActionsPosition() {
+    if (!quizScreen.classList.contains('active')) return;
+
+    questionActions.classList.remove('is-docked');
+    quizContainer.classList.remove('has-docked-actions');
+
+    const contentAnchor = feedback.classList.contains('hidden') ? answerOptions : feedback;
+    const shouldDock = ITQuizUX.shouldDockQuestionActions({
+        contentBottom: contentAnchor.getBoundingClientRect().bottom,
+        actionHeight: questionActions.getBoundingClientRect().height,
+        viewportHeight: window.innerHeight,
+    });
+
+    questionActions.classList.toggle('is-docked', shouldDock);
+    quizContainer.classList.toggle('has-docked-actions', shouldDock);
 }
 
 // 퀴즈 시작
@@ -767,6 +791,8 @@ function displayQuestion() {
     if (savedState && savedState.userAnswer !== undefined) {
         restoreUserAnswer(question, savedState.userAnswer, savedState.isCorrect);
     }
+
+    updateQuestionActionsPosition();
 }
 
 function displayMultipleChoice(question) {
@@ -984,6 +1010,8 @@ function submitAnswer() {
     questionActionHint.textContent = currentQuestionIndex === currentQuestions.length - 1
         ? '해설을 확인한 뒤 결과를 보세요.'
         : '해설을 확인한 뒤 다음 문제로 이동하세요.';
+
+    updateQuestionActionsPosition();
     
     // 시각적 피드백
     if (question.type === 'multiple-choice') {
@@ -1013,7 +1041,10 @@ function submitAnswer() {
     }
 
     feedback.focus({ preventScroll: true });
-    if (feedback.getBoundingClientRect().bottom > window.innerHeight) {
+    const visibleBottom = questionActions.classList.contains('is-docked')
+        ? questionActions.getBoundingClientRect().top - 16
+        : window.innerHeight;
+    if (feedback.getBoundingClientRect().bottom > visibleBottom) {
         feedback.scrollIntoView({ behavior: isMotionReduced ? 'auto' : 'smooth', block: 'nearest' });
     }
 }
@@ -1359,6 +1390,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 기본 버튼 이벤트
     submitBtn.addEventListener('click', submitAnswer);
     nextBtn.addEventListener('click', nextQuestion);
+    window.addEventListener('resize', updateQuestionActionsPosition);
     homeBtn.addEventListener('click', () => showScreen(homeScreen));
     restartBtn.addEventListener('click', () => startQuiz(currentQuizType));
     homeResultBtn.addEventListener('click', () => showScreen(homeScreen));

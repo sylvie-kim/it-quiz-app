@@ -99,12 +99,13 @@ test('브라우저는 앱 코드보다 먼저 공유 용어 데이터를 불러�
 
     vm.createContext(context);
     for (const source of scriptSources) {
-        if (source === 'app.js') {
+        const filePath = source.split('?')[0];
+        if (filePath === 'app.js') {
             assert.equal(context.IT_QUIZ_BASE_TERMS?.length, 159);
             return;
         }
-        if (source === 'terms-data.js') {
-            vm.runInContext(fs.readFileSync(path.join(projectRoot, source), 'utf8'), context);
+        if (filePath === 'terms-data.js') {
+            vm.runInContext(fs.readFileSync(path.join(projectRoot, filePath), 'utf8'), context);
         }
     }
 

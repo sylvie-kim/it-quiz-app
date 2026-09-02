@@ -152,12 +152,31 @@ test('홈은 다크 모드가 기본이고 바이브코딩 학습용 3D 비주�
     assert.equal(fs.existsSync(heroAsset), true, '홈 3D 비주얼 파일이 있어야 한다');
 });
 
-test('퀴즈의 다음 행동은 고정 하단 푸터에서 항상 찾을 수 있다', () => {
+test('퀴즈의 다음 행동은 공간이 있으면 해설 바로 아래, 부족하면 화면 안에 고정된다', () => {
     const html = fs.readFileSync(path.join(projectRoot, 'index.html'), 'utf8');
     const css = fs.readFileSync(path.join(projectRoot, 'style.css'), 'utf8');
 
     assert.match(html, /id="question-action-hint"/);
     assert.doesNotMatch(html, /class="keyboard-hint"/);
-    assert.match(css, /\.question-actions\s*\{[^}]*position:\s*fixed[^}]*bottom:\s*0/s);
-    assert.match(css, /\.quiz-container\s*\{[^}]*padding-bottom:/s);
+    assert.equal(ux.shouldDockQuestionActions({
+        contentBottom: 610,
+        actionHeight: 52,
+        viewportHeight: 900,
+    }), false, '공간이 충분하면 해설 다음에 바로 보여야 한다');
+    assert.equal(ux.shouldDockQuestionActions({
+        contentBottom: 810,
+        actionHeight: 68,
+        viewportHeight: 844,
+    }), true, '공간이 부족하면 화면 안에 고정되어야 한다');
+    assert.match(css, /\.question-actions\.is-docked\s*\{[^}]*position:\s*fixed[^}]*bottom:\s*max\(/s);
+    assert.doesNotMatch(css, /\.question-actions\s*\{[^}]*position:\s*fixed/s);
+});
+
+test('정적 배포의 CSS와 JavaScript는 같은 버전 주소로 함께 갱신된다', () => {
+    const html = fs.readFileSync(path.join(projectRoot, 'index.html'), 'utf8');
+    const assetVersions = [...html.matchAll(/(?:style\.css|terms-utils\.js|terms-data\.js|quiz-ux\.js|app\.js)\?v=([^"']+)/g)]
+        .map(([, version]) => version);
+
+    assert.equal(assetVersions.length, 5, '배포에 필요한 CSS와 JavaScript 5개 모두 버전 주소가 있어야 한다');
+    assert.equal(new Set(assetVersions).size, 1, 'CSS와 JavaScript가 서로 다른 캐시 버전을 사용하면 안 된다');
 });

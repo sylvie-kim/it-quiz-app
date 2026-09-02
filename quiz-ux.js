@@ -93,11 +93,21 @@
         return type === 'multiple-choice' || type === 'true-false';
     }
 
+    function shouldDockQuestionActions({
+        contentBottom,
+        actionHeight,
+        viewportHeight,
+        gap = 16,
+    }) {
+        return contentBottom + actionHeight + gap > viewportHeight;
+    }
+
     return {
         buildFeedbackModel,
         buildReviewItemHTML,
         escapeHTML,
         formatAnswer,
+        shouldDockQuestionActions,
         shouldSubmitOnSelection,
     };
 }));

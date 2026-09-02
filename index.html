@@ -9,7 +9,7 @@
     <link rel="icon" type="image/png" href="assets/vibe-coding-blocks.png">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=20260902.2">
 </head>
 <body>
     <header class="app-header">
@@ -72,7 +72,7 @@
         </section>
 
         <section id="quiz-screen" class="screen" aria-labelledby="question-title">
-            <div class="quiz-container">
+            <div class="quiz-container" id="quiz-container">
                 <div class="quiz-progress" aria-label="퀴즈 진행률">
                     <div class="progress-bar" aria-hidden="true"><div class="progress-fill" id="progress-fill"></div></div>
                     <span class="progress-text" id="progress-text">1 / 15</span>
@@ -84,7 +84,7 @@
                 <div id="question-content" class="question-content"></div>
                 <div id="answer-options" class="answer-options"></div>
                 <div id="feedback" class="feedback hidden" role="status" aria-live="polite" tabindex="-1"></div>
-                <div class="question-actions">
+                <div class="question-actions" id="question-actions">
                     <p class="question-action-hint" id="question-action-hint">답을 고르면 바로 채점됩니다.</p>
                     <div class="question-action-buttons">
                         <button class="button button--primary hidden" id="submit-btn" type="button" disabled>답 확인</button>
@@ -160,9 +160,9 @@
         </section>
     </main>
 
-    <script src="terms-utils.js"></script>
-    <script src="terms-data.js"></script>
-    <script src="quiz-ux.js"></script>
-    <script src="app.js"></script>
+    <script src="terms-utils.js?v=20260902.2"></script>
+    <script src="terms-data.js?v=20260902.2"></script>
+    <script src="quiz-ux.js?v=20260902.2"></script>
+    <script src="app.js?v=20260902.2"></script>
 </body>
 </html>
