@@ -93,6 +93,14 @@
         return type === 'multiple-choice' || type === 'true-false';
     }
 
+    function shouldAutoAdvance({
+        isCorrect,
+        isMotionReduced = false,
+        hasLearningDetail = false,
+    }) {
+        return Boolean(isCorrect) && !isMotionReduced && !hasLearningDetail;
+    }
+
     function shouldDockQuestionActions({
         contentBottom,
         actionHeight,
@@ -107,6 +115,7 @@
         buildReviewItemHTML,
         escapeHTML,
         formatAnswer,
+        shouldAutoAdvance,
         shouldDockQuestionActions,
         shouldSubmitOnSelection,
     };
