@@ -21,17 +21,19 @@ const answerOptions = document.getElementById('answer-options');
 const feedback = document.getElementById('feedback');
 const submitBtn = document.getElementById('submit-btn');
 const nextBtn = document.getElementById('next-btn');
-const prevBtn = document.getElementById('prev-btn');
 const progressFill = document.getElementById('progress-fill');
 const progressText = document.getElementById('progress-text');
 const homeBtn = document.getElementById('home-btn');
 const restartBtn = document.getElementById('restart-btn');
 const homeResultBtn = document.getElementById('home-result-btn');
+const questionActionHint = document.getElementById('question-action-hint');
+const questionActions = document.getElementById('question-actions');
+const quizContainer = document.getElementById('quiz-container');
 
 // 사전 관련 DOM 요소
-const homeDictBtn = document.getElementById('home-dict-btn');
 const searchInput = document.getElementById('search-input');
 const searchBtn = document.getElementById('search-btn');
+const showAllTermsBtn = document.getElementById('show-all-terms-btn');
 const searchSuggestions = document.getElementById('search-suggestions');
 const dictionaryResults = document.getElementById('dictionary-results');
 const searchResults = document.getElementById('search-results');
@@ -45,8 +47,8 @@ const sortBtns = document.querySelectorAll('.sort-btn');
 // 접근성 컨트롤 요소는 함수 내에서 동적으로 가져옴
 
 // 접근성 설정
-let isDarkMode = localStorage.getItem('darkMode') === 'true' || 
-                 window.matchMedia('(prefers-color-scheme: dark)').matches;
+const savedDarkMode = localStorage.getItem('darkMode');
+let isDarkMode = savedDarkMode === null ? true : savedDarkMode === 'true';
 let isMotionReduced = localStorage.getItem('motionReduced') === 'true' || 
                       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -155,15 +157,22 @@ function getTermCategory(term) {
 }
 
 // 접근성 초기화
+const {
+    buildFeedbackModel,
+    buildReviewItemHTML,
+    escapeHTML,
+    shouldSubmitOnSelection,
+} = ITQuizUX;
+
 function initializeAccessibility() {
     // 다크모드 설정
     const themeToggle = document.getElementById('theme-toggle');
     if (isDarkMode) {
         document.documentElement.setAttribute('data-theme', 'dark');
-        if (themeToggle) themeToggle.textContent = '☀️';
+        if (themeToggle) themeToggle.textContent = '라이트 모드';
     } else {
         document.documentElement.removeAttribute('data-theme');
-        if (themeToggle) themeToggle.textContent = '🌙';
+        if (themeToggle) themeToggle.textContent = '다크 모드';
     }
     
     // 모션 감소 설정 (간소화 - 토글 버튼 제거됨)
@@ -182,10 +191,10 @@ function toggleTheme() {
     const themeToggle = document.getElementById('theme-toggle');
     if (isDarkMode) {
         document.documentElement.setAttribute('data-theme', 'dark');
-        if (themeToggle) themeToggle.textContent = '☀️';
+        if (themeToggle) themeToggle.textContent = '라이트 모드';
     } else {
         document.documentElement.removeAttribute('data-theme');
-        if (themeToggle) themeToggle.textContent = '🌙';
+        if (themeToggle) themeToggle.textContent = '다크 모드';
     }
 }
 
@@ -459,11 +468,14 @@ function generateMultipleChoiceQuestions() {
         
         questions.push({
             type: 'multiple-choice',
+            questionText: term.definition,
             question: `<div class="definition-box">
                 <div class="definition-text">${term.definition}</div>
             </div>`,
             options: options,
             correctAnswer: term.term,
+            term: term.term,
+            termDefinition: term.definition,
             explanation: `${term.term}은(는) ${term.definition}`
         });
     });
@@ -484,12 +496,15 @@ function generateShortAnswerQuestions() {
         
         questions.push({
             type: 'short-answer',
+            questionText: term.definition,
             question: `<div class="category-hint">카테고리: ${category}</div>
             <div class="definition-box">
                 <div class="definition-text">${term.definition}</div>
             </div>`,
             correctAnswer: termName, // 짧은 형태의 용어명을 정답으로 설정
             fullTerm: term.term, // 전체 용어는 별도로 보관
+            term: term.term,
+            termDefinition: term.definition,
             explanation: `정답은 "${termName}"입니다.\n\n${term.definition}`
         });
     });
@@ -509,6 +524,7 @@ function generateTrueFalseQuestions() {
         
         questions.push({
             type: 'true-false',
+            questionText: `${term.term}과 제시된 정의가 올바르게 연결됐나요?`,
             question: `<div class="term-definition-pair">
                 <div class="term-label">
                     <strong>용어:</strong> ${term.term}
@@ -518,6 +534,10 @@ function generateTrueFalseQuestions() {
                 </div>
             </div>`,
             correctAnswer: true,
+            term: term.term,
+            termDefinition: term.definition,
+            shownDefinitionTerm: term.term,
+            shownDefinition: term.definition,
             explanation: `정답입니다. ${term.term}은(는) ${term.definition}`
         });
     });
@@ -531,14 +551,16 @@ function generateTrueFalseQuestions() {
             getTermCategory(t.term) === category
         );
         
-        const wrongDefinition = relatedTerms.length > 0 
-            ? getRandomItems(relatedTerms, 1, seed + term.term.length)[0].definition
-            : getRandomItems(termsData.filter(t => t.term !== term.term), 1, seed + term.term.length)[0].definition;
+        const definitionSource = relatedTerms.length > 0
+            ? getRandomItems(relatedTerms, 1, seed + term.term.length)[0]
+            : getRandomItems(termsData.filter(t => t.term !== term.term), 1, seed + term.term.length)[0];
+        const wrongDefinition = definitionSource.definition;
         
         const icon = getTermIcon(term.term);
         
         questions.push({
             type: 'true-false',
+            questionText: `${term.term}과 제시된 정의가 올바르게 연결됐나요?`,
             question: `<div class="term-definition-pair">
                 <div class="term-label">
                     <strong>용어:</strong> ${term.term}
@@ -548,6 +570,10 @@ function generateTrueFalseQuestions() {
                 </div>
             </div>`,
             correctAnswer: false,
+            term: term.term,
+            termDefinition: term.definition,
+            shownDefinitionTerm: definitionSource.term,
+            shownDefinition: definitionSource.definition,
             explanation: `틀렸습니다. ${term.term}의 올바른 정의는: ${term.definition}`
         });
     });
@@ -616,22 +642,15 @@ function generateApplicationQuestions() {
     const shuffledExamples = shuffleArrayWithSeed(applicationExamples, seed);
     return shuffledExamples.map(example => {
         const termName = example.term.split(' (')[0]; // 괄호 안의 설명 제거
-        const icon = getTermIcon(example.term);
         
         return {
             type: 'application',
-            question: `<div class="question-header">
-                <div class="question-icon">${icon}</div>
-                <div class="question-content">
-                    <h3 class="question-title">실생활 응용 문제</h3>
-                    <div class="scenario-box">
-                        <div class="scenario-icon">💡</div>
-                        <div class="scenario-text">${example.scenario}</div>
-                    </div>
-                </div>
-            </div>`,
+            questionText: example.scenario,
+            question: `<div class="scenario-box"><p class="scenario-text">${example.scenario}</p></div>`,
             correctAnswer: termName, // 짧은 형태의 용어명을 정답으로 설정
             fullTerm: example.term, // 전체 용어는 별도로 보관
+            term: example.term,
+            termDefinition: example.explanation,
             explanation: `정답은 "${termName}"입니다.\n\n${example.explanation}`
         };
     });
@@ -652,6 +671,28 @@ function showScreen(screen) {
     } else {
         document.body.classList.remove('quiz-mode');
     }
+
+    if (screenId !== 'quiz-screen') {
+        questionActions.classList.remove('is-docked');
+        quizContainer.classList.remove('has-docked-actions');
+    }
+}
+
+function updateQuestionActionsPosition() {
+    if (!quizScreen.classList.contains('active')) return;
+
+    questionActions.classList.remove('is-docked');
+    quizContainer.classList.remove('has-docked-actions');
+
+    const contentAnchor = feedback.classList.contains('hidden') ? answerOptions : feedback;
+    const shouldDock = ITQuizUX.shouldDockQuestionActions({
+        contentBottom: contentAnchor.getBoundingClientRect().bottom,
+        actionHeight: questionActions.getBoundingClientRect().height,
+        viewportHeight: window.innerHeight,
+    });
+
+    questionActions.classList.toggle('is-docked', shouldDock);
+    quizContainer.classList.toggle('has-docked-actions', shouldDock);
 }
 
 // 퀴즈 시작
@@ -716,6 +757,9 @@ function displayQuestion() {
     if (answered) {
         submitBtn.classList.add('hidden');
         nextBtn.classList.remove('hidden');
+        questionActionHint.textContent = currentQuestionIndex === currentQuestions.length - 1
+            ? '해설을 확인한 뒤 결과를 보세요.'
+            : '해설을 확인한 뒤 다음 문제로 이동하세요.';
         // 피드백 표시
         if (savedState.feedback) {
             feedback.innerHTML = savedState.feedback;
@@ -724,16 +768,12 @@ function displayQuestion() {
         }
     } else {
         submitBtn.disabled = true;
-        submitBtn.textContent = '답안 제출';
-        submitBtn.classList.remove('hidden');
+        submitBtn.textContent = '답 확인';
+        submitBtn.classList.toggle('hidden', shouldSubmitOnSelection(question.type));
         nextBtn.classList.add('hidden');
-    }
-    
-    // 이전 버튼은 첫 번째 문제에서만 숨김
-    if (currentQuestionIndex === 0) {
-        prevBtn.classList.add('hidden');
-    } else {
-        prevBtn.classList.remove('hidden');
+        questionActionHint.textContent = shouldSubmitOnSelection(question.type)
+            ? '답을 고르면 바로 채점됩니다.'
+            : '답을 입력한 뒤 확인하세요.';
     }
     
     // 문제 유형별 UI 생성
@@ -751,6 +791,8 @@ function displayQuestion() {
     if (savedState && savedState.userAnswer !== undefined) {
         restoreUserAnswer(question, savedState.userAnswer, savedState.isCorrect);
     }
+
+    updateQuestionActionsPosition();
 }
 
 function displayMultipleChoice(question) {
@@ -758,7 +800,8 @@ function displayMultipleChoice(question) {
     optionsDiv.className = 'answer-options';
     
     question.options.forEach((option, index) => {
-        const optionDiv = document.createElement('div');
+        const optionDiv = document.createElement('button');
+        optionDiv.type = 'button';
         optionDiv.className = 'option';
         optionDiv.textContent = option;
         optionDiv.addEventListener('click', () => selectOption(optionDiv, option));
@@ -793,11 +836,13 @@ function displayTrueFalse(question) {
     buttonsDiv.className = 'tf-buttons';
     
     const trueBtn = document.createElement('button');
+    trueBtn.type = 'button';
     trueBtn.className = 'tf-button';
     trueBtn.textContent = '참 (True)';
     trueBtn.addEventListener('click', () => selectTrueFalse(trueBtn, true));
     
     const falseBtn = document.createElement('button');
+    falseBtn.type = 'button';
     falseBtn.className = 'tf-button';
     falseBtn.textContent = '거짓 (False)';
     falseBtn.addEventListener('click', () => selectTrueFalse(falseBtn, false));
@@ -830,20 +875,24 @@ function displayApplication(question) {
 // 답안 선택 함수들
 function selectOption(optionDiv, value) {
     if (answered) return;
+    const question = currentQuestions[currentQuestionIndex];
     
     document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
     optionDiv.classList.add('selected');
     submitBtn.disabled = false;
     submitBtn.dataset.answer = value;
+    if (shouldSubmitOnSelection(question.type)) submitAnswer();
 }
 
 function selectTrueFalse(button, value) {
     if (answered) return;
+    const question = currentQuestions[currentQuestionIndex];
     
     document.querySelectorAll('.tf-button').forEach(btn => btn.classList.remove('selected'));
     button.classList.add('selected');
     submitBtn.disabled = false;
     submitBtn.dataset.answer = value;
+    if (shouldSubmitOnSelection(question.type)) submitAnswer();
 }
 
 // 사용자 답변 복원 함수
@@ -851,6 +900,7 @@ function restoreUserAnswer(question, userAnswer, isCorrect) {
     if (question.type === 'multiple-choice') {
         document.querySelectorAll('.option').forEach(opt => {
             opt.classList.add('disabled');
+            opt.disabled = true;
             if (opt.textContent === question.correctAnswer) {
                 opt.classList.add('correct');
             } else if (opt.textContent === userAnswer && !isCorrect) {
@@ -867,6 +917,7 @@ function restoreUserAnswer(question, userAnswer, isCorrect) {
         input.disabled = true;
     } else if (question.type === 'true-false') {
         document.querySelectorAll('.tf-button').forEach(btn => {
+            btn.disabled = true;
             if ((btn.textContent.includes('참') && question.correctAnswer) || 
                 (btn.textContent.includes('거짓') && !question.correctAnswer)) {
                 btn.classList.add('correct');
@@ -925,47 +976,19 @@ function submitAnswer() {
     }
     
     answered = true;
-    
-    // 현재 문제가 처음 답변되는 경우에만 점수와 userAnswers에 추가
-    if (!questionStates[currentQuestionIndex]) {
-        userAnswers.push({
-            question: question.question,
-            userAnswer: userAnswer,
-            correctAnswer: question.correctAnswer,
-            isCorrect: isCorrect
-        });
-        
-        if (isCorrect) {
-            score++;
-        }
-    } else {
-        // 이미 답변한 문제의 경우 기존 기록 업데이트
-        const existingAnswerIndex = userAnswers.findIndex(answer => 
-            answer.question === question.question
-        );
-        if (existingAnswerIndex !== -1) {
-            // 이전 답변이 정답이었다면 점수에서 차감
-            if (userAnswers[existingAnswerIndex].isCorrect) {
-                score--;
-            }
-            // 새 답변이 정답이면 점수 추가
-            if (isCorrect) {
-                score++;
-            }
-            // 기록 업데이트
-            userAnswers[existingAnswerIndex] = {
-                question: question.question,
-                userAnswer: userAnswer,
-                correctAnswer: question.correctAnswer,
-                isCorrect: isCorrect
-            };
-        }
-    }
-    
-    const feedbackHtml = `
-        <h4>${isCorrect ? '정답입니다!' : '틀렸습니다.'}</h4>
-        <p>${question.explanation}</p>
-    `;
+    const feedbackModel = buildFeedbackModel(question, isCorrect);
+    const answerRecord = {
+        questionText: question.questionText,
+        userAnswer,
+        correctAnswer: question.correctAnswer,
+        isCorrect,
+        feedbackModel,
+    };
+
+    userAnswers.push(answerRecord);
+    if (isCorrect) score++;
+
+    const feedbackHtml = renderFeedbackHTML(feedbackModel, isCorrect);
     const feedbackClass = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
     
     // 문제 상태 저장
@@ -973,18 +996,28 @@ function submitAnswer() {
         answered: true,
         userAnswer: userAnswer,
         isCorrect: isCorrect,
+        feedbackModel,
         feedback: feedbackHtml,
         feedbackClass: feedbackClass
     };
-    
-    showFeedback(isCorrect, question.explanation, question.type);
+
+    showFeedback(feedbackModel, isCorrect);
     submitBtn.classList.add('hidden');
     nextBtn.classList.remove('hidden');
+    nextBtn.innerHTML = currentQuestionIndex === currentQuestions.length - 1
+        ? '결과 보기 <span aria-hidden="true">→</span>'
+        : '다음 문제 <span aria-hidden="true">→</span>';
+    questionActionHint.textContent = currentQuestionIndex === currentQuestions.length - 1
+        ? '해설을 확인한 뒤 결과를 보세요.'
+        : '해설을 확인한 뒤 다음 문제로 이동하세요.';
+
+    updateQuestionActionsPosition();
     
     // 시각적 피드백
     if (question.type === 'multiple-choice') {
         document.querySelectorAll('.option').forEach(opt => {
             opt.classList.add('disabled');
+            opt.disabled = true;
             if (opt.textContent === question.correctAnswer) {
                 opt.classList.add('correct');
             } else if (opt.classList.contains('selected') && !isCorrect) {
@@ -997,6 +1030,7 @@ function submitAnswer() {
         input.disabled = true;
     } else if (question.type === 'true-false') {
         document.querySelectorAll('.tf-button').forEach(btn => {
+            btn.disabled = true;
             if ((btn.textContent.includes('참') && question.correctAnswer) || 
                 (btn.textContent.includes('거짓') && !question.correctAnswer)) {
                 btn.classList.add('correct');
@@ -1005,23 +1039,36 @@ function submitAnswer() {
             }
         });
     }
+
+    feedback.focus({ preventScroll: true });
+    const visibleBottom = questionActions.classList.contains('is-docked')
+        ? questionActions.getBoundingClientRect().top - 16
+        : window.innerHeight;
+    if (feedback.getBoundingClientRect().bottom > visibleBottom) {
+        feedback.scrollIntoView({ behavior: isMotionReduced ? 'auto' : 'smooth', block: 'nearest' });
+    }
 }
 
-function showFeedback(isCorrect, explanation, questionType) {
-    let feedbackContent = '';
-    
-    if (isCorrect) {
-        // 정답일 때는 간단한 메시지만
-        feedbackContent = `<h4>✅ 정답입니다!</h4>`;
-    } else {
-        // 틀렸을 때만 상세한 설명 표시
-        feedbackContent = `
-            <h4>❌ 틀렸습니다.</h4>
-            <p>${explanation}</p>
-        `;
-    }
-    
-    feedback.innerHTML = feedbackContent;
+function renderFeedbackHTML(model, isCorrect) {
+    const sections = model.sections.map(section => `
+        <div class="feedback-comparison">
+            <div>
+                <span class="feedback-comparison__label">${escapeHTML(section.label)}</span>
+                <strong>${escapeHTML(section.term)}</strong>
+            </div>
+            <p>${escapeHTML(section.definition)}</p>
+        </div>
+    `).join('');
+
+    return `
+        <h3 class="feedback__heading"><span aria-hidden="true">${isCorrect ? '✓' : '×'}</span>${escapeHTML(model.title)}</h3>
+        ${model.summary ? `<p class="feedback__summary">${escapeHTML(model.summary)}</p>` : ''}
+        ${sections}
+    `;
+}
+
+function showFeedback(model, isCorrect) {
+    feedback.innerHTML = renderFeedbackHTML(model, isCorrect);
     feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
     feedback.classList.remove('hidden');
 }
@@ -1045,18 +1092,10 @@ function showResults() {
     document.getElementById('correct-count').textContent = score;
     document.getElementById('total-count').textContent = currentQuestions.length;
     
-    // 점수별 메시지
-    let message;
-    if (percentage >= 90) {
-        message = '완벽합니다! 🎉';
-    } else if (percentage >= 70) {
-        message = '잘했습니다! 👏';
-    } else if (percentage >= 50) {
-        message = '좋습니다! 💪';
-    } else {
-        message = '다시 도전해보세요! 📚';
-    }
-    
+    let message = '헷갈린 용어를 비교하면 다음 시도에서 더 빨라집니다.';
+    if (percentage === 100) message = '모든 용어를 정확히 구분했습니다.';
+    else if (percentage >= 80) message = '대부분 정확합니다. 아래 항목만 다시 확인해보세요.';
+    else if (percentage >= 60) message = '기본 개념은 잡혔습니다. 헷갈린 정의를 비교해보세요.';
     document.getElementById('score-message').textContent = message;
     
     // 틀린 답안 표시
@@ -1065,13 +1104,9 @@ function showResults() {
     
     if (wrongAnswers.length > 0) {
         document.getElementById('wrong-answers').style.display = 'block';
-        wrongList.innerHTML = wrongAnswers.map(answer => `
-            <div class="wrong-item">
-                <h4>문제: ${answer.question.substring(0, 100)}...</h4>
-                <p><strong>당신의 답:</strong> ${answer.userAnswer}</p>
-                <p class="correct-answer"><strong>정답:</strong> ${answer.correctAnswer}</p>
-            </div>
-        `).join('');
+        wrongList.innerHTML = wrongAnswers
+            .map((answer, index) => buildReviewItemHTML(answer, index))
+            .join('');
     } else {
         document.getElementById('wrong-answers').style.display = 'none';
     }
@@ -1134,7 +1169,7 @@ function showSearchResults(results, query) {
             resultsListDiv.innerHTML = `
                 <div class="no-results">
                     <div class="no-results-icon">🔍</div>
-                    <h3>"${query}"에 대한 검색 결과가 없습니다</h3>
+                    <h3>"${escapeHTML(query)}"에 대한 검색 결과가 없습니다</h3>
                     <p>다른 검색어를 시도해보세요.</p>
                 </div>
             `;
@@ -1168,7 +1203,7 @@ function updateTermsCount() {
     // 메인 화면 사전 카드의 용어 개수 업데이트
     const termsCountElement = document.getElementById('terms-count');
     if (termsCountElement) {
-        termsCountElement.textContent = `${termsCount}개 용어`;
+        termsCountElement.textContent = termsCount;
     }
     
     // 사전 화면의 용어 개수 업데이트
@@ -1331,13 +1366,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // 접근성 초기화
     initializeAccessibility();
     
-    // Google Sheets 통합: 저장된 데이터가 있으면 로드
-    setTimeout(() => {
-        if (window.GoogleSheetsIntegration && window.GoogleSheetsIntegration.initializeTermsData) {
-            window.GoogleSheetsIntegration.initializeTermsData();
-        }
-    }, 100);
-    
     // 초기 용어 개수 업데이트
     updateTermsCount();
     
@@ -1347,7 +1375,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
     
     // 퀴즈 유형 선택
-    document.querySelectorAll('.quiz-type-card').forEach(card => {
+    document.querySelectorAll('[data-type]').forEach(card => {
         card.addEventListener('click', () => {
             const type = card.dataset.type;
             if (type === 'dictionary') {
@@ -1362,17 +1390,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // 기본 버튼 이벤트
     submitBtn.addEventListener('click', submitAnswer);
     nextBtn.addEventListener('click', nextQuestion);
-    prevBtn.addEventListener('click', () => {
-        if (currentQuestionIndex > 0) {
-            currentQuestionIndex--;
-            displayQuestion();
-        }
-    });
+    window.addEventListener('resize', updateQuestionActionsPosition);
     homeBtn.addEventListener('click', () => showScreen(homeScreen));
-    homeDictBtn.addEventListener('click', () => showScreen(homeScreen));
     restartBtn.addEventListener('click', () => startQuiz(currentQuizType));
     homeResultBtn.addEventListener('click', () => showScreen(homeScreen));
-    
+    if (showAllTermsBtn) showAllTermsBtn.addEventListener('click', () => showAllTerms());
+
     // 사전 기능 이벤트
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
