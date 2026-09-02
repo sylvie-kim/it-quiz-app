@@ -41,17 +41,17 @@
     },
     {
         "term": "정적 렌더링",
-        "definition": "사용기술: HTML+CSS+바닐라 JS. 특징은 빠른 로딩과 간단함. 랜딩페이지, 포트폴리오 제작에 적합",
+        "definition": "페이지 내용을 빌드할 때 미리 HTML로 생성해 두고, 요청이 오면 준비된 파일을 전달하는 렌더링 방식입니다.",
         "origin": "google-sheet"
     },
     {
         "term": "클라이언트 렌더링",
-        "definition": "사용기술: React. 특징은 동적 상호작용. SPA, 대시보드에 적합",
+        "definition": "브라우저에서 JavaScript가 데이터를 받아 화면의 HTML을 만들거나 갱신하는 렌더링 방식입니다.",
         "origin": "google-sheet"
     },
     {
         "term": "서버사이드 렌더링",
-        "definition": "사용기술: Next.js. 특징은 SEO 최적화, 빠른 초기 로딩. 블로그나 쇼핑몰에 적합",
+        "definition": "서버가 요청에 맞는 HTML을 생성해 브라우저에 전달하는 렌더링 방식입니다.",
         "origin": "google-sheet"
     },
     {
@@ -96,12 +96,12 @@
     },
     {
         "term": "npm run dev",
-        "definition": "Node.js 기반 프로젝트에서 개발 환경으로 프로젝트를 실행하는 명령어.",
+        "definition": "package.json의 scripts에 dev라는 이름으로 등록된 작업을 실행하는 npm 명령어입니다. 실제 동작은 프로젝트 설정에 따라 달라집니다.",
         "origin": "google-sheet"
     },
     {
         "term": "npm run build",
-        "definition": "Node.js 프로젝트에서 빌드 과정을 실행하는 명령어. 주요 기능은, 소스 코드를 프로덕션용으로 컴파일/변환, JavaScript/TypeScript 파일들을 번들링, CSS 파일들을 최적화하고 압축, 이미지나 기타 assets을 최적화. 불필요한 코드 제거 (tree shaking). 파일 크기 최소화 (minification)",
+        "definition": "package.json의 scripts에 build라는 이름으로 등록된 작업을 실행하는 npm 명령어입니다. 변환·번들링·최적화 여부는 프로젝트 설정에 따라 달라집니다.",
         "origin": "google-sheet"
     },
     {
@@ -132,6 +132,7 @@
     {
         "term": "Interface(인터페이스)",
         "definition": "두 시스템, 장치, 소프트웨어, 또는 사람과 기계 사이에서 정보를 주고받을 수 있도록 해주는 접점이자, 소통을 위한 규칙 또는 매개체",
+        "keywords": ["접점", "사람과 기계", "소통", "연결"],
         "origin": "google-sheet"
     },
     {
@@ -151,7 +152,7 @@
     },
     {
         "term": "MCP(Model Context Protocol)",
-        "definition": "AI 모델이 외부 도구, 데이터, 시스템과 표준화된 방식으로 연결될 수 있도록 해주는 AI 특화 오픈소스 프로토콜",
+        "definition": "AI 애플리케이션이 외부 도구와 데이터 소스에 연결할 때 공통된 방식으로 정보를 주고받도록 정한 개방형 프로토콜",
         "origin": "google-sheet"
     },
     {
@@ -161,7 +162,7 @@
     },
     {
         "term": "Vibe Coding(바이브코딩)",
-        "definition": "인공지능이 자연어 설명을 바탕으로 코드를 자동 생성하는 새로운 프로그래밍 방식",
+        "definition": "자연어로 원하는 동작을 설명하고 AI가 만든 코드를 실행·확인·수정하며 소프트웨어를 개발하는 방식",
         "origin": "google-sheet"
     },
     {
@@ -287,12 +288,12 @@
     },
     {
         "term": "Compile(컴파일)",
-        "definition": "사람이 이해할 수 있는 소스 코드를 컴퓨터가 이해할 수 있는 기계어로 번역하는 과정",
+        "definition": "소스 코드를 실행 가능한 기계어·바이트코드 또는 다른 형태의 코드로 변환하는 과정",
         "origin": "google-sheet"
     },
     {
         "term": "Execution(실행)",
-        "definition": "컴파일된 프로그램을 컴퓨터가 명령에 따라 실제로 동작시키는 과정",
+        "definition": "컴퓨터나 런타임이 프로그램의 명령을 읽고 실제 동작을 수행하는 과정",
         "origin": "google-sheet"
     },
     {
@@ -307,12 +308,12 @@
     },
     {
         "term": "Crawling(크롤링)",
-        "definition": "웹에서 데이터를 수집하는 과정",
+        "definition": "웹페이지의 링크를 따라가며 여러 페이지를 자동으로 발견하고 방문하는 과정",
         "origin": "google-sheet"
     },
     {
         "term": "Scraping(스크래핑)",
-        "definition": "데이터를 수집·가공하는 전체 과정",
+        "definition": "웹페이지에서 필요한 텍스트나 표 같은 특정 정보를 추출해 구조화하는 과정",
         "origin": "google-sheet"
     },
     {
@@ -347,7 +348,7 @@
     },
     {
         "term": "PWA(Progressive Web App)",
-        "definition": "웹사이트를 앱처럼 설치하고, 오프라인에서도 사용할 수 있으며, 푸시 알림 등 네이티브 앱의 주요 기능을 제공하는 최신 웹 애플리케이션 기술",
+        "definition": "설치 가능한 앱과 비슷한 사용 경험을 제공하도록 만든 웹 애플리케이션입니다. 오프라인 동작이나 푸시 알림은 구현과 기기 지원 여부에 따라 달라집니다.",
         "origin": "google-sheet"
     },
     {
@@ -377,7 +378,7 @@
         "origin": "google-sheet"
     },
     {
-        "term": "Vite(바이트)",
+        "term": "Vite(비트)",
         "definition": "프론트엔드 빌드 도구로, React, Vue, Svelte 등 다양한 프레임워크와 함께 사용할 수 있으며, 빠르고 간결한 모던 웹 프로젝트 개발 경험을 제공",
         "origin": "google-sheet"
     },
@@ -829,7 +830,7 @@
     },
     {
         "term": "PyTorch",
-        "definition": "동적인 계산 방식과 Python 친화적인 사용법을 제공하는 Meta의 머신러닝 프레임워크입니다.",
+        "definition": "Python 친화적인 사용법과 동적 계산 그래프를 제공하는 오픈소스 머신러닝 프레임워크입니다. 현재 Linux Foundation 산하 재단이 관리합니다.",
         "category": "data",
         "icon": "🔥",
         "origin": "source-glossary"
