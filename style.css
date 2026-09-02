@@ -840,6 +840,7 @@ input:focus-visible {
 .no-results h3 {
   margin: 0 0 var(--space-2);
   font-size: 20px;
+  overflow-wrap: anywhere;
 }
 
 .no-results p {
