@@ -168,6 +168,11 @@ test('퀴즈의 다음 행동은 공간이 있으면 해설 바로 아래, 부�
         actionHeight: 68,
         viewportHeight: 844,
     }), true, '공간이 부족하면 화면 안에 고정되어야 한다');
+    assert.equal(ux.shouldDockQuestionActions({
+        contentBottom: 685.5,
+        actionHeight: 63.8,
+        viewportHeight: 768,
+    }), true, '버튼 위 20px 여백까지 포함해 1024×768 경계에서 잘리면 안 된다');
     assert.match(css, /\.question-actions\.is-docked\s*\{[^}]*position:\s*fixed[^}]*bottom:\s*max\(/s);
     assert.doesNotMatch(css, /\.question-actions\s*\{[^}]*position:\s*fixed/s);
 });

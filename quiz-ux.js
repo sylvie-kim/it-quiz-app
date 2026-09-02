@@ -97,7 +97,7 @@
         contentBottom,
         actionHeight,
         viewportHeight,
-        gap = 16,
+        gap = 20,
     }) {
         return contentBottom + actionHeight + gap > viewportHeight;
     }
