@@ -191,3 +191,9 @@ test('사전의 검색 결과 없음 문구는 사용자 검색어를 HTML로 �
 
     assert.match(appSource, /<h3>"\$\{escapeHTML\(query\)\}"에 대한 검색 결과가 없습니다<\/h3>/);
 });
+
+test('사전의 긴 검색어는 모바일 화면 폭을 밀어내지 않는다', () => {
+    const css = fs.readFileSync(path.join(projectRoot, 'style.css'), 'utf8');
+
+    assert.match(css, /\.no-results h3\s*\{[^}]*overflow-wrap:\s*anywhere/s);
+});
