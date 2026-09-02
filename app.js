@@ -9,6 +9,8 @@ let score = 0;
 let userAnswers = [];
 let answered = false;
 let questionStates = []; // 각 문제의 상태를 저장
+let autoAdvanceTimer = null;
+const AUTO_ADVANCE_DELAY_MS = 1500;
 
 // DOM 요소
 const homeScreen = document.getElementById('home-screen');
@@ -167,6 +169,7 @@ const {
     buildFeedbackModel,
     buildReviewItemHTML,
     escapeHTML,
+    shouldAutoAdvance,
     shouldSubmitOnSelection,
 } = ITQuizUX;
 const {
@@ -647,6 +650,12 @@ function generateApplicationQuestions() {
 }
 
 // 화면 전환 함수
+function clearAutoAdvanceTimer() {
+    if (autoAdvanceTimer === null) return;
+    window.clearTimeout(autoAdvanceTimer);
+    autoAdvanceTimer = null;
+}
+
 function showScreen(screen) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     
@@ -663,6 +672,7 @@ function showScreen(screen) {
     }
 
     if (screenId !== 'quiz-screen') {
+        clearAutoAdvanceTimer();
         questionActions.classList.remove('is-docked');
         quizContainer.classList.remove('has-docked-actions');
     }
@@ -689,6 +699,7 @@ function updateQuestionActionsPosition() {
 
 // 퀴즈 시작
 function startQuiz(type) {
+    clearAutoAdvanceTimer();
     currentQuizType = type;
     currentQuestionIndex = 0;
     score = 0;
@@ -722,6 +733,7 @@ function startQuiz(type) {
 
 // 문제 표시
 function displayQuestion() {
+    clearAutoAdvanceTimer();
     const question = currentQuestions[currentQuestionIndex];
     const savedState = questionStates[currentQuestionIndex];
     answered = savedState ? savedState.answered : false;
@@ -1065,7 +1077,16 @@ function submitAnswer() {
     nextBtn.innerHTML = currentQuestionIndex === currentQuestions.length - 1
         ? '결과 보기 <span aria-hidden="true">→</span>'
         : '다음 문제 <span aria-hidden="true">→</span>';
-    questionActionHint.textContent = currentQuestionIndex === currentQuestions.length - 1
+    const isLastQuestion = currentQuestionIndex === currentQuestions.length - 1;
+    const hasLearningDetail = Boolean(feedbackModel.summary || feedbackModel.sections.length);
+    const willAutoAdvance = shouldAutoAdvance({
+        isCorrect,
+        isMotionReduced,
+        hasLearningDetail,
+    });
+    questionActionHint.textContent = willAutoAdvance
+        ? (isLastQuestion ? '잠시 후 결과를 표시합니다.' : '잠시 후 다음 문제로 자동 이동합니다.')
+        : isLastQuestion
         ? '해설을 확인한 뒤 결과를 보세요.'
         : '해설을 확인한 뒤 다음 문제로 이동하세요.';
 
@@ -1105,6 +1126,10 @@ function submitAnswer() {
     if (feedback.getBoundingClientRect().bottom > visibleBottom) {
         feedback.scrollIntoView({ behavior: isMotionReduced ? 'auto' : 'smooth', block: 'nearest' });
     }
+
+    if (willAutoAdvance) {
+        autoAdvanceTimer = window.setTimeout(nextQuestion, AUTO_ADVANCE_DELAY_MS);
+    }
 }
 
 function renderFeedbackHTML(model, isCorrect) {
@@ -1133,6 +1158,7 @@ function showFeedback(model, isCorrect) {
 
 // 다음 문제
 function nextQuestion() {
+    clearAutoAdvanceTimer();
     currentQuestionIndex++;
     
     if (currentQuestionIndex >= currentQuestions.length) {

@@ -10,6 +10,7 @@
   --color-accent: #2357d9;
   --color-accent-hover: #1948bf;
   --color-accent-soft: #eaf0ff;
+  --color-on-accent: #fff;
   --color-success: #137a4b;
   --color-success-soft: #eaf7f0;
   --color-error: #b42335;
@@ -43,6 +44,7 @@
   --color-accent: #7aa2ff;
   --color-accent-hover: #9ab9ff;
   --color-accent-soft: #1d315e;
+  --color-on-accent: #0f141d;
   --color-success: #67d39b;
   --color-success-soft: #153b2d;
   --color-error: #ff8994;
@@ -766,7 +768,7 @@ input:focus-visible {
 
 .button--primary {
   background: var(--color-accent);
-  color: #fff;
+  color: var(--color-on-accent);
 }
 
 .button--primary:hover {

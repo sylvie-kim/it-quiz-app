@@ -186,6 +186,17 @@ test('퀴즈의 다음 행동은 공간이 있으면 해설 바로 아래, 부�
     assert.doesNotMatch(css, /\.question-actions\s*\{[^}]*position:\s*fixed/s);
 });
 
+test('정답만 자동 진행하고 오답과 모션 감소 환경에서는 해설 화면을 유지한다', () => {
+    assert.equal(ux.shouldAutoAdvance({ isCorrect: true, isMotionReduced: false }), true);
+    assert.equal(ux.shouldAutoAdvance({ isCorrect: false, isMotionReduced: false }), false);
+    assert.equal(ux.shouldAutoAdvance({ isCorrect: true, isMotionReduced: true }), false);
+    assert.equal(ux.shouldAutoAdvance({
+        isCorrect: true,
+        isMotionReduced: false,
+        hasLearningDetail: true,
+    }), false);
+});
+
 test('정적 배포의 CSS와 JavaScript는 같은 버전 주소로 함께 갱신된다', () => {
     const html = fs.readFileSync(path.join(projectRoot, 'index.html'), 'utf8');
     const assetVersions = [...html.matchAll(/(?:style\.css|terms-utils\.js|terms-data\.js|quiz-ux\.js|quiz-content\.js|app\.js)\?v=([^"']+)/g)]
