@@ -6,10 +6,10 @@
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#0f141d">
     <title>IT 용어 퀴즈</title>
-    <link rel="icon" type="image/png" href="assets/vibe-coding-blocks.png">
+    <link rel="icon" type="image/png" href="assets/term-definition-match.png">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
-    <link rel="stylesheet" href="style.css?v=20260902.5">
+    <link rel="stylesheet" href="style.css?v=20260902.6">
 </head>
 <body>
     <header class="app-header">
@@ -30,12 +30,12 @@
         <section id="home-screen" class="screen active" aria-labelledby="home-title">
             <div class="home-hero">
                 <div class="home-intro">
-                    <p class="eyebrow">159개 IT 용어 · 4가지 학습 방식</p>
+                    <p class="eyebrow">159개 IT 용어 · 찾아보며 익히는 4가지 학습 방식</p>
                     <h1 id="home-title">바이브코딩을 위한 기본 용어 학습</h1>
-                    <p>정의를 읽고 답하세요. 틀린 문제는 어떤 용어와 혼동했는지 바로 비교해드립니다.</p>
+                    <p>모르는 용어, 퀴즈로 하나씩 익혀보세요.</p>
                 </div>
                 <figure class="home-visual" aria-hidden="true">
-                    <img src="assets/vibe-coding-blocks.png" alt="" width="320" height="320" decoding="async">
+                    <img src="assets/term-definition-match.png" alt="" width="320" height="213" decoding="async">
                 </figure>
             </div>
 
@@ -54,13 +54,13 @@
                 </button>
                 <button class="quiz-type-card" type="button" data-type="short-answer">
                     <span class="quiz-type-card__index">03</span>
-                    <span class="quiz-type-card__body"><strong>단답형</strong><span>정의에 맞는 용어를 직접 입력합니다.</span></span>
+                    <span class="quiz-type-card__body"><strong>단답형</strong><span>정의를 보고 용어 이름을 직접 입력합니다.</span></span>
                     <span class="quiz-type-card__meta">12문제</span>
                     <span class="quiz-type-card__arrow" aria-hidden="true">→</span>
                 </button>
                 <button class="quiz-type-card" type="button" data-type="application">
                     <span class="quiz-type-card__index">04</span>
-                    <span class="quiz-type-card__body"><strong>상황 적용</strong><span>실제 개발 상황에 맞는 용어를 입력합니다.</span></span>
+                    <span class="quiz-type-card__body"><strong>상황 적용</strong><span>개발 상황을 읽고 적용되는 용어를 직접 입력합니다.</span></span>
                     <span class="quiz-type-card__meta">10문제</span>
                     <span class="quiz-type-card__arrow" aria-hidden="true">→</span>
                 </button>
@@ -83,6 +83,7 @@
                 </div>
                 <div id="question-content" class="question-content"></div>
                 <div id="answer-options" class="answer-options"></div>
+                <button class="quiz-dictionary-button hidden" id="quiz-dictionary-button" type="button">용어사전에서 찾아보기</button>
                 <div id="feedback" class="feedback hidden" role="status" aria-live="polite" tabindex="-1"></div>
                 <div class="question-actions" id="question-actions">
                     <p class="question-action-hint" id="question-action-hint">답을 고르면 바로 채점됩니다.</p>
@@ -103,20 +104,20 @@
             <div class="search-section">
                 <label for="search-input">용어 검색</label>
                 <div class="search-input-wrapper">
-                    <input type="search" id="search-input" class="search-input" placeholder="예: API, React, RAG" autocomplete="off">
+                    <input type="search" id="search-input" class="search-input" placeholder="예: API, 접점, 로그인" autocomplete="off">
                     <button class="button button--primary search-btn" id="search-btn" type="button">검색</button>
                 </div>
                 <div class="search-suggestions" id="search-suggestions"></div>
             </div>
             <div class="dictionary-results" id="dictionary-results">
                 <div class="welcome-message">
-                    <p>자주 찾는 용어</p>
+                    <p>먼저 볼 핵심 용어</p>
                     <div class="term-tags">
                         <button class="term-tag" type="button" data-term="API">API</button>
-                        <button class="term-tag" type="button" data-term="React">React</button>
-                        <button class="term-tag" type="button" data-term="JavaScript">JavaScript</button>
-                        <button class="term-tag" type="button" data-term="RAG">RAG</button>
-                        <button class="term-tag" type="button" data-term="Figma Make">Figma Make</button>
+                        <button class="term-tag" type="button" data-term="프론트엔드">프론트엔드 / 백엔드</button>
+                        <button class="term-tag" type="button" data-term="GitHub">GitHub</button>
+                        <button class="term-tag" type="button" data-term="npm">npm</button>
+                        <button class="term-tag" type="button" data-term="MCP">MCP</button>
                     </div>
                     <button class="text-button" id="show-all-terms-btn" type="button">전체 159개 보기</button>
                 </div>
@@ -160,9 +161,27 @@
         </section>
     </main>
 
-    <script src="terms-utils.js?v=20260902.5"></script>
-    <script src="terms-data.js?v=20260902.5"></script>
-    <script src="quiz-ux.js?v=20260902.5"></script>
-    <script src="app.js?v=20260902.5"></script>
+    <dialog class="quiz-dictionary-dialog" id="quiz-dictionary-dialog" aria-labelledby="quiz-dictionary-title">
+        <div class="quiz-dictionary-panel">
+            <header class="quiz-dictionary-header">
+                <div>
+                    <p class="eyebrow">문제를 풀면서 찾기</p>
+                    <h2 id="quiz-dictionary-title">용어사전</h2>
+                </div>
+                <button class="dialog-close" id="quiz-dictionary-close" type="button" aria-label="용어사전 닫기">×</button>
+            </header>
+            <p class="quiz-dictionary-guide">정답을 몰라도 괜찮아요. 문제의 단어나 뜻을 검색해보세요.</p>
+            <label class="sr-only" for="quiz-dictionary-search">용어, 뜻 또는 키워드 검색</label>
+            <input class="search-input" id="quiz-dictionary-search" type="search" placeholder="예: 접점, 로그인, 서버" autocomplete="off">
+            <p class="quiz-dictionary-status" id="quiz-dictionary-status" aria-live="polite">한 글자부터 검색할 수 있습니다.</p>
+            <div class="quiz-dictionary-results" id="quiz-dictionary-results"></div>
+        </div>
+    </dialog>
+
+    <script src="terms-utils.js?v=20260902.6"></script>
+    <script src="terms-data.js?v=20260902.6"></script>
+    <script src="quiz-ux.js?v=20260902.6"></script>
+    <script src="quiz-content.js?v=20260902.6"></script>
+    <script src="app.js?v=20260902.6"></script>
 </body>
 </html>

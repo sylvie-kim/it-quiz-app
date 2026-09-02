@@ -139,17 +139,26 @@ test('공개 앱에는 용어 데이터 관리와 외부 시트 업로드 기능
     assert.equal(fs.existsSync(path.join(projectRoot, 'Google_Sheets_연동_가이드.md')), false);
 });
 
-test('홈은 다크 모드가 기본이고 바이브코딩 학습용 3D 비주얼을 사용한다', () => {
+test('홈은 다크 모드가 기본이고 용어와 정의 연결을 보여주는 비주얼을 사용한다', () => {
     const html = fs.readFileSync(path.join(projectRoot, 'index.html'), 'utf8');
     const appSource = fs.readFileSync(path.join(projectRoot, 'app.js'), 'utf8');
-    const heroAsset = path.join(projectRoot, 'assets', 'vibe-coding-blocks.png');
+    const heroAsset = path.join(projectRoot, 'assets', 'term-definition-match.png');
 
     assert.match(html, /<html\s+lang="ko"\s+data-theme="dark">/);
     assert.match(html, /id="theme-toggle"[^>]*>라이트 모드</);
     assert.match(html, /바이브코딩을 위한 기본 용어 학습/);
-    assert.match(html, /src="assets\/vibe-coding-blocks\.png"/);
+    assert.match(html, /src="assets\/term-definition-match\.png"/);
     assert.match(appSource, /savedDarkMode\s*===\s*null\s*\?\s*true/);
     assert.equal(fs.existsSync(heroAsset), true, '홈 3D 비주얼 파일이 있어야 한다');
+});
+
+test('단답형과 상황 적용은 퀴즈를 떠나지 않고 용어 사전을 열 수 있다', () => {
+    const html = fs.readFileSync(path.join(projectRoot, 'index.html'), 'utf8');
+
+    assert.match(html, /id="quiz-dictionary-button"/);
+    assert.match(html, /<dialog[^>]+id="quiz-dictionary-dialog"/);
+    assert.match(html, /id="quiz-dictionary-search"/);
+    assert.match(html, /id="quiz-dictionary-results"/);
 });
 
 test('퀴즈의 다음 행동은 공간이 있으면 해설 바로 아래, 부족하면 화면 안에 고정된다', () => {
@@ -179,10 +188,10 @@ test('퀴즈의 다음 행동은 공간이 있으면 해설 바로 아래, 부�
 
 test('정적 배포의 CSS와 JavaScript는 같은 버전 주소로 함께 갱신된다', () => {
     const html = fs.readFileSync(path.join(projectRoot, 'index.html'), 'utf8');
-    const assetVersions = [...html.matchAll(/(?:style\.css|terms-utils\.js|terms-data\.js|quiz-ux\.js|app\.js)\?v=([^"']+)/g)]
+    const assetVersions = [...html.matchAll(/(?:style\.css|terms-utils\.js|terms-data\.js|quiz-ux\.js|quiz-content\.js|app\.js)\?v=([^"']+)/g)]
         .map(([, version]) => version);
 
-    assert.equal(assetVersions.length, 5, '배포에 필요한 CSS와 JavaScript 5개 모두 버전 주소가 있어야 한다');
+    assert.equal(assetVersions.length, 6, '배포에 필요한 CSS와 JavaScript 6개 모두 버전 주소가 있어야 한다');
     assert.equal(new Set(assetVersions).size, 1, 'CSS와 JavaScript가 서로 다른 캐시 버전을 사용하면 안 된다');
 });
 

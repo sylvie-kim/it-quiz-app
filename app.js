@@ -29,6 +29,12 @@ const homeResultBtn = document.getElementById('home-result-btn');
 const questionActionHint = document.getElementById('question-action-hint');
 const questionActions = document.getElementById('question-actions');
 const quizContainer = document.getElementById('quiz-container');
+const quizDictionaryButton = document.getElementById('quiz-dictionary-button');
+const quizDictionaryDialog = document.getElementById('quiz-dictionary-dialog');
+const quizDictionaryClose = document.getElementById('quiz-dictionary-close');
+const quizDictionarySearch = document.getElementById('quiz-dictionary-search');
+const quizDictionaryStatus = document.getElementById('quiz-dictionary-status');
+const quizDictionaryResults = document.getElementById('quiz-dictionary-results');
 
 // 사전 관련 DOM 요소
 const searchInput = document.getElementById('search-input');
@@ -163,6 +169,11 @@ const {
     escapeHTML,
     shouldSubmitOnSelection,
 } = ITQuizUX;
+const {
+    buildMultipleChoiceOptions,
+    searchGlossaryTerms,
+    shouldOpenQuizDictionary,
+} = ITQuizContent;
 
 function initializeAccessibility() {
     // 다크모드 설정
@@ -210,7 +221,7 @@ function getQuestionTypeTitle(type) {
         case 'true-false':
             return '참/거짓 문제';
         case 'application':
-            return '응용 문제';
+            return '상황 적용';
         default:
             return '퀴즈';
     }
@@ -236,7 +247,7 @@ const quizTitles = {
     'multiple-choice': '객관식 문제',
     'short-answer': '단답형 문제',
     'true-false': '참/거짓 문제',
-    'application': '응용 문제'
+    'application': '상황 적용'
 };
 
 // 유틸리티 함수
@@ -435,38 +446,17 @@ function isAnswerCorrect(userAnswer, correctAnswer, fullTerm) {
 
 // 문제 생성 함수들
 function generateMultipleChoiceQuestions() {
-    const questions = [];
-    // 매번 다른 문제를 위한 시드 생성 (현재 시간 + 랜덤)
     const seed = Date.now() + Math.floor(Math.random() * 1000);
-    const selectedTerms = getRandomItems(termsData, 15, seed);
-    
-    selectedTerms.forEach(term => {
-        // 비슷한 카테고리나 관련된 용어들을 우선 선택
-        const category = getTermCategory(term.term);
-        const relatedTerms = termsData.filter(t => 
-            t.term !== term.term && 
-            (getTermCategory(t.term) === category || 
-             t.term.includes('(') === term.term.includes('(') ||
-             (category === '프레임워크' && getTermCategory(t.term) === '언어') ||
-             (category === '도구' && getTermCategory(t.term) === '플랫폼'))
-        );
-        
-        let wrongOptions;
-        if (relatedTerms.length >= 3) {
-            wrongOptions = getRandomItems(relatedTerms, 3, seed + term.term.length).map(t => t.term);
-        } else {
-            // 관련 용어가 부족하면 일반 용어로 채움
-            const remainingTerms = termsData.filter(t => t.term !== term.term);
-            wrongOptions = [
-                ...relatedTerms.map(t => t.term),
-                ...getRandomItems(remainingTerms.filter(t => !relatedTerms.some(rt => rt.term === t.term)), 3 - relatedTerms.length, seed + term.term.length + 50).map(t => t.term)
-            ];
-        }
-        
-        const options = shuffleArray([term.term, ...wrongOptions]);
-        const icon = getTermIcon(term.term);
-        
-        questions.push({
+    const eligibleQuestions = termsData.map(term => {
+        const options = buildMultipleChoiceOptions({
+            answer: term,
+            definition: term.definition,
+            terms: termsData,
+            shuffle: shuffleArray,
+        });
+
+        if (options.length !== 4) return null;
+        return {
             type: 'multiple-choice',
             questionText: term.definition,
             question: `<div class="definition-box">
@@ -477,10 +467,10 @@ function generateMultipleChoiceQuestions() {
             term: term.term,
             termDefinition: term.definition,
             explanation: `${term.term}은(는) ${term.definition}`
-        });
-    });
-    
-    return questions;
+        };
+    }).filter(Boolean);
+
+    return getRandomItems(eligibleQuestions, 15, seed);
 }
 
 function generateShortAnswerQuestions() {
@@ -684,7 +674,9 @@ function updateQuestionActionsPosition() {
     questionActions.classList.remove('is-docked');
     quizContainer.classList.remove('has-docked-actions');
 
-    const contentAnchor = feedback.classList.contains('hidden') ? answerOptions : feedback;
+    const contentAnchor = feedback.classList.contains('hidden')
+        ? (quizDictionaryButton.classList.contains('hidden') ? answerOptions : quizDictionaryButton)
+        : feedback;
     const shouldDock = ITQuizUX.shouldDockQuestionActions({
         contentBottom: contentAnchor.getBoundingClientRect().bottom,
         actionHeight: questionActions.getBoundingClientRect().height,
@@ -752,6 +744,8 @@ function displayQuestion() {
     // 답안 옵션 초기화
     answerOptions.innerHTML = '';
     feedback.classList.add('hidden');
+    const canUseDictionary = !answered && ['short-answer', 'application'].includes(question.type);
+    quizDictionaryButton.classList.toggle('hidden', !canUseDictionary);
     
     // 버튼 상태 초기화
     if (answered) {
@@ -872,6 +866,69 @@ function displayApplication(question) {
     input.focus(); // 자동 포커스
 }
 
+function getQuizInput() {
+    return answerOptions.querySelector('.text-input');
+}
+
+function getShortTermName(term) {
+    return String(term || '').split('(')[0].trim();
+}
+
+function renderQuizDictionaryResults(query) {
+    if (!quizDictionaryResults || !quizDictionaryStatus) return;
+    quizDictionaryResults.replaceChildren();
+
+    const normalizedQuery = query.trim();
+    if (!normalizedQuery) {
+        quizDictionaryStatus.textContent = '한 글자부터 검색할 수 있습니다.';
+        return;
+    }
+
+    const results = searchGlossaryTerms(termsData, normalizedQuery).slice(0, 8);
+    quizDictionaryStatus.textContent = results.length
+        ? `${results.length}개 용어를 찾았습니다.`
+        : '검색 결과가 없습니다. 문제의 다른 단어나 뜻으로 찾아보세요.';
+
+    results.forEach(term => {
+        const item = document.createElement('article');
+        item.className = 'quiz-dictionary-result';
+
+        const copy = document.createElement('div');
+        const name = document.createElement('h3');
+        const definition = document.createElement('p');
+        name.textContent = term.term;
+        definition.textContent = term.definition;
+        copy.append(name, definition);
+
+        const useButton = document.createElement('button');
+        useButton.type = 'button';
+        useButton.className = 'text-button quiz-dictionary-use';
+        useButton.textContent = '답안에 넣기';
+        useButton.addEventListener('click', () => {
+            const input = getQuizInput();
+            if (!input) return;
+            input.value = getShortTermName(term.term);
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            quizDictionaryDialog.close();
+        });
+
+        item.append(copy, useButton);
+        quizDictionaryResults.appendChild(item);
+    });
+}
+
+function openQuizDictionary() {
+    if (!quizDictionaryDialog || answered || !['short-answer', 'application'].includes(currentQuizType)) return;
+    quizDictionarySearch.value = '';
+    renderQuizDictionaryResults('');
+    quizDictionaryDialog.showModal();
+    window.setTimeout(() => quizDictionarySearch.focus(), 0);
+}
+
+function closeQuizDictionary() {
+    if (quizDictionaryDialog?.open) quizDictionaryDialog.close();
+}
+
 // 답안 선택 함수들
 function selectOption(optionDiv, value) {
     if (answered) return;
@@ -976,6 +1033,7 @@ function submitAnswer() {
     }
     
     answered = true;
+    quizDictionaryButton.classList.add('hidden');
     const feedbackModel = buildFeedbackModel(question, isCorrect);
     const answerRecord = {
         questionText: question.questionText,
@@ -1121,29 +1179,7 @@ function searchTerms(query) {
         return;
     }
     
-    const normalizedQuery = normalizeText(query);
-    
-    // 용어명에서만 검색 (정의 내용에서는 검색하지 않음)
-    const filtered = termsData.filter(term => {
-        const normalizedTerm = normalizeText(term.term);
-        return normalizedTerm.includes(normalizedQuery);
-    }).sort((a, b) => {
-        const aExact = normalizeText(a.term) === normalizedQuery;
-        const bExact = normalizeText(b.term) === normalizedQuery;
-        const aStarts = normalizeText(a.term).startsWith(normalizedQuery);
-        const bStarts = normalizeText(b.term).startsWith(normalizedQuery);
-        
-        // 정확히 일치하는 것이 최우선
-        if (aExact && !bExact) return -1;
-        if (!aExact && bExact) return 1;
-        
-        // 그 다음은 시작 부분이 일치하는 것
-        if (aStarts && !bStarts) return -1;
-        if (!aStarts && bStarts) return 1;
-        
-        // 나머지는 알파벳 순서
-        return a.term.localeCompare(b.term, 'ko');
-    });
+    const filtered = searchGlossaryTerms(termsData, query);
     
     showSearchResults(filtered, query);
 }
@@ -1305,21 +1341,7 @@ function showSuggestions(query) {
         return;
     }
     
-    const normalizedQuery = normalizeText(query);
-    // 용어명 시작 부분과 정확히 일치하는 것을 우선적으로 제안
-    const suggestions = termsData
-        .filter(term => {
-            const normalizedTerm = normalizeText(term.term);
-            return normalizedTerm.includes(normalizedQuery);
-        })
-        .sort((a, b) => {
-            const aStarts = normalizeText(a.term).startsWith(normalizedQuery);
-            const bStarts = normalizeText(b.term).startsWith(normalizedQuery);
-            if (aStarts && !bStarts) return -1;
-            if (!aStarts && bStarts) return 1;
-            return a.term.localeCompare(b.term, 'ko');
-        })
-        .slice(0, 5);
+    const suggestions = searchGlossaryTerms(termsData, query).slice(0, 5);
     
     if (suggestions.length === 0) {
         searchSuggestions.classList.remove('show');
@@ -1379,8 +1401,16 @@ document.addEventListener('DOMContentLoaded', () => {
         card.addEventListener('click', () => {
             const type = card.dataset.type;
             if (type === 'dictionary') {
-                showScreen(dictionaryScreen);
-                setTimeout(() => showWelcomeMessage(), 100); // 약간의 지연을 줘서 DOM이 준비될 시간을 제공
+                if (shouldOpenQuizDictionary({
+                    isQuizActive: quizScreen.classList.contains('active'),
+                    quizType: currentQuizType,
+                    answered,
+                })) {
+                    openQuizDictionary();
+                } else {
+                    showScreen(dictionaryScreen);
+                    setTimeout(() => showWelcomeMessage(), 100); // 약간의 지연을 줘서 DOM이 준비될 시간을 제공
+                }
             } else {
                 startQuiz(type);
             }
@@ -1390,6 +1420,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // 기본 버튼 이벤트
     submitBtn.addEventListener('click', submitAnswer);
     nextBtn.addEventListener('click', nextQuestion);
+    quizDictionaryButton.addEventListener('click', openQuizDictionary);
+    quizDictionaryClose.addEventListener('click', closeQuizDictionary);
+    quizDictionarySearch.addEventListener('input', event => renderQuizDictionaryResults(event.target.value));
+    quizDictionaryDialog.addEventListener('click', event => {
+        if (event.target === quizDictionaryDialog) closeQuizDictionary();
+    });
+    quizDictionaryDialog.addEventListener('close', () => {
+        getQuizInput()?.focus();
+        updateQuestionActionsPosition();
+    });
     window.addEventListener('resize', updateQuestionActionsPosition);
     homeBtn.addEventListener('click', () => showScreen(homeScreen));
     restartBtn.addEventListener('click', () => startQuiz(currentQuizType));
