@@ -32,7 +32,7 @@
                     <p class="subtitle">다양한 IT 용어들을 재미있게 학습해보세요!</p>
                     <div class="hero-stats">
                         <div class="stat-item">
-                            <span class="stat-number" id="home-terms-count">52</span>
+                            <span class="stat-number" id="home-terms-count">164</span>
                             <span class="stat-label">총 용어</span>
                         </div>
                         <div class="stat-item">
@@ -101,7 +101,7 @@
                             <h3>IT 용어 사전</h3>
                             <p>원하는 용어를 검색하여 정의와 설명을 확인하세요</p>
                             <div class="quiz-meta">
-                                <span class="quiz-count" id="terms-count">52개 용어</span>
+                                <span class="quiz-count" id="terms-count">164개 용어</span>
                                 <span class="quiz-difficulty easy">검색</span>
                             </div>
                         </div>
@@ -177,7 +177,7 @@
                     <div class="welcome-message">
                         <div class="welcome-icon">🎯</div>
                         <h3>IT 용어를 검색해보세요!</h3>
-                        <p><span id="terms-count-welcome">52</span>개의 다양한 IT 용어와 정의를 확인할 수 있습니다.</p>
+                        <p><span id="terms-count-welcome">164</span>개의 다양한 IT 용어와 정의를 확인할 수 있습니다.</p>
                         <div class="popular-terms">
                             <h4>인기 용어</h4>
                             <div class="term-tags">
@@ -286,6 +286,8 @@
         🔧
     </button>
 
+    <script src="terms-utils.js"></script>
+    <script src="terms-data.js"></script>
     <script src="google-sheets-integration.js"></script>
     <script src="app.js"></script>
     
@@ -445,14 +447,18 @@
             
             // 기존 데이터 업데이트
             if (typeof termsData !== 'undefined') {
+                const mergedTerms = ITQuizTerms.mergeTerms(termsData, data);
                 termsData.length = 0;
-                termsData.push(...data);
+                termsData.push(...mergedTerms);
                 
                 console.log(`${data.length}개의 용어가 CSV에서 로드되었습니다.`);
                 
                 // 사전 화면 새로고침
                 if (document.getElementById('dictionary-screen').classList.contains('active')) {
                     showWelcomeMessage();
+                }
+                if (typeof updateTermsCount === 'function') {
+                    updateTermsCount();
                 }
                 
                 alert(`✅ ${data.length}개의 용어가 성공적으로 업로드되었습니다!`);
@@ -468,7 +474,7 @@
     
     // 원본 데이터로 복구
     function handleDataReset() {
-        const confirmReset = confirm(`🔄 원본 데이터로 복구하시겠습니까?\n\nGoogle Sheets에서 가져온 모든 업데이트가 삭제되고, 처음 설정된 34개의 용어로 되돌아갑니다.\n\n이 작업은 되돌릴 수 없습니다.`);
+        const confirmReset = confirm(`🔄 원본 데이터로 복구하시겠습니까?\n\nGoogle Sheets에서 가져온 모든 업데이트가 삭제되고, 기본 164개 용어로 되돌아갑니다.\n\n이 작업은 되돌릴 수 없습니다.`);
         
         if (confirmReset) {
             try {

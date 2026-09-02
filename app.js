@@ -1,142 +1,5 @@
 // 퀴즈 데이터
-const termsData = [
-    {
-        term: "Interface",
-        definition: "두 시스템, 장치, 소프트웨어, 또는 사람과 기계 사이에서 정보를 주고받을 수 있도록 해주는 접점이자, 소통을 위한 규칙 또는 매개체"
-    },
-    {
-        term: "API (Application Programming Interface)",
-        definition: "응용 프로그램이 서로 소통하고 기능을 사용할 수 있도록 정의된 인터페이스. 프로그램과 프로그램 사이에서 서로 데이터를 주고받고, 기능을 요청하거나 결과를 전달할 수 있도록 정해진 규칙과 방법"
-    },
-    {
-        term: "MCP (Model Context Protocol)",
-        definition: "AI 모델이 외부 도구, 데이터, 시스템과 표준화된 방식으로 연결될 수 있도록 해주는 오픈소스 프로토콜"
-    },
-    {
-        term: "Protocol",
-        definition: "두 개 이상의 시스템이 서로 통신할 때 반드시 따라야 하는 규칙이나 약속. 정보를 주고받을 때 어떤 형식으로 데이터를 전달하고, 어떤 절차로 요청과 응답을 처리할지 정해진 표준화된 방법"
-    },
-    {
-        term: "IDE (Integrated Development Environment)",
-        definition: "소프트웨어 개발에 필요한 다양한 도구를 하나로 통합한 개발 환경. 코드 편집기, 컴파일러, 디버거, 빌드 자동화 도구 등을 하나의 애플리케이션 안에 통합한 소프트웨어"
-    },
-    {
-        term: "Vive Coding",
-        definition: "인공지능이 자연어 설명을 바탕으로 코드를 자동 생성하는 새로운 프로그래밍 방식. AI와 협업하여 자연어로 원하는 기능을 설명하면, AI가 실제 코드를 자동으로 생성해주는 개발 방식"
-    },
-    {
-        term: "Framework",
-        definition: "소프트웨어 개발에 필요한 구조와 규칙을 제공하는 뼈대이자 기본 틀. 프로그램의 흐름을 프레임워크가 주도하며, 개발자는 그 안에 필요한 코드를 채워 넣는 방식으로 개발"
-    },
-    {
-        term: "Library",
-        definition: "개발에 자주 쓰이는 함수나 도구를 모아둔 코드 집합. 개발자가 원하는 기능을 골라서 직접 활용하는 방식"
-    },
-    {
-        term: "HTML",
-        definition: "웹페이지의 구조와 내용을 정의하는 마크업 언어. 제목, 문단, 이미지, 표, 링크 등 콘텐츠의 뼈대를 정의"
-    },
-    {
-        term: "CSS",
-        definition: "웹페이지의 디자인과 레이아웃을 담당하는 스타일 시트 언어. HTML로 만들어진 구조에 디자인과 스타일을 입히는 언어"
-    },
-    {
-        term: "JavaScript",
-        definition: "웹페이지에 동적인 기능을 추가하는 프로그래밍 언어. 버튼 클릭, 애니메이션, 데이터 갱신 등 사용자의 행동에 반응하는 다양한 기능을 구현"
-    },
-    {
-        term: "React",
-        definition: "사용자 인터페이스를 효율적으로 만들기 위한 JavaScript 기반 라이브러리. 컴포넌트 기반 아키텍처로 UI를 독립적인 작은 단위로 쪼개어 개발"
-    },
-    {
-        term: "Component",
-        definition: "UI의 한 부분을 담당하는 작은 코드 조각. 독립적으로 동작하고, 필요할 때마다 여러 곳에서 재사용할 수 있음"
-    },
-    {
-        term: "Reactive Component",
-        definition: "데이터 변경에 따라 자동으로 UI가 업데이트되는 컴포넌트. 반응형 프로그래밍 개념을 기반으로 하며, 데이터 흐름과 변경 사항의 전파를 처리"
-    },
-    {
-        term: "Node.js",
-        definition: "자바스크립트로 서버(백엔드) 애플리케이션을 개발할 수 있게 해주는 런타임 환경"
-    },
-    {
-        term: "Next.js",
-        definition: "React를 기반으로 한 오픈소스 웹 프레임워크. React로 만든 웹 애플리케이션을 더 쉽고 효율적으로 개발할 수 있게 도와주는 프레임워크"
-    },
-    {
-        term: "Rendering",
-        definition: "컴퓨터가 데이터나 코드로 작성된 내용을 화면에 시각적으로 표현하는 과정. 웹에서는 HTML, CSS, JavaScript 등으로 작성된 코드가 브라우저에 의해 해석되어 웹페이지로 바뀌는 과정"
-    },
-    {
-        term: "Routing",
-        definition: "데이터나 네트워크 트래픽이 목적지까지 최적의 경로로 전달되도록 경로를 결정하고 지정하는 과정. 웹에서는 사용자가 요청한 URL에 따라 어떤 화면을 보여줄지 결정하는 과정"
-    },
-    {
-        term: "Wireframe",
-        definition: "디지털 제품의 구조와 레이아웃을 단순화된 형태로 시각화한 설계도. 선, 사각형, 원 등 기본적인 도형과 텍스트만을 사용해 화면 구성 요소의 위치와 정보 구조를 표현"
-    },
-    {
-        term: "Prototype",
-        definition: "실제 제품과 유사하게 동작하는 시뮬레이션 버전. 사용자 인터랙션과 화면 전환 등 실제 사용성을 테스트할 수 있도록 구현한 샘플"
-    },
-    {
-        term: "Compile",
-        definition: "사람이 이해할 수 있는 소스 코드를 컴퓨터가 이해할 수 있는 기계어로 번역하는 과정"
-    },
-    {
-        term: "실행(Execution)",
-        definition: "컴파일된 프로그램을 실제로 컴퓨터에서 동작시키는 과정. 실행 파일을 메모리에 로드하고, CPU가 명령어를 해석·수행하여 프로그램이 설계된 작업을 처리"
-    },
-    {
-        term: "Hosting",
-        definition: "웹사이트, 애플리케이션 등 다양한 서비스를 인터넷에 공개하고, 외부에서 접근할 수 있도록 서버의 공간이나 기능을 임대해 주는 서비스"
-    },
-    {
-        term: "파싱(Parsing)",
-        definition: "입력된 데이터를 분석하여 의미 있는 구조로 변환하는 과정. 데이터를 해석하고 원하는 형식이나 구조로 가공하는 작업"
-    },
-    {
-        term: "크롤링",
-        definition: "웹에서 데이터를 수집하는 과정"
-    },
-    {
-        term: "스크래핑",
-        definition: "데이터를 수집·가공하는 전체 과정(크롤링+파싱 포함)"
-    },
-    {
-        term: "객체(Object)",
-        definition: "여러 데이터(속성)와 그 데이터를 다루는 기능(메서드)을 하나로 묶은 단위"
-    },
-    {
-        term: "UI (User Interface)",
-        definition: "사용자가 앱이나 웹사이트와 상호작용하는 시각적 요소. 버튼, 메뉴, 입력 폼 등이 포함"
-    },
-    {
-        term: "리팩토링 (Refactoring)",
-        definition: "코드의 외부 동작은 그대로 유지하면서 내부 구조를 개선하는 과정. 프로그램이 원래 하던 기능은 그대로 두고, 코드의 가독성이나 설계, 구조를 더 좋게 만드는 것"
-    },
-    {
-        term: "토큰",
-        definition: "텍스트를 분석할 때의 최소 단위. 입력된 문자열을 분석할 때 의미 있는 가장 작은 단위로 나눈 조각"
-    },
-    {
-        term: "트리",
-        definition: "데이터를 계층적으로 표현하는 자료구조로, 여러 개의 노드가 연결되어 나무처럼 뻗어 있는 구조"
-    },
-    {
-        term: "CDN (Content Delivery Network)",
-        definition: "전 세계 여러 지역에 분산된 서버 네트워크를 통해 웹 콘텐츠를 사용자와 가까운 곳에서 빠르고 효율적으로 전달하는 시스템"
-    },
-    {
-        term: "PWA (Progressive Web App)",
-        definition: "웹사이트를 앱처럼 설치하고, 오프라인에서도 사용할 수 있으며, 푸시 알림 등 네이티브 앱의 주요 기능을 제공하는 최신 웹 애플리케이션 기술"
-    },
-    {
-        term: "SDK (Software Development Kit)",
-        definition: "소프트웨어를 개발할 때 필요한 다양한 도구와 리소스가 모여 있는 개발 키트. 라이브러리, API, IDE, 문서, 디버거 등이 포함된 패키지"
-    }
-];
+const termsData = IT_QUIZ_BASE_TERMS.map(item => ({ ...item }));
 
 // 퀴즈 상태
 let currentQuizType = '';
@@ -193,13 +56,16 @@ let currentSortMode = 'alphabetical';
 
 // 용어 아이콘 및 카테고리 매핑
 function getTermIcon(term) {
+    const dataIcon = termsData.find(item => item.term === term)?.icon;
+    if (dataIcon) return dataIcon;
+
     const iconMap = {
         'Interface': '🔌',
         'API': '🔗',
         'MCP': '🤖',
         'Protocol': '📋',
         'IDE': '💻',
-        'Vive Coding': '🚀',
+        'Vibe Coding': '🚀',
         'Framework': '🏗️',
         'Library': '📚',
         'HTML': '🌐',
@@ -229,7 +95,8 @@ function getTermIcon(term) {
         'PWA': '📱',
         'SDK': '🛠️'
     };
-    return iconMap[term] || '';
+    const baseTerm = term.split('(')[0].trim();
+    return iconMap[term] || iconMap[baseTerm] || '';
 }
 
 function getTermCategory(term) {
@@ -239,7 +106,7 @@ function getTermCategory(term) {
         'MCP': 'concepts',
         'Protocol': 'concepts',
         'IDE': 'tools',
-        'Vive Coding': 'concepts',
+        'Vibe Coding': 'concepts',
         'Framework': 'concepts',
         'Library': 'concepts',
         'HTML': 'languages',
@@ -277,10 +144,13 @@ function getTermCategory(term) {
         'tools': '도구',
         'runtime': '런타임',
         'design': '디자인',
-        'deployment': '배포'
+        'deployment': '배포',
+        'data': '데이터'
     };
-    
-    const category = categoryMap[term] || 'concepts';
+
+    const dataCategory = termsData.find(item => item.term === term)?.category;
+    const baseTerm = term.split('(')[0].trim();
+    const category = dataCategory || categoryMap[term] || categoryMap[baseTerm] || 'concepts';
     return categoryNames[category];
 }
 
@@ -432,28 +302,24 @@ function isAnswerCorrect(userAnswer, correctAnswer, fullTerm) {
         console.log('✅ 3번 체크: 괄호 앞부분 매칭 성공');
         return true;
     }
-    
-    // 4. 한글 부분만 추출해서 매칭 (예: "Parsing(파싱)" -> "파싱")
-    const koreanMatch = normalizedCorrect.match(/[가-힣]+/);
-    const fullKoreanMatch = normalizedFull.match(/[가-힣]+/);
-    if (koreanMatch && normalizedUser === koreanMatch[0]) {
-        console.log('✅ 4-1번 체크: 한글 부분 매칭 성공');
-        return true;
+
+    // 4. 괄호 안 단일 표기와 데이터에 명시한 동의어만 인정
+    const matchedTerm = termsData.find(item =>
+        item.term === fullTerm || item.term === correctAnswer
+    );
+    const acceptedAliases = new Set();
+    for (const candidate of [
+        { term: correctAnswer },
+        { term: fullTerm },
+        matchedTerm,
+    ]) {
+        if (!candidate) continue;
+        for (const alias of ITQuizTerms.getTermAliases(candidate)) {
+            acceptedAliases.add(alias);
+        }
     }
-    if (fullKoreanMatch && normalizedUser === fullKoreanMatch[0]) {
-        console.log('✅ 4-2번 체크: 전체용어 한글 부분 매칭 성공');
-        return true;
-    }
-    
-    // 5. 영어 부분만 추출해서 매칭 (예: "Parsing(파싱)" -> "parsing")
-    const englishMatch = normalizedCorrect.match(/[a-z]+/);
-    const fullEnglishMatch = normalizedFull.match(/[a-z]+/);
-    if (englishMatch && normalizedUser === englishMatch[0]) {
-        console.log('✅ 5-1번 체크: 영어 부분 매칭 성공');
-        return true;
-    }
-    if (fullEnglishMatch && normalizedUser === fullEnglishMatch[0]) {
-        console.log('✅ 5-2번 체크: 전체용어 영어 부분 매칭 성공');
+    if (acceptedAliases.has(ITQuizTerms.normalizeTermName(userAnswer))) {
+        console.log('✅ 4번 체크: 명시된 동의어 매칭 성공');
         return true;
     }
     
@@ -533,40 +399,7 @@ function isAnswerCorrect(userAnswer, correctAnswer, fullTerm) {
         }
     }
     
-    // 8. 동적 영어-한글 변환 패턴 매칭
-    // 영어 용어를 한글로 입력하는 경우들을 감지
-    const dynamicPatterns = [
-        // 일반적인 영어 -> 한글 발음 패턴
-        { pattern: /api/i, variants: ['api', '에이피아이', '아피', 'a.p.i'] },
-        { pattern: /ui/i, variants: ['ui', '유아이', 'u.i'] },
-        { pattern: /cdn/i, variants: ['cdn', '시디엔', 'c.d.n'] },
-        { pattern: /sdk/i, variants: ['sdk', '에스디케이', 's.d.k'] },
-        { pattern: /ide/i, variants: ['ide', '아이디이', 'i.d.e'] },
-        { pattern: /css/i, variants: ['css', '씨에스에스', 'c.s.s'] },
-        { pattern: /html/i, variants: ['html', '에이치티엠엘', 'h.t.m.l'] },
-        { pattern: /xml/i, variants: ['xml', '엑스엠엘', 'x.m.l'] },
-        { pattern: /sql/i, variants: ['sql', '에스큐엘', 's.q.l'] },
-        { pattern: /php/i, variants: ['php', '피에이치피', 'p.h.p'] },
-        { pattern: /npm/i, variants: ['npm', '엔피엠', 'n.p.m'] },
-        { pattern: /git/i, variants: ['git', '깃', 'g.i.t'] },
-        { pattern: /url/i, variants: ['url', '유알엘', 'u.r.l'] },
-        { pattern: /ftp/i, variants: ['ftp', '에프티피', 'f.t.p'] },
-        { pattern: /tcp/i, variants: ['tcp', '티씨피', 't.c.p'] },
-        { pattern: /http/i, variants: ['http', '에이치티티피', 'h.t.t.p'] },
-        { pattern: /https/i, variants: ['https', '에이치티티피에스', 'h.t.t.p.s'] }
-    ];
-    
-    // 동적 패턴 검사
-    for (const { pattern, variants } of dynamicPatterns) {
-        if (pattern.test(normalizedCorrect) || pattern.test(normalizedUser)) {
-            if (variants.some(v => v === normalizedUser) && 
-                variants.some(v => v === normalizedCorrect || normalizedFull.includes(v))) {
-                return true;
-            }
-        }
-    }
-    
-         // 9. 부분 매칭 (최소 3글자 이상, 80% 이상 일치)
+         // 8. 부분 매칭 (최소 3글자 이상, 80% 이상 일치)
      if (normalizedUser.length >= 3 && normalizedCorrect.length >= 3) {
          const shorter = normalizedUser.length < normalizedCorrect.length ? normalizedUser : normalizedCorrect;
          const longer = normalizedUser.length < normalizedCorrect.length ? normalizedCorrect : normalizedUser;
@@ -577,7 +410,7 @@ function isAnswerCorrect(userAnswer, correctAnswer, fullTerm) {
          }
      }
      
-     // 10. 한영 혼용 표기 허용 (예: "HTTP프로토콜", "API인터페이스")
+     // 9. 한영 혼용 표기 허용 (예: "HTTP프로토콜", "API인터페이스")
     const cleanUser = normalizedUser.replace(/[^a-z가-힣0-9]/g, '');
     const cleanCorrect = normalizedCorrect.replace(/[^a-z가-힣0-9]/g, '');
     const cleanFull = normalizedFull.replace(/[^a-z가-힣0-9]/g, '');
@@ -1326,7 +1159,7 @@ function showWelcomeMessage() {
 function updateTermsCount() {
     const termsCount = termsData ? termsData.length : 0;
     
-    // 홈 화면 상단의 용어 개수 업데이트 (52 총 용어)
+    // 홈 화면 상단의 용어 개수 업데이트
     const homeTermsCountElement = document.getElementById('home-terms-count');
     if (homeTermsCountElement) {
         homeTermsCountElement.textContent = termsCount;
