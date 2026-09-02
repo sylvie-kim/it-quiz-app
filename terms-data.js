@@ -1,4 +1,4 @@
-// 기준: Google Sheet 76개 + AI 프로덕트 마스터 용어사전에서 선별·재작성한 88개
+// 기준: Google Sheet 76개 + AI 프로덕트 마스터 용어사전에서 선별·재작성한 83개
 // 원문 위치: https://note26.colabstart.workers.dev/%EC%9A%A9%EC%96%B4%EC%82%AC%EC%A0%84/
 // 정의는 퀴즈에서 정답이 직접 드러나지 않도록 짧게 재작성했습니다.
 (function exposeTerms(root) {
@@ -408,45 +408,10 @@
         "origin": "source-glossary"
     },
     {
-        "term": "OpenAI",
-        "definition": "ChatGPT와 Codex를 개발하고 인공지능 모델과 API를 제공하는 미국의 인공지능 연구·제품 회사입니다.",
-        "category": "concepts",
-        "icon": "🌀",
-        "origin": "source-glossary"
-    },
-    {
         "term": "GPT",
         "definition": "방대한 텍스트를 미리 학습한 뒤 문맥에 맞는 다음 토큰을 생성하는 OpenAI의 언어 모델 계열입니다.",
         "category": "concepts",
         "icon": "🔠",
-        "origin": "source-glossary"
-    },
-    {
-        "term": "ChatGPT",
-        "definition": "OpenAI의 언어 모델을 대화형 화면에서 사용할 수 있게 만든 서비스로, 질문 답변·글쓰기·분석·코딩 등을 지원합니다.",
-        "category": "tools",
-        "icon": "💬",
-        "origin": "source-glossary"
-    },
-    {
-        "term": "Claude",
-        "definition": "Anthropic이 개발한 대화형 인공지능으로, 긴 문서 분석·글쓰기·코딩과 도구 사용을 지원합니다.",
-        "category": "tools",
-        "icon": "🟠",
-        "origin": "source-glossary"
-    },
-    {
-        "term": "Grok",
-        "definition": "xAI가 개발한 대화형 인공지능으로, X 서비스와의 연동과 실시간 정보 접근을 특징으로 합니다.",
-        "category": "tools",
-        "icon": "🛰️",
-        "origin": "source-glossary"
-    },
-    {
-        "term": "Gemini",
-        "definition": "Google이 개발한 멀티모달 인공지능으로, 텍스트·이미지 등을 다루며 여러 Google 서비스와 연동됩니다.",
-        "category": "tools",
-        "icon": "♊",
         "origin": "source-glossary"
     },
     {
