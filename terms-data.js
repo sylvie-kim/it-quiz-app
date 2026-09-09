@@ -11,7 +11,7 @@
     },
     {
         "term": "authController.js",
-        "definition": "웹 애플리케이션에서 사용자 인증(로그인, 회원가입, 로그아웃 등)을 처리하는 핵심 컨트롤러 파일입니다. 이 파일은 주로 Node.js(Express) 기반 프로젝트에서 사용되며, 인증 로직을 담당하는 함수들이 구현되어 있습니다.",
+        "definition": "프로젝트에서 로그인·회원가입 같은 인증 요청을 처리하는 파일에 흔히 붙이는 이름입니다. 정해진 표준 파일명은 아니며, 사용 기술과 프로젝트 구조에 따라 이름과 역할이 달라집니다.",
         "origin": "google-sheet"
     },
     {
@@ -71,12 +71,14 @@
     },
     {
         "term": "Expo(엑스포)",
-        "definition": "Facebook(Meta)이 만든 React Native 위에 구축된 플랫폼으로, 복잡한 네이티브 개발 환경 설정 없이도 모바일 앱을 만들 수 있게 해줍니다.",
+        "definition": "React Native 앱을 더 쉽게 개발하도록 파일 기반 라우팅, 네이티브 모듈과 개발 도구를 제공하는 오픈소스 프레임워크입니다.",
+        "sourceUrl": "https://docs.expo.dev/",
         "origin": "google-sheet"
     },
     {
         "term": "Module(모듈)",
-        "definition": "소프트웨어 개발에서 특정 기능을 수행하는 독립적이고 재사용가능한 코드의 최소 단위",
+        "definition": "관련 코드와 값을 하나의 범위로 나누고, 필요한 기능을 다른 코드에서 가져오거나 내보낼 수 있게 만든 구성 단위입니다.",
+        "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules",
         "origin": "google-sheet"
     },
     {
@@ -85,8 +87,9 @@
         "origin": "google-sheet"
     },
     {
-        "term": "npm(node package manager)",
-        "definition": "JavaScript의 패키지 관리자로, Node.js 환경에서 외부 라이브러리를 설치, 공유, 배포할 수 있는 도구",
+        "term": "npm",
+        "definition": "JavaScript 패키지를 찾고 설치·관리·공유하는 데 사용하는 명령줄 도구이자 패키지 생태계입니다.",
+        "sourceUrl": "https://docs.npmjs.com/about-npm/",
         "origin": "google-sheet"
     },
     {
@@ -193,7 +196,7 @@
     },
     {
         "term": "Native",
-        "definition": "특정 모바일 운영체제(iOS, Android)를 위해 해당 플랫폼의 고유 언어와 개발 도구를 사용하여 애플리케이션을 개발하는 방식",
+        "definition": "특정 운영체제나 기기용 SDK와 기능을 직접 사용해 그 플랫폼에 맞는 앱을 개발하는 방식입니다.",
         "origin": "google-sheet"
     },
     {
@@ -273,7 +276,8 @@
     },
     {
         "term": "Routing(라우팅)",
-        "definition": "데이터나 네트워크 트래픽이 목적지까지 최적의 경로로 전달되도록 경로를 결정하고 지정하는 과정",
+        "definition": "URL·API 요청 또는 네트워크 데이터를 알맞은 화면, 처리 함수나 목적지로 보내기 위해 경로를 정하는 과정입니다.",
+        "sourceUrl": "https://developer.mozilla.org/en-US/docs/Glossary/Router",
         "origin": "google-sheet"
     },
     {
@@ -328,7 +332,8 @@
     },
     {
         "term": "Token(토큰)",
-        "definition": "입력된 문자열을 분석할 때, 문장이나 단어, 구두점 등 텍스트를 의미 있는 가장 작은 단위로 나눈 조각",
+        "definition": "언어 모델이 텍스트를 처리하기 위해 나눈 단위로, 글자·단어의 일부·단어·구두점 등이 하나의 토큰이 될 수 있습니다.",
+        "sourceUrl": "https://help.openai.com/en/articles/4936856-understanding-and-counting-tokens",
         "origin": "google-sheet"
     },
     {
@@ -353,7 +358,8 @@
     },
     {
         "term": "SDK(Software Development Kit)",
-        "definition": "소프트웨어를 개발할 때 필요한 다양한 도구와 리소스가 모여 있는 개발 키트",
+        "definition": "특정 플랫폼이나 서비스용 소프트웨어를 개발하는 데 필요한 API, 라이브러리, 문서, 빌드·테스트 도구 등을 모아 제공하는 개발 키트입니다.",
+        "sourceUrl": "https://developer.android.com/tools",
         "origin": "google-sheet"
     },
     {
@@ -364,7 +370,8 @@
     },
     {
         "term": "App.jsx",
-        "definition": "주로 React 또는 React Native 환경에서 사용되는 파일로, 앱의 주요 화면(UI)을 구성하는 메인 컴포넌트(Main Component)를 의미",
+        "definition": "React 프로젝트에서 App 컴포넌트를 작성할 때 자주 쓰는 파일명입니다. 필수 표준은 아니며 파일명과 역할은 프로젝트 구성에 따라 달라집니다.",
+        "sourceUrl": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Frameworks_libraries/React_getting_started",
         "origin": "google-sheet"
     },
     {
@@ -445,9 +452,10 @@
     },
     {
         "term": "Cloudflare Pages",
-        "definition": "Git 저장소와 연결해 정적 웹사이트를 자동 빌드하고 전 세계 네트워크에 배포하는 서비스입니다.",
+        "definition": "Git 저장소나 업로드한 파일에서 웹사이트를 빌드·배포하고, Pages Functions로 서버 기능도 추가할 수 있는 Cloudflare의 웹 배포 서비스입니다.",
         "category": "deployment",
         "icon": "☁️",
+        "sourceUrl": "https://developers.cloudflare.com/pages/",
         "origin": "source-glossary"
     },
     {
@@ -501,9 +509,10 @@
     },
     {
         "term": ".gitignore",
-        "definition": "Git이 추적하지 않아야 할 비밀 설정, 의존성, 빌드 결과물 등의 파일·폴더 패턴을 지정하는 파일입니다.",
+        "definition": "Git이 아직 추적하지 않는 파일 중에서 비밀 설정, 의존성, 빌드 결과물처럼 제외할 파일·폴더 패턴을 지정하는 파일입니다. 이미 추적 중인 파일에는 새 규칙이 자동 적용되지 않습니다.",
         "category": "concepts",
         "icon": "🚫",
+        "sourceUrl": "https://git-scm.com/docs/gitignore",
         "origin": "source-glossary"
     },
     {
