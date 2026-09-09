@@ -82,22 +82,125 @@
         return termAliases(item).some(alias => alias.length >= 2 && normalizedDefinition.includes(alias));
     }
 
-    function getDistractorCandidates({ answer, definition, terms }) {
-        const group = findConfusionGroup(answer?.term);
-        if (!group) return [];
-
-        const termByName = new Map((terms || []).map(item => [normalize(item.term), item]));
-        return group
-            .map(name => termByName.get(normalize(name)))
-            .filter(Boolean)
-            .filter(item => normalize(item.term) !== normalize(answer.term))
-            .filter(item => !definitionMentionsTerm(definition, item));
+    function topicIdsFor(term, topicIdsByTerm) {
+        if (!term || !topicIdsByTerm) return [];
+        const name = String(term.term || '');
+        const topics = topicIdsByTerm instanceof Map
+            ? (topicIdsByTerm.get(name) || topicIdsByTerm.get(normalize(name)))
+            : (topicIdsByTerm[name] || topicIdsByTerm[normalize(name)]);
+        return Array.isArray(topics) ? topics : [];
     }
 
-    function buildMultipleChoiceOptions({ answer, definition, terms, shuffle = values => values }) {
-        const distractors = getDistractorCandidates({ answer, definition, terms }).slice(0, 3);
+    function sharesTopic(first, second, topicIdsByTerm) {
+        const firstTopics = new Set(topicIdsFor(first, topicIdsByTerm));
+        return topicIdsFor(second, topicIdsByTerm).some(topicId => firstTopics.has(topicId));
+    }
+
+    function getDistractorCandidates({ answer, definition, terms, topicIdsByTerm }) {
+        const group = findConfusionGroup(answer?.term);
+        const sourceTerms = uniqueTerms(terms);
+        const termByName = new Map(sourceTerms.map(item => [normalize(item.term), item]));
+        const candidates = [];
+        const usedNames = new Set([normalize(answer?.term)]);
+        const addEligible = items => {
+            items.forEach(item => {
+                const name = normalize(item?.term);
+                if (!item || !name || usedNames.has(name) || definitionMentionsTerm(definition, item)) return;
+                usedNames.add(name);
+                candidates.push(item);
+            });
+        };
+
+        // 먼저 기존 혼동군을 유지하고, 부족한 경우에만 온톨로지 주제/카테고리로 보충한다.
+        addEligible((group || []).map(name => termByName.get(normalize(name))).filter(Boolean));
+        if (candidates.length < 3 && topicIdsFor(answer, topicIdsByTerm).length) {
+            addEligible(sourceTerms.filter(item => sharesTopic(answer, item, topicIdsByTerm)));
+        }
+        if (candidates.length < 3 && answer?.category) {
+            addEligible(sourceTerms.filter(item => item.category && item.category === answer.category));
+        }
+        return candidates;
+    }
+
+    function buildMultipleChoiceOptions({ answer, definition, terms, topicIdsByTerm, shuffle = values => values }) {
+        const distractors = getDistractorCandidates({ answer, definition, terms, topicIdsByTerm }).slice(0, 3);
         if (!answer || distractors.length < 3) return [];
         return shuffle([answer.term, ...distractors.map(item => item.term)]);
+    }
+
+    function shuffleItems(values, seed) {
+        const shuffled = [...values];
+        let currentSeed = Number.isFinite(seed) ? seed >>> 0 : null;
+        const random = currentSeed === null
+            ? Math.random
+            : () => {
+                currentSeed = (currentSeed * 1664525 + 1013904223) >>> 0;
+                return currentSeed / 4294967296;
+            };
+
+        for (let index = shuffled.length - 1; index > 0; index -= 1) {
+            const target = Math.floor(random() * (index + 1));
+            [shuffled[index], shuffled[target]] = [shuffled[target], shuffled[index]];
+        }
+        return shuffled;
+    }
+
+    function uniqueTerms(terms) {
+        const seen = new Set();
+        return (terms || []).filter(term => {
+            const name = String(term && term.term || '');
+            if (!name || seen.has(name)) return false;
+            seen.add(name);
+            return true;
+        });
+    }
+
+    function resolveQuizScope({ options = {}, allTerms = [] } = {}) {
+        const hasExplicitSourceTerms = Object.hasOwn(options, 'sourceTerms');
+        const sourceTerms = hasExplicitSourceTerms ? options.sourceTerms : allTerms;
+        if (!Array.isArray(sourceTerms) || sourceTerms.length === 0) {
+            throw new Error('A quiz scope requires at least one source term');
+        }
+        return {
+            sourceTerms,
+            scopeLabel: String(options.scopeLabel || ''),
+        };
+    }
+
+    function generateMultipleChoiceQuestions({
+        answerPool = [],
+        allTerms = answerPool,
+        topicIdsByTerm,
+        count = 15,
+        seed,
+        shuffle,
+    } = {}) {
+        const randomize = typeof shuffle === 'function'
+            ? shuffle
+            : values => shuffleItems(values, seed);
+        const candidates = uniqueTerms(answerPool).map(term => {
+            const options = buildMultipleChoiceOptions({
+                answer: term,
+                definition: term.definition,
+                terms: allTerms,
+                topicIdsByTerm,
+                shuffle: randomize,
+            });
+            if (options.length !== 4 || new Set(options).size !== 4) return null;
+            return {
+                type: 'multiple-choice',
+                questionText: term.definition,
+                question: `<div class="definition-box"><div class="definition-text">${term.definition}</div></div>`,
+                options,
+                correctAnswer: term.term,
+                term: term.term,
+                termDefinition: term.definition,
+                explanation: `${term.term}은(는) ${term.definition}`,
+            };
+        }).filter(Boolean);
+
+        const requestedCount = Math.max(0, Math.floor(Number(count) || 0));
+        return randomize(candidates).slice(0, Math.min(requestedCount, candidates.length));
     }
 
     function shouldOpenQuizDictionary({ isQuizActive, quizType, answered }) {
@@ -110,7 +213,9 @@
 
     return {
         buildMultipleChoiceOptions,
+        generateMultipleChoiceQuestions,
         getDistractorCandidates,
+        resolveQuizScope,
         searchGlossaryTerms,
         shouldOpenQuizDictionary,
     };

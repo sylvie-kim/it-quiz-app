@@ -22,7 +22,7 @@ test('단순 AI 회사·대화 서비스명은 제외하고 실무 도구 용어
     assert.equal(names.has('Claude Design'), true, '디자인 실무 도구는 유지해야 한다');
 });
 
-test('기본 용어 사전은 76개 기존 용어와 83개 신규 용어를 중복 없이 제공한다', () => {
+test('기본 용어 사전은 76개 기존 용어와 83개 선별 용어, 공식 문서 기반 Express를 중복 없이 제공한다', () => {
     assert.ok(fs.existsSync(dataPath), 'terms-data.js가 아직 없다');
 
     const terms = require(dataPath);
@@ -30,10 +30,11 @@ test('기본 용어 사전은 76개 기존 용어와 83개 신규 용어를 중�
         term.normalize('NFKC').trim().toLocaleLowerCase('ko-KR')
     );
 
-    assert.equal(terms.length, 159);
+    assert.equal(terms.length, 160);
+    assert.equal(terms.filter(({ origin }) => origin === 'official-document').length, 1);
     assert.equal(terms.filter(({ origin }) => origin === 'google-sheet').length, 76);
     assert.equal(terms.filter(({ origin }) => origin === 'source-glossary').length, 83);
-    assert.equal(new Set(normalizedNames).size, 159);
+    assert.equal(new Set(normalizedNames).size, 160);
 
     assert.ok(terms.some(({ term }) => term === 'Vibe Coding(바이브코딩)'));
     assert.ok(!terms.some(({ term }) => /Vive Coding/i.test(term)));
@@ -78,7 +79,7 @@ test('기본 용어 사전은 76개 기존 용어와 83개 신규 용어를 중�
     }
 });
 
-test('앱은 공유 용어 데이터의 159개 항목으로 시작한다', () => {
+test('앱은 공유 용어 데이터의 160개 항목으로 시작한다', () => {
     const terms = require(dataPath);
     const appSource = fs.readFileSync(path.join(__dirname, '..', 'app.js'), 'utf8');
     const dataSection = appSource.split('// 퀴즈 상태')[0];
@@ -87,7 +88,7 @@ test('앱은 공유 용어 데이터의 159개 항목으로 시작한다', () =>
     vm.createContext(context);
     vm.runInContext(`${dataSection};globalThis.__termsData = termsData;`, context);
 
-    assert.equal(context.__termsData.length, 159);
+    assert.equal(context.__termsData.length, 160);
     assert.notEqual(context.__termsData, terms, '실행 중 변경이 원본 데이터에 번지면 안 된다');
 });
 
@@ -101,7 +102,7 @@ test('브라우저는 앱 코드보다 먼저 공유 용어 데이터를 불러�
     for (const source of scriptSources) {
         const filePath = source.split('?')[0];
         if (filePath === 'app.js') {
-            assert.equal(context.IT_QUIZ_BASE_TERMS?.length, 159);
+            assert.equal(context.IT_QUIZ_BASE_TERMS?.length, 160);
             return;
         }
         if (filePath === 'terms-data.js') {

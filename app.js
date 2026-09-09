@@ -11,6 +11,10 @@ let answered = false;
 let questionStates = []; // 각 문제의 상태를 저장
 let autoAdvanceTimer = null;
 const AUTO_ADVANCE_DELAY_MS = 1500;
+let learningMapController = null;
+let glossaryLearningController = null;
+let quizResumeScreen = 'home-screen';
+let currentQuizScope = { sourceTerms: termsData, scopeLabel: '' };
 
 // DOM 요소
 const homeScreen = document.getElementById('home-screen');
@@ -173,7 +177,8 @@ const {
     shouldSubmitOnSelection,
 } = ITQuizUX;
 const {
-    buildMultipleChoiceOptions,
+    generateMultipleChoiceQuestions: generateMultipleChoiceQuestionsFromTerms,
+    resolveQuizScope,
     searchGlossaryTerms,
     shouldOpenQuizDictionary,
 } = ITQuizContent;
@@ -196,6 +201,10 @@ function initializeAccessibility() {
         document.documentElement.removeAttribute('data-motion');
     }
 }
+
+const quizTopicIdsByTerm = Object.fromEntries(
+    IT_QUIZ_ONTOLOGY.termRegistry.map(term => [term.label, term.topicIds])
+);
 
 // 다크모드 토글
 function toggleTheme() {
@@ -448,34 +457,6 @@ function isAnswerCorrect(userAnswer, correctAnswer, fullTerm) {
 }
 
 // 문제 생성 함수들
-function generateMultipleChoiceQuestions() {
-    const seed = Date.now() + Math.floor(Math.random() * 1000);
-    const eligibleQuestions = termsData.map(term => {
-        const options = buildMultipleChoiceOptions({
-            answer: term,
-            definition: term.definition,
-            terms: termsData,
-            shuffle: shuffleArray,
-        });
-
-        if (options.length !== 4) return null;
-        return {
-            type: 'multiple-choice',
-            questionText: term.definition,
-            question: `<div class="definition-box">
-                <div class="definition-text">${term.definition}</div>
-            </div>`,
-            options: options,
-            correctAnswer: term.term,
-            term: term.term,
-            termDefinition: term.definition,
-            explanation: `${term.term}은(는) ${term.definition}`
-        };
-    }).filter(Boolean);
-
-    return getRandomItems(eligibleQuestions, 15, seed);
-}
-
 function generateShortAnswerQuestions() {
     const questions = [];
     // 매번 다른 문제를 위한 시드 생성
@@ -656,7 +637,7 @@ function clearAutoAdvanceTimer() {
     autoAdvanceTimer = null;
 }
 
-function showScreen(screen) {
+function showScreen(screen, updateHistory = true) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     
     // screen이 문자열인 경우 element로 변환
@@ -665,6 +646,18 @@ function showScreen(screen) {
     
     // 🎯 퀴즈 모드일 때 관리자 패널 숨기기
     const screenId = screenElement.id;
+    if (['home-screen', 'quiz-screen', 'result-screen'].includes(screenId)) quizResumeScreen = screenId;
+    const route = screenId === 'learning-home-screen' ? 'learn'
+        : screenId === 'dictionary-screen' ? 'search'
+        : screenId === 'learning-map-screen' ? 'connections' : 'quiz';
+    const page = route === 'connections' ? 'learn' : route;
+    document.querySelectorAll('[data-app-page]').forEach(button => {
+        if (button.dataset.appPage === page) button.setAttribute('aria-current', 'page');
+        else button.removeAttribute('aria-current');
+    });
+    if (updateHistory && window.location.hash !== `#${route}`) window.history.pushState(null, '', `#${route}`);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+
     if (screenId === 'quiz-screen' || screenId === 'result-screen' || screenId === 'dictionary-screen') {
         document.body.classList.add('quiz-mode');
     } else {
@@ -676,6 +669,40 @@ function showScreen(screen) {
         questionActions.classList.remove('is-docked');
         quizContainer.classList.remove('has-docked-actions');
     }
+}
+
+function openLearningMap() {
+    showScreen('learning-home-screen');
+}
+
+function openConnections() {
+    showScreen('learning-map-screen');
+    learningMapController?.render();
+    document.querySelector('[data-learning-view="graph"]')?.click();
+}
+
+function openTermSearch() {
+    if (quizScreen.classList.contains('active')) { openQuizDictionary(); return; }
+    showScreen('dictionary-screen');
+    searchInput.focus({ preventScroll: true });
+}
+
+function restorePageFromHash() {
+    const route = window.location.hash;
+    const screen = route === '#search' || route === '#dictionary' ? 'dictionary-screen'
+        : route === '#quiz' ? quizResumeScreen
+        : route === '#connections' ? 'learning-map-screen'
+        : route === '#learn' ? 'learning-home-screen' : 'home-screen';
+    showScreen(screen, false);
+    if (screen === 'learning-map-screen') {
+        learningMapController?.render();
+        document.querySelector('[data-learning-view="graph"]')?.click();
+    }
+}
+
+
+function returnToDictionaryFromLearningMap() {
+    openLearningMap();
 }
 
 function updateQuestionActionsPosition() {
@@ -698,8 +725,9 @@ function updateQuestionActionsPosition() {
 }
 
 // 퀴즈 시작
-function startQuiz(type) {
+function startQuiz(type, options = {}) {
     clearAutoAdvanceTimer();
+    currentQuizScope = resolveQuizScope({ options, allTerms: termsData });
     currentQuizType = type;
     currentQuestionIndex = 0;
     score = 0;
@@ -710,7 +738,13 @@ function startQuiz(type) {
     // 문제 생성
     switch (type) {
         case 'multiple-choice':
-            currentQuestions = generateMultipleChoiceQuestions();
+            currentQuestions = generateMultipleChoiceQuestionsFromTerms({
+                answerPool: currentQuizScope.sourceTerms,
+                allTerms: termsData,
+                topicIdsByTerm: quizTopicIdsByTerm,
+                count: 15,
+                seed: Date.now() + Math.floor(Math.random() * 1000),
+            });
             break;
         case 'short-answer':
             currentQuestions = generateShortAnswerQuestions();
@@ -743,7 +777,11 @@ function displayQuestion() {
     const questionSubtitle = document.getElementById('question-subtitle');
     
     if (questionTitle) questionTitle.textContent = getQuestionTypeTitle(question.type);
-    if (questionSubtitle) questionSubtitle.textContent = getQuestionSubtitle(question.type);
+    if (questionSubtitle) {
+        questionSubtitle.textContent = currentQuizScope.scopeLabel && question.type === 'multiple-choice'
+            ? `${currentQuizScope.scopeLabel} · 객관식`
+            : getQuestionSubtitle(question.type);
+    }
     
     // 진행률 업데이트
     const progress = ((currentQuestionIndex + 1) / currentQuestions.length) * 100;
@@ -924,13 +962,15 @@ function renderQuizDictionaryResults(query) {
             quizDictionaryDialog.close();
         });
 
-        item.append(copy, useButton);
+        item.append(copy);
+        if (getQuizInput() && !answered) item.append(useButton);
         quizDictionaryResults.appendChild(item);
     });
 }
 
 function openQuizDictionary() {
-    if (!quizDictionaryDialog || answered || !['short-answer', 'application'].includes(currentQuizType)) return;
+    if (!quizDictionaryDialog || !quizScreen.classList.contains('active')) return;
+    clearAutoAdvanceTimer();
     quizDictionarySearch.value = '';
     renderQuizDictionaryResults('');
     quizDictionaryDialog.showModal();
@@ -1281,6 +1321,7 @@ function showAllTerms(sortMode = 'alphabetical') {
     hideAllResults();
     if (allTerms) {
         allTerms.classList.remove('hidden');
+        allTerms.style.display = 'block';
     }
     
     let sorted = [...termsData];
@@ -1324,6 +1365,8 @@ function hideAllResults() {
 function createTermItem(term) {
     const icon = getTermIcon(term.term);
     const category = getTermCategory(term.term);
+    const registryTerm = IT_QUIZ_ONTOLOGY.termRegistry.find(item => item.label === term.term);
+    const contextButton = registryTerm ? `<button class="text-button" type="button" data-gl-term="${escapeHTML(registryTerm.id)}">학습 위치와 연결 보기 →</button>` : '';
     
     // 정의에서 키워드 강조
     const highlightedDefinition = highlightKeywords(term.definition);
@@ -1338,6 +1381,7 @@ function createTermItem(term) {
                 </div>
             </div>
             <p class="term-definition">${highlightedDefinition}</p>
+            ${contextButton}
         </div>
     `;
 }
@@ -1400,6 +1444,7 @@ function showSuggestions(query) {
 }
 
 function resetSearch() {
+    clearTimeout(searchTimeout);
     if (searchInput) {
         searchInput.value = '';
     }
@@ -1421,6 +1466,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('theme-toggle');
     
     if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+
+    learningMapController = ITQuizLearningMap.createLearningMapController({
+        ontology: IT_QUIZ_ONTOLOGY,
+        terms: termsData,
+        onReturnToDictionary: returnToDictionaryFromLearningMap,
+        onStartQuiz: pathId => {
+            const path = ITQuizOntologyUtils.getLearningPath(IT_QUIZ_ONTOLOGY, pathId);
+            const sourceTerms = ITQuizOntologyUtils.getTermsForQuiz(IT_QUIZ_ONTOLOGY, pathId, termsData);
+            startQuiz('multiple-choice', { sourceTerms, scopeLabel: path.title });
+        },
+    });
+    learningMapController.render();
+    glossaryLearningController = ITQuizGlossaryLearning.mount({
+        ontology: IT_QUIZ_ONTOLOGY,
+        terms: termsData,
+        onStartQuiz: pathId => learningMapController.startPathQuiz(pathId),
+        onOpenMap: openConnections,
+        onShowLearning: openLearningMap,
+    });
+    document.querySelectorAll('[data-app-page]').forEach(button => {
+        button.addEventListener('click', () => {
+            if (button.dataset.appPage === 'learn') openLearningMap();
+            else if (button.dataset.appPage === 'search') openTermSearch();
+            else if (!quizScreen.classList.contains('active')) showScreen(quizResumeScreen);
+        });
+    });
+    window.addEventListener('popstate', restorePageFromHash);
+    window.addEventListener('hashchange', restorePageFromHash);
+    restorePageFromHash();
+    document.querySelectorAll('[data-gl-reset]').forEach(button => {
+        button.addEventListener('click', () => { resetSearch(); searchInput.focus(); });
+    });
+    document.querySelectorAll('[data-open-learning-map]').forEach(button => {
+        button.addEventListener('click', openLearningMap);
+    });
     
     // 퀴즈 유형 선택
     document.querySelectorAll('[data-type]').forEach(card => {
@@ -1435,7 +1515,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     openQuizDictionary();
                 } else {
                     showScreen(dictionaryScreen);
-                    setTimeout(() => showWelcomeMessage(), 100); // 약간의 지연을 줘서 DOM이 준비될 시간을 제공
+                    resetSearch();
                 }
             } else {
                 startQuiz(type);
@@ -1458,28 +1538,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     window.addEventListener('resize', updateQuestionActionsPosition);
     homeBtn.addEventListener('click', () => showScreen(homeScreen));
-    restartBtn.addEventListener('click', () => startQuiz(currentQuizType));
+    restartBtn.addEventListener('click', () => startQuiz(currentQuizType, currentQuizScope));
     homeResultBtn.addEventListener('click', () => showScreen(homeScreen));
-    if (showAllTermsBtn) showAllTermsBtn.addEventListener('click', () => showAllTerms());
+    if (showAllTermsBtn) showAllTermsBtn.addEventListener('click', () => { searchInput.value = ''; showAllTerms(); });
 
     // 사전 기능 이벤트
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value;
             
-            // 검색 제안 표시
             clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(() => {
-                showSuggestions(query);
-            }, 200);
-            
-            // 실시간 검색
-            if (query.length >= 2) {
-                clearTimeout(searchTimeout);
-                searchTimeout = setTimeout(() => {
-                    searchTerms(query);
-                }, 500);
-            } else if (query.length === 0) {
+            searchSuggestions.classList.remove('show');
+            if (query.trim()) {
+                searchTimeout = setTimeout(() => searchTerms(query), 200);
+            } else {
                 resetSearch();
             }
         });
@@ -1487,6 +1559,7 @@ document.addEventListener('DOMContentLoaded', () => {
         searchInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault();
+                clearTimeout(searchTimeout);
                 const query = searchInput.value;
                 searchTerms(query);
                 searchSuggestions.classList.remove('show');
@@ -1498,6 +1571,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (searchBtn) {
         searchBtn.addEventListener('click', () => {
+            clearTimeout(searchTimeout);
             const query = searchInput.value;
             searchTerms(query);
             searchSuggestions.classList.remove('show');

@@ -62,3 +62,15 @@ test('다크·라이트 모드의 주 버튼 글자는 배경과 4.5:1 이상 �
         );
     }
 });
+
+test('클릭 가능한 지도 버튼은 색을 브라우저 기본값에 맡기지 않는다', () => {
+    // 색 규칙이 없으면 브라우저 기본 버튼 배경(밝은 회색)에 상속된 밝은 글자가 겹쳐
+    // 다크 모드에서 글씨가 사라진다. 실제로 2026-09-05에 그 현상이 발생했다.
+    for (const selector of ['.learning-term-button', '.learning-relation-button']) {
+        const escaped = selector.replace('.', '\\.');
+        const block = css.match(new RegExp(`${escaped}\\s*\\{([\\s\\S]*?)\\}`))?.[1];
+        assert.ok(block, `${selector} 규칙이 없습니다`);
+        assert.match(block, /color:\s*var\(--color-/, `${selector}: 글자색이 토큰으로 고정되지 않았습니다`);
+        assert.match(block, /background:\s*var\(--color-/, `${selector}: 배경색이 토큰으로 고정되지 않았습니다`);
+    }
+});

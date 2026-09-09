@@ -1,4 +1,4 @@
-// 기준: Google Sheet 76개 + AI 프로덕트 마스터 용어사전에서 선별·재작성한 83개
+// 기준: Google Sheet 76개 + AI 프로덕트 마스터 용어사전에서 선별·재작성한 83개 + 공식 문서 기반 Express 1개
 // 원문 위치: https://note26.colabstart.workers.dev/%EC%9A%A9%EC%96%B4%EC%82%AC%EC%A0%84/
 // 정의는 퀴즈에서 정답이 직접 드러나지 않도록 짧게 재작성했습니다.
 (function exposeTerms(root) {
@@ -967,6 +967,15 @@
         "category": "concepts",
         "icon": "💡",
         "origin": "source-glossary"
+    },
+    {
+        "term": "Express",
+        "definition": "Node.js에서 웹 서버와 API를 쉽게 만들도록 돕는 프레임워크입니다. 주소별 요청을 처리하고, 로그인 검사 같은 공통 작업을 연결할 수 있습니다.",
+        "category": "frameworks",
+        "icon": "⚙️",
+        "origin": "official-document",
+        "sourceUrl": "https://expressjs.com/",
+        "aliases": ["Express.js", "익스프레스"]
     }
 ];
 
