@@ -650,7 +650,7 @@ function showScreen(screen, updateHistory = true) {
     const route = screenId === 'learning-home-screen' ? 'learn'
         : screenId === 'dictionary-screen' ? 'search'
         : screenId === 'learning-map-screen' ? 'connections' : 'quiz';
-    const page = route === 'connections' ? 'learn' : route;
+    const page = route;
     document.querySelectorAll('[data-app-page]').forEach(button => {
         if (button.dataset.appPage === page) button.setAttribute('aria-current', 'page');
         else button.removeAttribute('aria-current');
@@ -700,10 +700,6 @@ function restorePageFromHash() {
     }
 }
 
-
-function returnToDictionaryFromLearningMap() {
-    openLearningMap();
-}
 
 function updateQuestionActionsPosition() {
     if (!quizScreen.classList.contains('active')) return;
@@ -1470,7 +1466,6 @@ document.addEventListener('DOMContentLoaded', () => {
     learningMapController = ITQuizLearningMap.createLearningMapController({
         ontology: IT_QUIZ_ONTOLOGY,
         terms: termsData,
-        onReturnToDictionary: returnToDictionaryFromLearningMap,
         onStartQuiz: pathId => {
             const path = ITQuizOntologyUtils.getLearningPath(IT_QUIZ_ONTOLOGY, pathId);
             const sourceTerms = ITQuizOntologyUtils.getTermsForQuiz(IT_QUIZ_ONTOLOGY, pathId, termsData);
@@ -1482,12 +1477,12 @@ document.addEventListener('DOMContentLoaded', () => {
         ontology: IT_QUIZ_ONTOLOGY,
         terms: termsData,
         onStartQuiz: pathId => learningMapController.startPathQuiz(pathId),
-        onOpenMap: openConnections,
         onShowLearning: openLearningMap,
     });
     document.querySelectorAll('[data-app-page]').forEach(button => {
         button.addEventListener('click', () => {
             if (button.dataset.appPage === 'learn') openLearningMap();
+            else if (button.dataset.appPage === 'connections') openConnections();
             else if (button.dataset.appPage === 'search') openTermSearch();
             else if (!quizScreen.classList.contains('active')) showScreen(quizResumeScreen);
         });
