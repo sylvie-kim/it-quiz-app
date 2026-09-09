@@ -50,7 +50,7 @@
         };
     }
 
-    function mount({ documentRef = root.document, ontology, terms, onStartQuiz, onOpenMap, onShowLearning }) {
+    function mount({ documentRef = root.document, ontology, terms, onStartQuiz, onShowLearning }) {
         const container = documentRef.getElementById('learning-home-screen');
         const q = selector => documentRef.querySelector(selector);
         const qa = selector => [...container.querySelectorAll(selector)];
@@ -205,7 +205,6 @@
             q('#gl-map-groups').append(group);
         });
         q('#gl-path-quiz').addEventListener('click', () => { if (selectedPathId) onStartQuiz(selectedPathId); });
-        q('#gl-open-graph').addEventListener('click', onOpenMap);
         documentRef.addEventListener('click', event => {
             const target = event.target.closest('[data-gl-term]');
             if (target) showTerm(target.dataset.glTerm);

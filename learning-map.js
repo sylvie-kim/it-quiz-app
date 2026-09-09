@@ -311,12 +311,11 @@
             termId: state.selectedTermId,
         });
         const { registry, source } = detail;
-        const returnControl = '<button class="text-button" type="button" data-learning-return>학습지도로 돌아가기</button>';
 
         if (selectedRelation) {
             const sourceTerm = controller.registryById.get(selectedRelation.source);
             const targetTerm = controller.registryById.get(selectedRelation.target);
-            elements.detail.innerHTML = `${returnControl}<p class="eyebrow">검토된 연결</p><h2>${escapeHTML(relationLabel(selectedRelation))}</h2><p><strong>${escapeHTML(sourceTerm ? sourceTerm.label : selectedRelation.source)}</strong> → <strong>${escapeHTML(targetTerm ? targetTerm.label : selectedRelation.target)}</strong></p><p>${escapeHTML(selectedRelation.rationale || '')}</p><h3>근거</h3><ul>${list(selectedRelation.sourceRefs).map(ref => `<li>${escapeHTML(sourceRefText(ref))}</li>`).join('')}</ul>`;
+            elements.detail.innerHTML = `<p class="eyebrow">검토된 연결</p><h2>${escapeHTML(relationLabel(selectedRelation))}</h2><p><strong>${escapeHTML(sourceTerm ? sourceTerm.label : selectedRelation.source)}</strong> → <strong>${escapeHTML(targetTerm ? targetTerm.label : selectedRelation.target)}</strong></p><p>${escapeHTML(selectedRelation.rationale || '')}</p><h3>근거</h3><ul>${list(selectedRelation.sourceRefs).map(ref => `<li>${escapeHTML(sourceRefText(ref))}</li>`).join('')}</ul>`;
         } else if (registry && source) {
             const connections = detail.reviewedRelations;
             const related = connections.length
@@ -326,12 +325,11 @@
                     return `<li><button class="text-button" type="button" data-learning-relation="${escapeHTML(relation.id)}">${escapeHTML(other ? other.label : otherId)} · ${escapeHTML(relationLabel(relation))}</button></li>`;
                 }).join('')}</ul>`
                 : '<p class="learning-detail__empty">이 용어와 직접 연결되는 관계는 아직 확인되지 않았어요.</p>';
-            elements.detail.innerHTML = `${returnControl}<p class="eyebrow">선택한 용어</p><h2>${escapeHTML(registry.label)}</h2><p>${escapeHTML(source.definition)}</p>${related}`;
+            elements.detail.innerHTML = `<p class="eyebrow">선택한 용어</p><h2>${escapeHTML(registry.label)}</h2><p>${escapeHTML(source.definition)}</p>${related}`;
         } else {
-            elements.detail.innerHTML = `${returnControl}<p class="learning-detail__placeholder">학습 분야나 용어를 선택하면 여기에서 짧은 정의와 연결 근거를 확인할 수 있습니다.</p>`;
+            elements.detail.innerHTML = `<p class="learning-detail__placeholder">학습 분야나 용어를 선택하면 여기에서 짧은 정의와 연결 근거를 확인할 수 있습니다.</p>`;
         }
 
-        elements.detail.querySelector('[data-learning-return]')?.addEventListener('click', () => controller.onReturnToDictionary());
         bindTermAndRelationControls(controller, elements.detail);
         if (elements.startQuiz) elements.detail.append(elements.startQuiz);
     }
@@ -382,7 +380,6 @@
         elements = documentRef && getElements(documentRef),
         defaultPathId = list(ontology && ontology.learningPaths)[0] && ontology.learningPaths[0].id,
         onStartQuiz = () => {},
-        onReturnToDictionary = () => {},
     } = {}) {
         if (!ontology) throw new Error('Ontology is required');
         const index = ontologyUtils.buildOntologyIndex(ontology);
@@ -396,7 +393,6 @@
             registryById: index.termsById,
             sourceByLabel: new Map(list(terms).map(term => [term.term, term])),
             onStartQuiz,
-            onReturnToDictionary,
             lastFocusTarget: null,
             render(focusTarget = null) {
                 this.lastFocusTarget = focusTarget || focusTargetFromActiveElement(this.documentRef);

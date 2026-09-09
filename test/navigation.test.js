@@ -18,7 +18,7 @@ function navigation() {
         return nodes.get(id);
     }
     const screens = ['learning-home-screen', 'dictionary-screen', 'learning-map-screen', 'home-screen', 'quiz-screen', 'result-screen'].map(node);
-    const tabs = ['learn', 'search', 'quiz'].map(page => { const item = node(page); item.dataset.appPage = page; return item; });
+    const tabs = ['quiz', 'learn', 'connections', 'search'].map(page => { const item = node(page); item.dataset.appPage = page; return item; });
     const location = { hash: '' }, entries = [];
     const context = {
         IT_QUIZ_BASE_TERMS: terms,
@@ -26,7 +26,7 @@ function navigation() {
         ITQuizOntologyUtils: require('../ontology-utils.js'),
         ITQuizUX: require('../quiz-ux.js'),
         ITQuizContent: require('../quiz-content.js'),
-        document: { getElementById: node, body: node('body'), querySelectorAll: selector => selector === '.screen' ? screens : selector === '[data-app-page]' ? tabs : [] },
+        document: { getElementById: node, body: node('body'), querySelector: () => ({ click() {} }), querySelectorAll: selector => selector === '.screen' ? screens : selector === '[data-app-page]' ? tabs : [] },
         window: { location, history: { pushState(a, b, hash) { entries.push(hash); location.hash = hash; } }, scrollTo() {}, matchMedia: () => ({ matches: false }) },
         localStorage: { getItem: () => null },
     };
@@ -40,7 +40,7 @@ test('learning, search and the relation detail have one unambiguous active top m
     for (const [screen, tab, hash] of [
         ['learning-home-screen', 'learn', '#learn'],
         ['dictionary-screen', 'search', '#search'],
-        ['learning-map-screen', 'learn', '#connections'],
+        ['learning-map-screen', 'connections', '#connections'],
     ]) {
         n.run(`showScreen('${screen}')`);
         assert.equal(n.location.hash, hash);
@@ -70,4 +70,18 @@ test('default landing is Quiz; Learn and old dictionary bookmarks still work', (
     n.run('restorePageFromHash()');
     assert.equal(n.nodes.get('dictionary-screen').classList.contains('active'), true);
     assert.equal(n.entries.length, 0);
+});
+
+test('connections opens directly and restores its own tab without adding history', () => {
+    const n = navigation();
+    n.run('openConnections()');
+    assert.equal(n.location.hash, '#connections');
+    assert.equal(n.nodes.get('connections').attributes['aria-current'], 'page');
+    n.run('openLearningMap()');
+    const count = n.entries.length;
+    n.location.hash = '#connections';
+    n.run('restorePageFromHash()');
+    assert.equal(n.entries.length, count);
+    assert.equal(n.nodes.get('learning-map-screen').classList.contains('active'), true);
+    assert.deepEqual(n.tabs.filter(t => t.attributes['aria-current']).map(t => t.dataset.appPage), ['connections']);
 });
