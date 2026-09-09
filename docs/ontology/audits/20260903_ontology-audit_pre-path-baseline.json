@@ -1,0 +1,1168 @@
+{
+  "phase": "baseline",
+  "inputCommit": "1cf49265aeb07d2210b8ea528a1b364ff78e654a",
+  "inputSha256": {
+    "termsData": "9e12a4ac5aae6fc3547caad588b6b4081ba53757dadd12f7b643265904eb8e03",
+    "ontologyData": "272f4f446d349b423e0b402247592e55c2bc1a158888ba58ff4b37761a1d2097"
+  },
+  "summary": {
+    "entities": 159,
+    "duplicateCandidates": 0,
+    "ambiguousEntityTypes": 159,
+    "propertyIssues": 0,
+    "invalidRelations": 0,
+    "insufficientProvenance": 0,
+    "weakPathAssignments": 0,
+    "unansweredCompetencyQuestions": 5
+  },
+  "findings": [
+    {
+      "code": "COMPETENCY_QUESTION_UNANSWERED",
+      "refId": "cq-1",
+      "observation": "검토된 선행 학습 관계가 없어 먼저 배울 용어를 답할 수 없습니다.",
+      "requiredPrework": "prerequisite_of 관계의 판정 기준과 근거 출처를 정의합니다.",
+      "retest": "검토된 선행 관계를 추가한 뒤 cq-1 질의가 경로와 출처를 반환하는지 확인합니다."
+    },
+    {
+      "code": "COMPETENCY_QUESTION_UNANSWERED",
+      "refId": "cq-2",
+      "observation": "검토된 비교 관계가 없어 혼동하기 쉬운 용어의 차이를 답할 수 없습니다.",
+      "requiredPrework": "contrasts_with의 비교 기준과 양쪽 정의를 직접 뒷받침하는 근거를 정합니다.",
+      "retest": "검토된 비교 관계를 추가한 뒤 cq-2가 차이와 출처를 반환하는지 확인합니다."
+    },
+    {
+      "code": "COMPETENCY_QUESTION_UNANSWERED",
+      "refId": "cq-3",
+      "observation": "검토된 함께 사용·실행 환경 관계가 없어 도구 조합과 이유를 답할 수 없습니다.",
+      "requiredPrework": "used_with와 runs_on의 경계, 방향, 근거 기준을 정합니다.",
+      "retest": "검토된 관계를 추가한 뒤 cq-3가 연결 대상과 이유를 반환하는지 확인합니다."
+    },
+    {
+      "code": "COMPETENCY_QUESTION_UNANSWERED",
+      "refId": "cq-4",
+      "observation": "학습 경로가 없어 개발 목표별 학습 순서를 답할 수 없습니다.",
+      "requiredPrework": "경로별 목표와 primary·supporting 포함 기준을 정의합니다.",
+      "retest": "전체 용어가 근거와 함께 경로에 배치된 뒤 cq-4가 순서를 반환하는지 확인합니다."
+    },
+    {
+      "code": "COMPETENCY_QUESTION_UNANSWERED",
+      "refId": "cq-5",
+      "observation": "검토 기록과 출처가 있는 관계가 없어 연결 근거를 답할 수 없습니다.",
+      "requiredPrework": "관계 출처와 content-owner 검토 기록의 승격 절차를 정의합니다.",
+      "retest": "승인된 관계를 추가한 뒤 cq-5가 출처와 검토 기록을 반환하는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-ai-agent",
+      "observation": "AI Agent의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-antigravity",
+      "observation": "Antigravity의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-api",
+      "observation": "API(Application Programming Interface)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-app-jsx",
+      "observation": "App.jsx의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-app-store-deployment",
+      "observation": "앱스토어 배포의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-async-io",
+      "observation": "비동기 I/O 처리의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-authcontroller-js",
+      "observation": "authController.js의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-authentication",
+      "observation": "인증의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-branch",
+      "observation": "브랜치의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-business-model-canvas",
+      "observation": "비즈니스 모델 캔버스의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-capstone",
+      "observation": "캡스톤의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-cdn",
+      "observation": "CDN(Content Delivery Network)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-claude-code",
+      "observation": "Claude Code의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-claude-design",
+      "observation": "Claude Design의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-cli",
+      "observation": "CLI(Command Line Interface)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-client-rendering",
+      "observation": "클라이언트 렌더링의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-client-server-architecture",
+      "observation": "클라이언트-서버 구조의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-cloudflare-pages",
+      "observation": "Cloudflare Pages의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-cmux",
+      "observation": "cmux의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-codex",
+      "observation": "Codex의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-commit-cycle",
+      "observation": "커밋 사이클의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-compile",
+      "observation": "Compile(컴파일)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-component",
+      "observation": "Component(컴포넌트)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-console",
+      "observation": "Console(콘솔)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-context-window",
+      "observation": "컨텍스트 윈도우의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-crawling",
+      "observation": "Crawling(크롤링)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-cross-platform-development",
+      "observation": "크로스플랫폼 개발의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-crud",
+      "observation": "CRUD(Create, Read, Update, Delete)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-css",
+      "observation": "CSS의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-csv",
+      "observation": "CSV의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-data-analysis",
+      "observation": "데이터 분석의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-deep-learning",
+      "observation": "딥러닝의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-dom",
+      "observation": "DOM(Document Object Model)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-eda",
+      "observation": "EDA의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-electron",
+      "observation": "Electron의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-env",
+      "observation": ".env 파일의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-execution",
+      "observation": "Execution(실행)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-expo",
+      "observation": "Expo(엑스포)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-fetch",
+      "observation": "Fetch의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-figma",
+      "observation": "Figma의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-figma-make",
+      "observation": "Figma Make의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-firebase",
+      "observation": "Firebase의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-flutter",
+      "observation": "Flutter(플러터)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-framework",
+      "observation": "Framework(프레임워크)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-frontend-backend",
+      "observation": "프론트엔드 / 백엔드의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-generative-ai",
+      "observation": "생성형 AI의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-github",
+      "observation": "GitHub의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-github-actions",
+      "observation": "GitHub Actions의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-github-pages",
+      "observation": "GitHub Pages의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-gitignore",
+      "observation": ".gitignore의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-google-ai-studio",
+      "observation": "Google AI Studio의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-google-auth",
+      "observation": "Google Auth의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-gpt",
+      "observation": "GPT의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-hackathon",
+      "observation": "해커톤의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-hard-coding",
+      "observation": "Hard coding(하드코딩)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-high-fidelity-design",
+      "observation": "High-Fidelity Design(하이파이 시안)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-hosting",
+      "observation": "Hosting(호스팅)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-html",
+      "observation": "HTML의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-http",
+      "observation": "HTTP(Hypertext Transfer Protocol)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-i-o",
+      "observation": "I/O의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-ide",
+      "observation": "IDE(Integrated Development Environment)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-interface",
+      "observation": "Interface(인터페이스)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-javascript",
+      "observation": "JavaScript(자바스크립트)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-jpg",
+      "observation": "JPG의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-json",
+      "observation": "JSON(JavaScript Object Notation)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-jupyter-notebook",
+      "observation": "Jupyter Notebook (.ipynb)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-kaggle",
+      "observation": "캐글의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-landing-page",
+      "observation": "랜딩페이지의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-langchain",
+      "observation": "LangChain의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-lean-startup",
+      "observation": "린 스타트업의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-library",
+      "observation": "Library(라이브러리)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-llm",
+      "observation": "LLM의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-lovable",
+      "observation": "Lovable의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-machine-learning",
+      "observation": "머신러닝의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-markdown",
+      "observation": "Markdown (MD)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-markup",
+      "observation": "Markup(마크업)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-markup-language",
+      "observation": "Markup language(마크업 언어)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-matplotlib",
+      "observation": "Matplotlib의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-mcp",
+      "observation": "MCP(Model Context Protocol)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-merge",
+      "observation": "Merge의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-module",
+      "observation": "Module(모듈)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-mui",
+      "observation": "MUI(Material UI)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-multimodal",
+      "observation": "멀티모달의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-mvc",
+      "observation": "MVC(Model-View-Controller)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-mvp",
+      "observation": "MVP의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-native",
+      "observation": "Native의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-netlify",
+      "observation": "Netlify의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-next-js",
+      "observation": "Next.js의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-node-js",
+      "observation": "Node.js의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-notion-mcp",
+      "observation": "Notion MCP의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-npm",
+      "observation": "npm(node package manager)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-npm-install",
+      "observation": "npm install의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-npm-run-build",
+      "observation": "npm run build의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-npm-run-dev",
+      "observation": "npm run dev의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-numpy",
+      "observation": "NumPy의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-object",
+      "observation": "Object(객체)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-pandas",
+      "observation": "pandas의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-parsing",
+      "observation": "Parsing(파싱)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-pdf",
+      "observation": "PDF의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-persona",
+      "observation": "페르소나의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-playwright",
+      "observation": "Playwright의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-plotly",
+      "observation": "Plotly의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-png",
+      "observation": "PNG의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-portfolio",
+      "observation": "포트폴리오의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-powershell",
+      "observation": "PowerShell(파워쉘)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-prompt-engineering",
+      "observation": "프롬프트 엔지니어링의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-protocol",
+      "observation": "Protocol(프로토콜)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-prototype",
+      "observation": "Prototype(프로토타입)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-public-data-open-api",
+      "observation": "공공데이터 Open API의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-pwa",
+      "observation": "PWA(Progressive Web App)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-python",
+      "observation": "Python의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-pytorch",
+      "observation": "PyTorch의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-rag",
+      "observation": "RAG의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-react",
+      "observation": "React(리액트)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-react-native",
+      "observation": "React Native의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-reactive-component",
+      "observation": "Reactive Component(리액티브 컴포넌트)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-refactoring",
+      "observation": "Refactoring(리팩토링)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-rendering",
+      "observation": "Rendering(렌더링)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-routing",
+      "observation": "Routing(라우팅)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-rss",
+      "observation": "RSS의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-ruby-on-rails",
+      "observation": "Ruby on Rails(줄여서 Rails, 레일스)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-runtime",
+      "observation": "Runtime(런타임)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-scraping",
+      "observation": "Scraping(스크래핑)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-sdk",
+      "observation": "SDK(Software Development Kit)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-selenium",
+      "observation": "Selenium(셀레니움)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-server-side-rendering",
+      "observation": "서버사이드 렌더링의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-shadcn-ui",
+      "observation": "shadcn/ui의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-snippet",
+      "observation": "Snippet(스니펫)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-spa",
+      "observation": "SPA(Single Page Application)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-static-rendering",
+      "observation": "정적 렌더링의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-streamlit",
+      "observation": "Streamlit의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-subagent",
+      "observation": "서브에이전트의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-supabase",
+      "observation": "Supabase의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-tailwind-css",
+      "observation": "Tailwind CSS의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-tauri",
+      "observation": "Tauri의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-tdd",
+      "observation": "TDD(Test-Driven Development, 테스트 주도 개발)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-team-building",
+      "observation": "팀 빌딩의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-tensorflow",
+      "observation": "TensorFlow의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-token",
+      "observation": "Token(토큰)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-tool-calling",
+      "observation": "Tool Calling의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-tree",
+      "observation": "Tree(트리)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-txt",
+      "observation": "TXT의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-typescript",
+      "observation": "TypeScript(타입스크립트)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-ui",
+      "observation": "UI(User Interface)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-user-testing",
+      "observation": "사용자 테스트의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-ux",
+      "observation": "UX의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-v0",
+      "observation": "V0의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-vanilla-js",
+      "observation": "Vanilla JS(바닐라 JS)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-vcs",
+      "observation": "VCS(버전 관리 시스템)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-vector-db",
+      "observation": "벡터DB의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-vercel",
+      "observation": "Vercel의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-vibe-coding",
+      "observation": "Vibe Coding(바이브코딩)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-virtual-dom",
+      "observation": "Virtual DOM의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-visual-studio-code",
+      "observation": "Visual Studio Code의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-vite",
+      "observation": "Vite(비트)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-vue-js",
+      "observation": "Vue.js의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-wireframe",
+      "observation": "Wireframe(와이어프레임)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-wmux",
+      "observation": "wmux의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    },
+    {
+      "code": "ENTITY_TYPE_AMBIGUOUS",
+      "refId": "term-xlsx",
+      "observation": "XLSX (엑셀)의 termKind가 없거나 허용값이 아니어서 실제 개체 종류를 판정할 수 없습니다.",
+      "requiredPrework": "concept, method, process, language, framework, service, tool, command, file, format, platform, event의 판별 기준을 정합니다.",
+      "retest": "이 등록부 레코드에 유효한 termKind를 적용한 뒤 해당 refId가 감사에서 사라지는지 확인합니다."
+    }
+  ]
+}
