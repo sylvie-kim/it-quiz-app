@@ -81,7 +81,7 @@
             ['term-tauri', 'Tauri'],
         ],
         'topic-runtime-cli-packages': [
-            ['term-npm', 'npm(node package manager)'],
+            ['term-npm', 'npm'],
             ['term-npm-install', 'npm install'],
             ['term-npm-run-dev', 'npm run dev'],
             ['term-npm-run-build', 'npm run build'],
@@ -675,18 +675,6 @@
     ];
 
     const relations = [
-        {
-            id: "rel-authcontroller-js-runs-on-node-js",
-            source: "term-authcontroller-js",
-            target: "term-node-js",
-            type: "runs_on",
-            status: "REVIEWED",
-            rationale: "authController.js는 Node.js(Express) 기반 프로젝트에서 인증 로직을 담당하는 파일입니다.",
-            sourceRefs: [{ kind: "term-definition", ref: "term-authcontroller-js" }],
-            reviewedByRole: "content-owner",
-            reviewRecordId: "review-rel-authcontroller-js-runs-on-node-js-20260905",
-            reviewedAt: "2026-09-05",
-        },
         {
             id: "rel-electron-runs-on-javascript",
             source: "term-electron",

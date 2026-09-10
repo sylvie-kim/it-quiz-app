@@ -177,7 +177,9 @@ const {
     shouldSubmitOnSelection,
 } = ITQuizUX;
 const {
+    generateApplicationQuestions: generateApplicationQuestionsFromContent,
     generateMultipleChoiceQuestions: generateMultipleChoiceQuestionsFromTerms,
+    generateTrueFalseQuestions: generateTrueFalseQuestionsFromContent,
     resolveQuizScope,
     searchGlossaryTerms,
     shouldOpenQuizDictionary,
@@ -487,145 +489,24 @@ function generateShortAnswerQuestions() {
 }
 
 function generateTrueFalseQuestions() {
-    const questions = [];
-    // 매번 다른 문제를 위한 시드 생성
     const seed = Date.now() + Math.floor(Math.random() * 1000);
-    const selectedTerms = getRandomItems(termsData, 10, seed);
-    
-    // 정답 문제
-    selectedTerms.forEach(term => {
-        const icon = getTermIcon(term.term);
-        
-        questions.push({
-            type: 'true-false',
-            questionText: `${term.term}과 제시된 정의가 올바르게 연결됐나요?`,
-            question: `<div class="term-definition-pair">
-                <div class="term-label">
-                    <strong>용어:</strong> ${term.term}
-                </div>
-                <div class="definition-label">
-                    <strong>정의:</strong> ${term.definition}
-                </div>
-            </div>`,
-            correctAnswer: true,
-            term: term.term,
-            termDefinition: term.definition,
-            shownDefinitionTerm: term.term,
-            shownDefinition: term.definition,
-            explanation: `정답입니다. ${term.term}은(는) ${term.definition}`
-        });
-    });
-    
-    // 오답 문제 - 비슷한 카테고리의 정의를 사용
-    const wrongTerms = getRandomItems(termsData, 5, seed + 100);
-    wrongTerms.forEach(term => {
-        const category = getTermCategory(term.term);
-        const relatedTerms = termsData.filter(t => 
-            t.term !== term.term && 
-            getTermCategory(t.term) === category
-        );
-        
-        const definitionSource = relatedTerms.length > 0
-            ? getRandomItems(relatedTerms, 1, seed + term.term.length)[0]
-            : getRandomItems(termsData.filter(t => t.term !== term.term), 1, seed + term.term.length)[0];
-        const wrongDefinition = definitionSource.definition;
-        
-        const icon = getTermIcon(term.term);
-        
-        questions.push({
-            type: 'true-false',
-            questionText: `${term.term}과 제시된 정의가 올바르게 연결됐나요?`,
-            question: `<div class="term-definition-pair">
-                <div class="term-label">
-                    <strong>용어:</strong> ${term.term}
-                </div>
-                <div class="definition-label">
-                    <strong>정의:</strong> ${wrongDefinition}
-                </div>
-            </div>`,
-            correctAnswer: false,
-            term: term.term,
-            termDefinition: term.definition,
-            shownDefinitionTerm: definitionSource.term,
-            shownDefinition: definitionSource.definition,
-            explanation: `틀렸습니다. ${term.term}의 올바른 정의는: ${term.definition}`
-        });
-    });
-    
-    return shuffleArray(questions);
-}
-
-function generateApplicationQuestions() {
-    // 매번 다른 문제를 위한 시드 생성
-    const seed = Date.now() + Math.floor(Math.random() * 1000);
-    
-    const applicationExamples = [
-        {
-            term: "API (Application Programming Interface)",
-            scenario: "쇼핑몰 웹사이트에서 결제 버튼을 누르면 카드사 시스템과 연결되어 결제가 처리됩니다. 이때 쇼핑몰과 카드사 간의 소통을 가능하게 하는 것은?",
-            explanation: "API는 서로 다른 소프트웨어 애플리케이션 간의 소통을 가능하게 하는 인터페이스입니다."
-        },
-        {
-            term: "CDN (Content Delivery Network)",
-            scenario: "한국에 있는 사용자가 미국 서버의 동영상을 빠르게 시청할 수 있도록 전 세계 곳곳에 서버를 두고 가까운 곳에서 콘텐츠를 제공하는 기술은?",
-            explanation: "CDN은 전 세계에 분산된 서버를 통해 사용자에게 가장 가까운 위치에서 콘텐츠를 제공하여 속도를 향상시키는 기술입니다."
-        },
-        {
-            term: "React",
-            scenario: "웹사이트의 버튼, 메뉴, 카드 등을 독립적인 작은 단위로 만들어서 조립하듯이 화면을 구성할 수 있게 해주는 JavaScript 라이브러리는?",
-            explanation: "React는 컴포넌트 기반으로 사용자 인터페이스를 구축할 수 있게 해주는 JavaScript 라이브러리입니다."
-        },
-        {
-            term: "Framework",
-            scenario: "개발자가 정해진 규칙과 구조에 따라 코드를 작성하면, 전체적인 프로그램 흐름을 자동으로 관리해주는 개발 도구는?",
-            explanation: "Framework는 개발의 기본 구조와 규칙을 제공하여 개발자가 더 쉽고 효율적으로 애플리케이션을 만들 수 있게 해주는 도구입니다."
-        },
-        {
-            term: "리팩토링 (Refactoring)",
-            scenario: "프로그램의 기능은 그대로 유지하면서 코드를 더 읽기 쉽고 유지보수하기 편하게 개선하는 작업을 무엇이라고 합니까?",
-            explanation: "리팩토링은 소프트웨어의 외부 동작은 그대로 유지하면서 내부 구조를 개선하는 작업입니다."
-        },
-        {
-            term: "Rendering",
-            scenario: "브라우저가 HTML, CSS, JavaScript 코드를 해석해서 사용자가 볼 수 있는 웹페이지로 만드는 과정을 무엇이라고 합니까?",
-            explanation: "Rendering은 코드를 해석하여 사용자가 볼 수 있는 화면으로 변환하는 과정입니다."
-        },
-        {
-            term: "SDK (Software Development Kit)",
-            scenario: "iOS 앱을 개발할 때 필요한 도구들(라이브러리, API, 문서, 개발환경 등)을 한 번에 제공하는 패키지를 무엇이라고 합니까?",
-            explanation: "SDK는 특정 플랫폼이나 운영체제를 위한 애플리케이션 개발에 필요한 도구들을 모아놓은 개발 키트입니다."
-        },
-        {
-            term: "PWA (Progressive Web App)",
-            scenario: "웹사이트이지만 스마트폰 홈화면에 설치할 수 있고, 오프라인에서도 작동하며, 푸시 알림도 받을 수 있는 웹 애플리케이션 기술은?",
-            explanation: "PWA는 웹 기술로 만들어졌지만 네이티브 앱과 같은 경험을 제공하는 웹 애플리케이션입니다."
-        },
-        {
-            term: "Protocol",
-            scenario: "서로 다른 시스템들이 데이터를 주고받을 때 어떤 형식과 절차를 따라야 하는지 정해둔 표준화된 규칙을 무엇이라고 합니까?",
-            explanation: "Protocol은 컴퓨터 네트워크에서 데이터를 주고받을 때 따라야 하는 표준화된 규칙과 절차입니다."
-        },
-        {
-            term: "Interface",
-            scenario: "스마트폰 터치스크린처럼 사람과 기계가 서로 소통할 수 있도록 해주는 접점을 무엇이라고 합니까?",
-            explanation: "Interface는 서로 다른 시스템이나 사용자와 기계 간에 상호작용할 수 있도록 해주는 접점입니다."
-        }
-    ];
-    
-    // 응용 문제도 랜덤하게 섞어서 반환 (10개 중 랜덤하게 선택)
-    const shuffledExamples = shuffleArrayWithSeed(applicationExamples, seed);
-    return shuffledExamples.map(example => {
-        const termName = example.term.split(' (')[0]; // 괄호 안의 설명 제거
-        
+    return generateTrueFalseQuestionsFromContent({ terms: termsData, seed }).map(item => {
+        const shownDefinition = item.definitionSource.definition;
         return {
-            type: 'application',
-            questionText: example.scenario,
-            question: `<div class="scenario-box"><p class="scenario-text">${example.scenario}</p></div>`,
-            correctAnswer: termName, // 짧은 형태의 용어명을 정답으로 설정
-            fullTerm: example.term, // 전체 용어는 별도로 보관
-            term: example.term,
-            termDefinition: example.explanation,
-            explanation: `정답은 "${termName}"입니다.\n\n${example.explanation}`
+            type: 'true-false',
+            questionText: `${item.term.term}과 제시된 정의가 올바르게 연결됐나요?`,
+            question: `<div class="term-definition-pair">
+                <div class="term-label"><strong>용어:</strong> ${item.term.term}</div>
+                <div class="definition-label"><strong>정의:</strong> ${shownDefinition}</div>
+            </div>`,
+            correctAnswer: item.correctAnswer,
+            term: item.term.term,
+            termDefinition: item.term.definition,
+            shownDefinitionTerm: item.definitionSource.term,
+            shownDefinition,
+            explanation: item.correctAnswer
+                ? `정답입니다. ${item.term.term}은(는) ${item.term.definition}`
+                : `틀렸습니다. ${item.term.term}의 올바른 정의는: ${item.term.definition}`,
         };
     });
 }
@@ -749,7 +630,9 @@ function startQuiz(type, options = {}) {
             currentQuestions = generateTrueFalseQuestions();
             break;
         case 'application':
-            currentQuestions = generateApplicationQuestions();
+            currentQuestions = generateApplicationQuestionsFromContent({
+                seed: Date.now() + Math.floor(Math.random() * 1000),
+            });
             break;
     }
     

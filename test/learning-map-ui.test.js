@@ -83,7 +83,7 @@ test('정적 자산은 동일한 배포 버전과 학습 지도 의존성 순서
     const versionedAssets = [...html.matchAll(/(?:href|src)="(?:style\.css|[^\"]+\.js)\?v=([^"]+)"/g)]
         .map(match => match[1]);
     assert.ok(versionedAssets.length >= 10);
-    assert.ok(versionedAssets.every(version => version === '20260909.7'));
+    assert.ok(versionedAssets.every(version => version === '20260909.8'));
 
     const sources = [...html.matchAll(/<script\s+src="([^"]+)"/g)].map(match => match[1].split('?')[0]);
     assert.deepEqual(sources, [
