@@ -58,8 +58,8 @@
     const applicationExamples = [
         {
             term: 'API(Application Programming Interface)',
-            scenario: '쇼핑몰 웹사이트에서 결제 버튼을 누르면 카드사 시스템에 결제 요청을 보냅니다. 두 소프트웨어가 정해진 방식으로 기능과 데이터를 주고받게 하는 접점은?',
-            explanation: 'API는 서로 다른 소프트웨어가 기능과 데이터를 정해진 방식으로 주고받게 하는 접점입니다.',
+            scenario: '쇼핑몰 웹사이트에서 결제 버튼을 누르면 카드사 시스템에 결제 요청을 보냅니다. 두 소프트웨어가 미리 정해진 요청·응답 규격으로 기능과 데이터를 주고받게 하는 것은?',
+            explanation: 'API는 서로 다른 소프트웨어가 기능과 데이터를 미리 정해진 요청·응답 규격으로 주고받게 하는 연결 방식입니다.',
         },
         {
             term: 'CDN(Content Delivery Network)',
@@ -88,7 +88,7 @@
         },
         {
             term: 'SDK(Software Development Kit)',
-            scenario: 'iOS SDK와 Android SDK처럼, 특정 플랫폼이나 서비스용 소프트웨어를 만들 때 필요한 API, 라이브러리, 문서, 빌드·테스트 도구를 모아 제공하는 개발 도구 묶음은?',
+            scenario: 'iOS 앱이나 Android 앱처럼 특정 플랫폼이나 서비스용 소프트웨어를 만들 때 필요한 라이브러리, 문서, 예제 코드, 빌드·테스트 도구를 하나로 묶어 제공하는 개발 도구 모음은?',
             explanation: 'SDK는 특정 플랫폼이나 서비스용 소프트웨어 개발에 필요한 도구와 자료를 모아 제공하는 개발 키트입니다.',
         },
         {

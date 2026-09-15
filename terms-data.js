@@ -16,7 +16,7 @@
     },
     {
         "term": "Markup(마크업)",
-        "definition": "문서나 데이터의 구조를 명확하게 정의하기 위해 태그 등을 이용하는 체계를 의미 . 단순히 텍스트를 꾸미는 것이 아니라, 컴퓨터가 문서의 각 부분을 이해하고 처리할 수 있도록 구조화하는 것이 핵심",
+        "definition": "문서나 데이터의 구조를 명확하게 정의하기 위해 태그 등을 이용하는 체계입니다. 단순히 텍스트를 꾸미는 것이 아니라, 컴퓨터가 문서의 각 부분을 이해하고 처리할 수 있도록 구조화하는 것이 핵심입니다.",
         "origin": "google-sheet"
     },
     {
@@ -99,12 +99,12 @@
     },
     {
         "term": "npm run dev",
-        "definition": "package.json의 scripts에 dev라는 이름으로 등록된 작업을 실행하는 npm 명령어입니다. 실제 동작은 프로젝트 설정에 따라 달라집니다.",
+        "definition": "package.json의 scripts에 등록된 개발용 작업을 실행해, 코드를 고치면 바로 확인할 수 있는 로컬 개발 서버를 띄울 때 주로 쓰는 명령어입니다. 실제 동작은 프로젝트 설정에 따라 달라집니다.",
         "origin": "google-sheet"
     },
     {
         "term": "npm run build",
-        "definition": "package.json의 scripts에 build라는 이름으로 등록된 작업을 실행하는 npm 명령어입니다. 변환·번들링·최적화 여부는 프로젝트 설정에 따라 달라집니다.",
+        "definition": "package.json의 scripts에 등록된 배포용 작업을 실행해, 실제 서비스에 올릴 파일을 만들 때 주로 쓰는 명령어입니다. 변환·번들링·최적화 여부는 프로젝트 설정에 따라 달라집니다.",
         "origin": "google-sheet"
     },
     {
@@ -145,7 +145,7 @@
     },
     {
         "term": "API(Application Programming Interface)",
-        "definition": "소프트웨어(프로그램)와 소프트웨어 사이에서 데이터를 주고받거나 기능을 사용할 수 있도록 정해진 규칙(프로토콜)이나 방법(인터페이스)",
+        "definition": "서로 다른 소프트웨어가 기능이나 데이터를 주고받을 수 있도록 미리 정해 둔 요청과 응답의 규격",
         "origin": "google-sheet"
     },
     {
@@ -332,7 +332,7 @@
     },
     {
         "term": "Token(토큰)",
-        "definition": "언어 모델이 텍스트를 처리하기 위해 나눈 단위로, 글자·단어의 일부·단어·구두점 등이 하나의 토큰이 될 수 있습니다.",
+        "definition": "언어 모델이 텍스트를 처리하기 위해 나눈 최소 단위로, 글자·단어의 일부·단어·구두점 등이 하나의 단위가 될 수 있습니다.",
         "sourceUrl": "https://help.openai.com/en/articles/4936856-understanding-and-counting-tokens",
         "origin": "google-sheet"
     },
@@ -452,7 +452,7 @@
     },
     {
         "term": "Cloudflare Pages",
-        "definition": "Git 저장소나 업로드한 파일에서 웹사이트를 빌드·배포하고, Pages Functions로 서버 기능도 추가할 수 있는 Cloudflare의 웹 배포 서비스입니다.",
+        "definition": "Git 저장소나 업로드한 파일에서 웹사이트를 빌드·배포하고, 함께 제공되는 서버리스 함수로 서버 기능도 추가할 수 있는 Cloudflare의 웹 배포 서비스입니다.",
         "category": "deployment",
         "icon": "☁️",
         "sourceUrl": "https://developers.cloudflare.com/pages/",
