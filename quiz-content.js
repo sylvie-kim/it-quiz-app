@@ -44,6 +44,17 @@
         ['Accordion(아코디언)', 'Dropdown(드롭다운)'],
         ['Hover Effect(호버 이펙트)', 'Smooth Transition(스무스 트랜지션)'],
         ['Scroll Reveal(스크롤 리빌)', 'Stagger Animation(스태거 애니메이션)'],
+        ['Card Layout(카드 레이아웃)', 'Bento Grid(벤토 그리드)'],
+        ['Smooth Transition(스무스 트랜지션)', 'Micro-interaction(마이크로 인터랙션)'],
+        ['Micro-interaction(마이크로 인터랙션)', 'Hover Effect(호버 이펙트)'],
+        ['Selenium(셀레니움)', 'Playwright'],
+        ['Markup(마크업)', 'Markup language(마크업 언어)'],
+        ['Component(컴포넌트)', 'Snippet(스니펫)'],
+        ['Vercel', 'Netlify'],
+        ['Vercel', 'Cloudflare Pages'],
+        ['Netlify', 'Cloudflare Pages'],
+        ['MUI(Material UI)', 'shadcn/ui'],
+        ['Interface(인터페이스)', 'UI(User Interface)'],
     ];
 
     const reviewedFalseDefinitionPairs = [

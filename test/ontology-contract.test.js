@@ -84,7 +84,7 @@ test('12개 기본 주제 묶음이 사전 분석의 184개 분류를 빠짐없�
     for (const item of ontology.termRegistry) primaryCounts[item.topicIds[0]] += 1;
 
     assert.deepEqual(primaryCounts, {
-        'topic-software-basics': 16,
+        'topic-software-basics': 15,
         'topic-web-ui': 37,
         'topic-app-platforms': 12,
         'topic-runtime-cli-packages': 10,
@@ -94,7 +94,7 @@ test('12개 기본 주제 묶음이 사전 분석의 184개 분류를 빠짐없�
         'topic-product-design': 18,
         'topic-backend-cloud-auth': 10,
         'topic-data-analysis': 18,
-        'topic-ai-ml-agents': 17,
+        'topic-ai-ml-agents': 18,
         'topic-product-building': 9,
     });
 });

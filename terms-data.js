@@ -12,17 +12,17 @@
     },
     {
         "term": "authController.js",
-        "definition": "프로젝트에서 로그인·회원가입 같은 인증 요청을 처리하는 파일에 흔히 붙이는 이름입니다. 정해진 표준 파일명은 아니며, 사용 기술과 프로젝트 구조에 따라 이름과 역할이 달라집니다.",
+        "definition": "MVC 구조에서 로그인·회원가입 같은 인증 요청을 받아 처리하는 코드를 담는 파일에 관례적으로 붙이는 이름입니다. 정해진 표준 파일명은 아니며, 사용 기술과 프로젝트 구조에 따라 이름과 역할이 달라집니다.",
         "origin": "google-sheet"
     },
     {
         "term": "Markup(마크업)",
-        "definition": "문서나 데이터의 구조를 명확하게 정의하기 위해 태그 등을 이용하는 체계입니다. 단순히 텍스트를 꾸미는 것이 아니라, 컴퓨터가 문서의 각 부분을 이해하고 처리할 수 있도록 구조화하는 것이 핵심입니다.",
+        "definition": "문서 안에 태그를 덧붙여 어디가 제목이고 어디가 본문인지 같은 구조와 의미를 컴퓨터가 알아볼 수 있게 표시하는 방식입니다. 글자를 꾸미는 것이 아니라 문서의 각 부분을 구조화하는 것이 핵심입니다.",
         "origin": "google-sheet"
     },
     {
         "term": "Markup language(마크업 언어)",
-        "definition": "태그나 기호를 사용해 문서의 구조와 의미를 표현하는 언어로, HTML·XML·Markdown 등이 대표적입니다.",
+        "definition": "태그나 기호를 사용해 문서의 구조와 의미를 표현하는 규칙과 문법을 갖춘 언어를 통틀어 부르는 말로, HTML·XML·Markdown 등이 대표적입니다.",
         "origin": "google-sheet"
     },
     {
@@ -37,22 +37,25 @@
     },
     {
         "term": "Selenium(셀레니움)",
-        "definition": "웹 브라우저를 자동으로 제어할 수 있게 해주는 오픈소스 자동화 도구",
+        "definition": "웹 브라우저를 코드로 조작해 테스트와 반복 작업을 자동화하는, 오래전부터 쓰여 온 오픈소스 도구입니다. 웹 표준 방식(WebDriver)으로 브라우저를 제어하며 여러 프로그래밍 언어를 지원합니다.",
         "origin": "google-sheet"
     },
     {
         "term": "정적 렌더링",
         "definition": "페이지 내용을 빌드할 때 미리 HTML로 생성해 두고, 요청이 오면 준비된 파일을 전달하는 렌더링 방식입니다.",
+        "aliases": ["SSG", "Static Site Generation"],
         "origin": "google-sheet"
     },
     {
         "term": "클라이언트 렌더링",
         "definition": "브라우저에서 JavaScript가 데이터를 받아 화면의 HTML을 만들거나 갱신하는 렌더링 방식입니다.",
+        "aliases": ["CSR", "Client-Side Rendering"],
         "origin": "google-sheet"
     },
     {
         "term": "서버사이드 렌더링",
         "definition": "서버가 요청에 맞는 HTML을 생성해 브라우저에 전달하는 렌더링 방식입니다.",
+        "aliases": ["SSR", "Server-Side Rendering"],
         "origin": "google-sheet"
     },
     {
@@ -84,7 +87,7 @@
     },
     {
         "term": "JSON(JavaScript Object Notation)",
-        "definition": "경량의 데이터 교환 형식으로, 텍스트 기반의 구조화된 데이터를 표현하고 직렬화하기 위한 개방형 표준 포맷",
+        "definition": "이름과 값의 짝을 중괄호·대괄호로 묶어 적는 텍스트 형식으로, 웹에서 서버와 앱이 데이터를 주고받을 때 가장 널리 쓰입니다.",
         "origin": "google-sheet"
     },
     {
@@ -115,12 +118,12 @@
     },
     {
         "term": "비동기 I/O 처리",
-        "definition": "컴퓨터 프로그램이 입력/출력(I/O) 작업을 요청한 뒤, 그 작업이 끝날 때까지 기다리지 않고 다른 작업을 계속할 수 있게 하는 방식",
+        "definition": "데이터를 읽거나 쓰는 작업을 요청해 놓고, 그 작업이 끝날 때까지 멈춰 기다리지 않은 채 다른 일을 계속 처리하는 방식입니다.",
         "origin": "google-sheet"
     },
     {
         "term": "TypeScript(타입스크립트)",
-        "definition": "자바스크립트의 상위 집합 (Superset) 프로그래밍 언어로, 자바스크립트의 모든 기능을 그대로 사용하면서, 타입 지정, 인터페이스 등 추가 기능을 통해 대규모 애플리케이션 개발에 적합",
+        "definition": "자바스크립트에 타입 검사 기능을 더한 상위 집합 언어로, 큰 규모의 개발에서 오류를 미리 잡는 데 적합합니다.",
         "origin": "google-sheet"
     },
     {
@@ -130,18 +133,18 @@
     },
     {
         "term": "PowerShell(파워쉘)",
-        "definition": "명령줄 셸(Command-line shell)과 스크립팅 언어(Scripting language). 마우스로 클릭클릭하지 않고, 글자로 명령어를 입력해서 컴퓨터에게 일을 시키는 프로그램.",
+        "definition": "마이크로소프트가 만든 명령줄 셸이자 스크립트 언어로, 글자 명령으로 컴퓨터를 조작하고 윈도우 관리 작업을 자동화하는 데 널리 쓰입니다.",
         "origin": "google-sheet"
     },
     {
         "term": "Interface(인터페이스)",
-        "definition": "두 시스템, 장치, 소프트웨어, 또는 사람과 기계 사이에서 정보를 주고받을 수 있도록 해주는 접점이자, 소통을 위한 규칙 또는 매개체",
+        "definition": "서로 다른 두 대상(사람과 기계, 프로그램과 프로그램)이 맞닿아 정보를 주고받는 경계면입니다.",
         "keywords": ["접점", "사람과 기계", "소통", "연결"],
         "origin": "google-sheet"
     },
     {
         "term": "UI(User Interface)",
-        "definition": "사용자와 시스템 간의 상호작용 방식. 웹사이트나 앱에서 사용자가 보고 클릭하는 모든 시각적 기능적 요소.",
+        "definition": "사용자가 화면에서 직접 보고 누르고 입력하는 버튼·메뉴·글자 같은 요소의 모음입니다.",
         "origin": "google-sheet"
     },
     {
@@ -156,12 +159,12 @@
     },
     {
         "term": "MCP(Model Context Protocol)",
-        "definition": "AI 애플리케이션이 외부 도구와 데이터 소스에 연결할 때 공통된 방식으로 정보를 주고받도록 정한 개방형 프로토콜",
+        "definition": "AI 프로그램이 여러 외부 도구와 데이터에 같은 방식으로 연결되도록 정한 개방형 표준 규약입니다.",
         "origin": "google-sheet"
     },
     {
         "term": "IDE(Integrated Development Environment)",
-        "definition": "소프트웨어 개발에 필요한 다양한 도구를 하나로 통합한 개발 환경",
+        "definition": "코드 작성기, 오류 점검기, 실행·빌드 기능을 한 프로그램에 모아 둔 개발용 작업대입니다.",
         "origin": "google-sheet"
     },
     {
@@ -181,43 +184,44 @@
     },
     {
         "term": "Ruby on Rails(줄여서 Rails, 레일스)",
-        "definition": "Ruby 언어를 기반으로 한 웹 애플리케이션 개발 프레임워크로, 개발자 생산성과 빠른 개발을 강조하는 MVC 아키텍처 프레임워크",
+        "definition": "'설정보다 관습' 원칙으로 데이터베이스 연동·화면·경로 처리를 한 묶음으로 제공해 웹 서비스를 빠르게 만들게 하는, MVC 구조의 웹 프레임워크입니다.",
         "aliases": ["Rails", "레일스"],
         "origin": "google-sheet"
     },
     {
         "term": "MVC(Model-View-Controller)",
-        "definition": "소프트웨어 디자인 패턴으로, 애플리케이션의 로직을 세 가지 상호 연결된 요소로 분리하여 개발의 효율성과 유지보수성을 높이는 아키텍처",
+        "definition": "데이터를 다루는 부분, 화면을 보여 주는 부분, 둘을 이어 사용자 요청을 처리하는 부분, 이렇게 세 역할로 나누어 짜는 설계 패턴입니다.",
         "origin": "google-sheet"
     },
     {
         "term": "React Native",
-        "definition": "JavaScript와 React를 사용하여 iOS와 Android용 네이티브 모바일 앱을 개발할 수 있게 해주는 크로스 플랫폼 개발 도구",
+        "definition": "자바스크립트로 한 번 작성한 코드가 iOS와 Android의 기본 화면 부품으로 변환되어 동작하게 해주는, 메타(Meta)가 만든 모바일 앱 개발 프레임워크입니다.",
         "origin": "google-sheet"
     },
     {
         "term": "Native",
         "definition": "특정 운영체제나 기기용 SDK와 기능을 직접 사용해 그 플랫폼에 맞는 앱을 개발하는 방식입니다.",
+        "aliases": ["네이티브", "네이티브 앱"],
         "origin": "google-sheet"
     },
     {
         "term": "Flutter(플러터)",
-        "definition": "Google에서 개발한 오픈소스 UI 소프트웨어 개발 키트로, 단일 코드베이스로 모바일, 웹, 데스크톱 애플리케이션을 cross-platform으로 개발할 수 있게 해주는 프레임워크. 개발언어는 Dart.",
+        "definition": "하나의 코드로 모바일·웹·데스크톱 앱을 모두 만들 수 있게 해주는 구글의 프레임워크입니다. 개발 언어는 Dart입니다.",
         "origin": "google-sheet"
     },
     {
         "term": "Vue.js",
-        "definition": "사용자 인터페이스(UI)와 단일 페이지 애플리케이션(SPA)을 구축하기 위한 자바스크립트 프레임워크.",
+        "definition": "필요한 기능부터 단계적으로 도입할 수 있고, HTML 템플릿과 데이터 변화에 자동으로 반응하는 화면 갱신이 특징인 자바스크립트 프레임워크로, 에반 유(Evan You)가 만들었습니다.",
         "origin": "google-sheet"
     },
     {
         "term": "Tailwind CSS",
-        "definition": "유틸리티 클래스 기반의 CSS 프레임워크. 즉, 미리 만들어진 다양한 CSS 클래스를 HTML의 class 속성에 직접 붙여서, 별도의 CSS 파일을 작성하지 않고도 웹 요소의 색상, 크기, 여백, 정렬, 그림자 등 다양한 스타일을 빠르게 적용",
+        "definition": "HTML 요소의 class에 미리 만들어진 작은 스타일 이름을 붙여 색·크기·여백을 바로 지정하는, 유틸리티 클래스 방식의 CSS 프레임워크입니다.",
         "origin": "google-sheet"
     },
     {
         "term": "HTML",
-        "definition": "웹페이지의 구조와 내용을 정의하는 마크업 언어.  제목, 문단, 이미지, 표, 링크 등 콘텐츠의 뼈대를 정의. 정적이고 구조화된 정보를 제공.",
+        "definition": "웹페이지의 제목·문단·이미지·표·링크 같은 콘텐츠의 뼈대를 정의하는 웹의 기본 언어입니다.",
         "origin": "google-sheet"
     },
     {
@@ -232,42 +236,42 @@
     },
     {
         "term": "React(리액트)",
-        "definition": "사용자 인터페이스를 효율적으로 만들기 위한 JavaScript 기반 라이브러리. 웹 애플리케이션의 사용자 인터페이스(UI)를 효율적으로 만들기 위해 사용",
+        "definition": "화면을 컴포넌트라는 조각으로 나눠 조립하고, 데이터가 바뀌면 필요한 부분만 다시 그려 주는 메타(Meta)의 자바스크립트 UI 라이브러리입니다.",
         "origin": "google-sheet"
     },
     {
         "term": "Next.js",
-        "definition": "React로 만든 웹 애플리케이션을 더 쉽고 효율적으로 개발할 수 있게 도와주는 프레임워크",
+        "definition": "서버에서 화면을 미리 만들어 주는 렌더링, 파일 기반 페이지 경로, 서버 기능을 기본으로 제공하는 React 기반 풀스택 웹 프레임워크로, Vercel이 개발합니다.",
         "origin": "google-sheet"
     },
     {
         "term": "DOM(Document Object Model)",
-        "definition": "HTML, XML 문서의 프로그래밍 인터페이스로, 문서의 구조를 트리 형태의 객체로 표현하여 프로그래밍 언어가 문서의 내용, 구조, 스타일을 동적으로 접근하고 수정할 수 있게 해주는 모델",
+        "definition": "웹 문서의 구조를 트리 형태로 나타내, 자바스크립트 같은 언어가 내용과 스타일을 읽고 바꿀 수 있게 하는 브라우저의 표현 방식입니다.",
         "origin": "google-sheet"
     },
     {
         "term": "Virtual DOM",
-        "definition": "실제 DOM의 가벼운 복사본을 메모리에 저장하고, 변경 사항을 효율적으로 비교하여 실제 DOM 업데이트를 최소화하는 렌더링 최적화 기술",
+        "definition": "화면 구조를 메모리 위에 가볍게 복사해 두고 바뀐 부분만 비교해 실제 화면 갱신을 최소화하는 렌더링 최적화 기법입니다.",
         "origin": "google-sheet"
     },
     {
         "term": "Component(컴포넌트)",
-        "definition": "UI의 한 부분을 담당하는 작은 코드 조각",
+        "definition": "화면(UI)을 이루는 독립된 부품으로, 자체 구조와 동작을 갖고 여러 곳에서 재사용할 수 있는 코드 단위입니다.",
         "origin": "google-sheet"
     },
     {
         "term": "Reactive Component(리액티브 컴포넌트)",
-        "definition": "데이터 변경에 따라 자동으로 UI가 업데이트되는 컴포넌트",
+        "definition": "데이터(상태)가 바뀌면 화면의 해당 부분이 자동으로 다시 그려지도록 만든 UI 단위입니다.",
         "origin": "google-sheet"
     },
     {
         "term": "Node.js",
-        "definition": "자바스크립트를 웹 브라우저 밖, 즉 서버나 컴퓨터의 터미널 등에서 실행할 수 있게 해주는 자바스크립트 런타임 환경. 자바스크립트 코드를 컴퓨터에서 직접 실행할 수 있도록 해줍니다",
+        "definition": "자바스크립트를 웹 브라우저 밖의 서버나 터미널에서도 실행할 수 있게 해주는 자바스크립트 실행 환경입니다.",
         "origin": "google-sheet"
     },
     {
         "term": "Runtime(런타임)",
-        "definition": "프로그래밍 언어가 동작하는 실행 공간이자 환경을 뜻하는 개념",
+        "definition": "프로그램이 실행되는 동안 메모리 관리나 기본 기능 제공을 맡아 코드가 돌아가게 해 주는 환경입니다.",
         "origin": "google-sheet"
     },
     {
@@ -308,7 +312,7 @@
     },
     {
         "term": "Parsing(파싱)",
-        "definition": "입력된 데이터(주로 문자열)를 분석하여 의미 있는 구조(예: 토큰, 트리 등)로 변환하는 과정",
+        "definition": "글자로 된 입력(코드·문서 등)을 규칙에 따라 분석해 프로그램이 다룰 수 있는 구조(예: 트리)로 바꾸는 과정입니다.",
         "origin": "google-sheet"
     },
     {
@@ -323,7 +327,7 @@
     },
     {
         "term": "Object(객체)",
-        "definition": "여러 데이터(속성, property, attribute)와 그 데이터를 다루는 기능(메서드, method)을 하나로 묶은 단위",
+        "definition": "관련된 데이터(속성)와 그 데이터를 다루는 기능(메서드)을 하나로 묶어 다루는 단위입니다.",
         "origin": "google-sheet"
     },
     {
@@ -344,7 +348,7 @@
     },
     {
         "term": "HTTP(Hypertext Transfer Protocol)",
-        "definition": "웹에서 데이터를 주고받기 위해 사용되는 대표적인 통신 규약(프로토콜)",
+        "definition": "웹 브라우저가 서버에 자료를 요청하고 서버가 응답을 돌려주는 방식을 정해 둔 웹 통신 규칙입니다.",
         "origin": "google-sheet"
     },
     {
@@ -354,30 +358,31 @@
     },
     {
         "term": "PWA(Progressive Web App)",
-        "definition": "설치 가능한 앱과 비슷한 사용 경험을 제공하도록 만든 웹 애플리케이션입니다. 오프라인 동작이나 푸시 알림은 구현과 기기 지원 여부에 따라 달라집니다.",
+        "definition": "설치형 앱처럼 쓸 수 있도록 설치 정보 파일(manifest)과 서비스 워커 등을 갖춘 웹 애플리케이션입니다. 오프라인 동작이나 푸시 알림은 구현과 기기 지원 여부에 따라 달라집니다.",
         "origin": "google-sheet"
     },
     {
         "term": "SDK(Software Development Kit)",
-        "definition": "특정 플랫폼이나 서비스용 소프트웨어를 개발하는 데 필요한 API, 라이브러리, 문서, 빌드·테스트 도구 등을 모아 제공하는 개발 키트입니다.",
+        "definition": "특정 플랫폼이나 서비스용 앱을 만들 때 필요한 코드 모음, 문서, 예제, 도구를 한 묶음으로 제공하는 개발자용 패키지입니다.",
         "sourceUrl": "https://developer.android.com/tools",
         "origin": "google-sheet"
     },
     {
         "term": "CRUD(Create, Read, Update, Delete)",
-        "definition": "백엔드 개발에서 데이터를 다루는 네 가지 기본 작업을 의미하는 용어",
+        "definition": "저장된 정보를 다루는 가장 기본적인 네 가지 동작(생성·조회·수정·삭제)을 묶어 부르는 말입니다.",
         "aliases": ["Create, Read, Update, Delete"],
         "origin": "google-sheet"
     },
     {
         "term": "App.jsx",
-        "definition": "React 프로젝트에서 App 컴포넌트를 작성할 때 자주 쓰는 파일명입니다. 필수 표준은 아니며 파일명과 역할은 프로젝트 구성에 따라 달라집니다.",
+        "definition": "React 프로젝트에서 화면 전체의 뼈대가 되는 최상위 컴포넌트를 담아 두는 파일에 흔히 붙이는 관례적인 이름입니다. 필수 표준은 아니며 프로젝트 구성에 따라 달라집니다.",
         "sourceUrl": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Frameworks_libraries/React_getting_started",
         "origin": "google-sheet"
     },
     {
         "term": "MUI(Material UI)",
-        "definition": "React 기반의 오픈 소스 UI 컴포넌트 라이브러리",
+        "definition": "구글이 제안한 디자인 규칙을 따르는 버튼·입력창·카드 같은 화면 부품을 미리 만들어 둔 React용 오픈 소스 라이브러리입니다.",
+        "category": "frameworks",
         "origin": "google-sheet"
     },
     {
@@ -387,12 +392,13 @@
     },
     {
         "term": "Vite(비트)",
-        "definition": "프론트엔드 빌드 도구로, React, Vue, Svelte 등 다양한 프레임워크와 함께 사용할 수 있으며, 빠르고 간결한 모던 웹 프로젝트 개발 경험을 제공",
+        "definition": "React·Vue 같은 프론트엔드 프로젝트를 만들 때 개발 서버를 빠르게 띄우고 배포용 파일로 묶어 주는 빌드 도구입니다.",
+        "category": "tools",
         "origin": "google-sheet"
     },
     {
         "term": "Console(콘솔)",
-        "definition": "컴퓨터 프로그램의 입출력을 처리하는 텍스트 기반 인터페이스로, 개발자들이 프로그램의 상태를 확인하고 디버깅하는 데 사용되는 도구",
+        "definition": "프로그램이 내보내는 출력 메시지와 오류를 글자로 보여 주어, 개발자가 상태를 확인하고 문제를 찾는 데 쓰는 텍스트 창입니다.",
         "origin": "google-sheet"
     },
     {
@@ -439,7 +445,7 @@
     },
     {
         "term": "GitHub Pages",
-        "definition": "GitHub 저장소의 정적 HTML·CSS·JavaScript 파일을 무료 웹사이트로 공개하는 호스팅 기능입니다.",
+        "definition": "GitHub 저장소의 정적 HTML·CSS·JavaScript 파일을 그대로 웹사이트로 공개해 주는 호스팅 기능입니다. 무료 계정에서는 공개 저장소로 쓸 수 있습니다.",
         "category": "deployment",
         "icon": "🌐",
         "origin": "source-glossary"
@@ -453,22 +459,23 @@
     },
     {
         "term": "Cloudflare Pages",
-        "definition": "Git 저장소나 업로드한 파일에서 웹사이트를 빌드·배포하고, 함께 제공되는 서버리스 함수로 서버 기능도 추가할 수 있는 Cloudflare의 웹 배포 서비스입니다.",
+        "definition": "Git 저장소나 업로드한 파일에서 웹사이트를 자동으로 빌드·배포하고, 함께 제공되는 서버리스 함수로 서버 기능도 추가할 수 있는 전 세계 분산 서버망 기반의 웹 배포 서비스입니다.",
         "category": "deployment",
         "icon": "☁️",
         "sourceUrl": "https://developers.cloudflare.com/pages/",
+        "aliases": ["Cloudflare", "클라우드플레어"],
         "origin": "source-glossary"
     },
     {
         "term": "Vercel",
-        "definition": "Git 저장소의 웹 프로젝트를 자동 빌드·배포하고 미리보기 주소를 제공하는 호스팅 플랫폼입니다.",
+        "definition": "Next.js를 만든 회사가 운영하며, Git 저장소의 웹 프로젝트를 자동 빌드·배포하고 푸시마다 미리보기 주소를 만들어 주는 호스팅 플랫폼입니다.",
         "category": "deployment",
         "icon": "▲",
         "origin": "source-glossary"
     },
     {
         "term": "Netlify",
-        "definition": "정적 사이트와 프론트엔드 프로젝트의 자동 빌드, 배포, 미리보기와 폼 기능 등을 제공하는 플랫폼입니다.",
+        "definition": "정적 사이트를 Git에서 자동 빌드·배포하고, 별도 서버 없이 제출 폼을 받는 폼 기능을 내장한 배포 플랫폼입니다.",
         "category": "deployment",
         "icon": "🪂",
         "origin": "source-glossary"
@@ -644,14 +651,14 @@
     },
     {
         "term": "Claude Design",
-        "definition": "자연어 설명을 바탕으로 웹 화면의 구조와 시각적 초안을 생성하도록 돕는 Anthropic 계열 디자인 도구입니다.",
+        "definition": "자연어로 대화하며 화면 시안·프로토타입·슬라이드 같은 시각 결과물의 초안을 만들어 주는 Anthropic 계열 디자인 도구입니다.",
         "category": "design",
         "icon": "🟠",
         "origin": "source-glossary"
     },
     {
         "term": "Figma Make",
-        "definition": "Figma 안에서 자연어 요청을 바탕으로 동작 가능한 화면 초안과 프로토타입을 만드는 기능입니다.",
+        "definition": "디자인 협업 도구 안에서 자연어 요청으로 동작 가능한 화면 초안과 프로토타입을 만드는 AI 기능입니다.",
         "category": "design",
         "icon": "✨",
         "origin": "source-glossary"
@@ -688,7 +695,7 @@
         "term": "Google AI Studio",
         "definition": "Google의 생성형 인공지능 모델을 브라우저에서 시험하고 프롬프트와 API 코드를 만들 수 있는 도구입니다.",
         "category": "tools",
-        "icon": "🧪",
+        "icon": "🔬",
         "origin": "source-glossary"
     },
     {
@@ -724,6 +731,7 @@
         "definition": "사용자에게 보이는 화면 영역과 서버에서 데이터·규칙·보안을 처리하는 영역을 구분한 개념입니다.",
         "category": "concepts",
         "icon": "🧱",
+        "aliases": ["프론트엔드", "백엔드", "Frontend", "Backend"],
         "origin": "source-glossary"
     },
     {
@@ -749,15 +757,15 @@
     },
     {
         "term": "Google Auth",
-        "definition": "Google 계정을 이용해 별도 비밀번호 없이 서비스에 로그인하도록 연결하는 OAuth 기반 인증 방식입니다.",
-        "category": "tools",
+        "definition": "별도 비밀번호를 새로 만들지 않고, 이미 가진 검색·메일 대기업의 계정으로 서비스에 로그인하도록 연결하는 OAuth 기반 소셜 로그인 방식입니다.",
+        "category": "concepts",
         "icon": "🔑",
         "origin": "source-glossary"
     },
     {
         "term": "PDF",
         "definition": "운영체제와 프로그램이 달라도 문서의 글꼴과 배치를 거의 동일하게 보여주는 문서 파일 형식입니다.",
-        "category": "concepts",
+        "category": "data",
         "icon": "📄",
         "origin": "source-glossary"
     },
@@ -791,9 +799,10 @@
     },
     {
         "term": "XLSX (엑셀)",
-        "definition": "여러 시트, 수식, 서식과 차트를 담을 수 있는 Microsoft Excel 통합 문서 파일 형식입니다.",
+        "definition": "마이크로소프트의 표 계산 프로그램에서 쓰는 통합 문서 파일 형식으로, 여러 시트·수식·서식·차트를 한 파일에 담을 수 있습니다.",
         "category": "data",
         "icon": "📗",
+        "aliases": ["Excel"],
         "origin": "source-glossary"
     },
     {
@@ -828,7 +837,7 @@
         "term": "머신러닝",
         "definition": "명시적인 규칙을 모두 작성하는 대신 데이터의 패턴을 학습해 분류나 추정 작업을 수행하게 하는 방법입니다.",
         "category": "data",
-        "icon": "🤖",
+        "icon": "📚",
         "origin": "source-glossary"
     },
     {
@@ -840,14 +849,14 @@
     },
     {
         "term": "PyTorch",
-        "definition": "Python 친화적인 사용법과 동적 계산 그래프를 제공하는 오픈소스 머신러닝 프레임워크입니다. 현재 Linux Foundation 산하 재단이 관리합니다.",
+        "definition": "페이스북(현 Meta)의 AI 연구팀에서 시작된 오픈소스 머신러닝 프레임워크로, 코드를 실행하는 순간 계산 구조가 만들어지는 동적 계산 그래프 방식이 특징입니다.",
         "category": "data",
         "icon": "🔥",
         "origin": "source-glossary"
     },
     {
         "term": "Playwright",
-        "definition": "실제 브라우저를 코드로 조작해 웹페이지 동작을 자동으로 검사하거나 데이터를 수집하는 도구입니다.",
+        "definition": "Microsoft가 만든 오픈소스 브라우저 자동화 도구로, Chromium·Firefox·WebKit을 하나의 코드로 조작해 테스트와 데이터 수집에 씁니다.",
         "category": "tools",
         "icon": "🎭",
         "origin": "source-glossary"
@@ -871,6 +880,7 @@
         "definition": "데이터셋 공유, 분석 노트북과 머신러닝 경진대회를 제공하는 데이터 과학 온라인 플랫폼입니다.",
         "category": "data",
         "icon": "🏆",
+        "aliases": ["Kaggle"],
         "origin": "source-glossary"
     },
     {
@@ -878,6 +888,7 @@
         "definition": "여러 층의 인공신경망이 대량의 데이터에서 복잡한 특징과 패턴을 학습하도록 하는 머신러닝 방식입니다.",
         "category": "data",
         "icon": "🕸️",
+        "aliases": ["Deep Learning"],
         "origin": "source-glossary"
     },
     {
@@ -910,9 +921,10 @@
     },
     {
         "term": "서브에이전트",
-        "definition": "주 에이전트가 검색, 검토, 구현처럼 범위가 좁은 작업을 따로 맡기기 위해 호출하는 보조 에이전트입니다.",
+        "definition": "주된 AI가 검색, 검토, 구현처럼 범위가 좁은 작업을 따로 맡기기 위해 호출하는 보조 AI입니다.",
         "category": "concepts",
         "icon": "🧵",
+        "aliases": ["Subagent"],
         "origin": "source-glossary"
     },
     {
@@ -952,7 +964,7 @@
     },
     {
         "term": "Notion MCP",
-        "definition": "인공지능이 표준 연결 규격을 통해 Notion 페이지를 읽고 검색하거나 수정하도록 이어 주는 서버입니다.",
+        "definition": "인공지능이 표준 연결 규격을 통해 협업용 문서 도구의 페이지를 읽고 검색하거나 수정하도록 이어 주는 서버입니다.",
         "category": "tools",
         "icon": "🗒️",
         "origin": "source-glossary"
@@ -966,7 +978,7 @@
     },
     {
         "term": "캡스톤",
-        "definition": "과정에서 배운 여러 지식과 기술을 통합해 실제 문제를 해결하는 최종 종합 프로젝트입니다.",
+        "definition": "교육과정이나 수업에서 배운 여러 지식과 기술을 통합해 실제 문제를 해결하는 최종 종합 프로젝트입니다.",
         "category": "concepts",
         "icon": "🎓",
         "origin": "source-glossary"
@@ -991,7 +1003,7 @@
         "term": "Hero Section(히어로 섹션)",
         "definition": "웹사이트에 들어가자마자 가장 먼저 보이는 메인 소개 영역입니다. 제품이나 서비스가 무엇인지 첫눈에 알리려고 짧고 강한 제목, 설명, 방문자가 눌러 주길 바라는 핵심 버튼(CTA), 대표 이미지를 둡니다.",
         "category": "design",
-        "icon": "🏁",
+        "icon": "🦸",
         "origin": "ui-terms-video"
     },
     {
@@ -1003,7 +1015,7 @@
     },
     {
         "term": "Card Layout(카드 레이아웃)",
-        "definition": "흩어져 있던 정보를 독립된 박스 여러 개로 나누어 보여 주는 구성입니다. 상품 목록, 블로그 글, 서비스 기능 소개처럼 반복되는 정보를 보여 줄 때 흔히 씁니다.",
+        "definition": "흩어져 있던 정보를 같은 모양의 독립된 박스 여러 개로 나누어 나란히 반복 배치하는 구성입니다. 상품 목록, 블로그 글, 서비스 기능 소개처럼 반복되는 정보를 보여 줄 때 흔히 씁니다.",
         "category": "design",
         "icon": "🗂️",
         "origin": "ui-terms-video"
@@ -1033,7 +1045,7 @@
         "term": "Split Layout(스플릿 레이아웃)",
         "definition": "이미지와 글처럼 두 영역을 화면 좌우로 나누어 배치하는 구성입니다. 제품 소개나 기능 설명에 자주 쓰이며, 화면이 좁아지면 위아래로 쌓이게 만드는 것이 보통입니다.",
         "category": "design",
-        "icon": "◧",
+        "icon": "🔳",
         "origin": "ui-terms-video"
     },
     {
@@ -1041,6 +1053,7 @@
         "definition": "여러 종류의 내용을 한 공간에서 바꿔 가며 보여 주는 구성 요소입니다. 페이지를 새로 열지 않고 그 구역 안의 내용만 바꿀 수 있어, 개요·기능·요금 정보를 나누어 보여 줄 때 씁니다.",
         "category": "design",
         "icon": "🔖",
+        "aliases": ["Tab"],
         "origin": "ui-terms-video"
     },
     {
@@ -1054,7 +1067,7 @@
         "term": "Modal(모달)",
         "definition": "화면 위에 별도의 창을 띄워 중요한 확인이나 입력을 먼저 처리하게 하는 구성 요소입니다. 뒤 화면을 반투명한 막으로 어둡게 덮는 것이 특징이며, 저장이나 삭제를 확인할 때 많이 씁니다.",
         "category": "design",
-        "icon": "🪟",
+        "icon": "🔲",
         "origin": "ui-terms-video",
         "aliases": [
             "Dialog",
@@ -1063,7 +1076,7 @@
     },
     {
         "term": "Drawer(드로어)",
-        "definition": "화면 옆에서 서랍처럼 밀려 나오는 패널입니다. 지금 페이지를 벗어나지 않고 설정, 필터, 상세 정보 같은 보조 작업을 할 때 쓰며, 화면 한가운데서 집중을 요구하는 창보다 하던 일을 덜 끊습니다.",
+        "definition": "화면 옆에서 밀려 나오는 패널 형태의 구성 요소입니다. 지금 페이지를 벗어나지 않고 설정, 필터, 상세 정보 같은 보조 작업을 할 때 쓰며, 화면 한가운데서 집중을 요구하는 창보다 하던 일을 덜 끊습니다.",
         "category": "design",
         "icon": "🗄️",
         "origin": "ui-terms-video"
@@ -1077,14 +1090,14 @@
     },
     {
         "term": "Tooltip(툴팁)",
-        "definition": "아이콘이나 버튼의 의미를 짧게 알려 주는 작은 안내창입니다. 마우스를 올리거나 키보드로 포커스를 두면 나타나서, 화면을 복잡하게 만들지 않고 필요한 사람에게만 정보를 보충합니다.",
+        "definition": "아이콘이나 버튼의 의미를 짧게 알려 주는 작은 안내창 형태의 구성 요소입니다. 마우스를 올리거나 키보드로 포커스를 두면 나타나서, 화면을 복잡하게 만들지 않고 필요한 사람에게만 정보를 보충합니다.",
         "category": "design",
         "icon": "💬",
         "origin": "ui-terms-video"
     },
     {
         "term": "Toast(토스트)",
-        "definition": "저장 같은 동작의 결과를 화면 아래쪽에 잠깐 띄웠다가 저절로 사라지게 하는 알림입니다. 계속 화면을 가리는 팝업보다 가볍게 결과를 알려 줍니다.",
+        "definition": "저장 같은 동작의 결과를 화면 아래쪽에 잠깐 띄웠다가 저절로 사라지게 하는 알림 구성 요소입니다. 계속 화면을 가리는 팝업보다 가볍게 결과를 알려 줍니다.",
         "category": "design",
         "icon": "🍞",
         "origin": "ui-terms-video",
@@ -1095,14 +1108,14 @@
     },
     {
         "term": "Carousel(캐러셀)",
-        "definition": "여러 카드나 이미지를 옆으로 넘겨 가며 보여 주는 방식입니다. 회전목마라는 뜻이며, 공간이 한정될 때 고객 후기나 이미지 갤러리에서 자주 쓰고 좌우 버튼이나 모바일 스와이프로 넘깁니다.",
+        "definition": "여러 카드나 이미지를 옆으로 넘겨 가며 보여 주는 구성 요소입니다. 공간이 한정될 때 고객 후기나 이미지 갤러리에서 자주 쓰고 좌우 버튼이나 모바일 스와이프로 넘깁니다.",
         "category": "design",
         "icon": "🎠",
         "origin": "ui-terms-video"
     },
     {
         "term": "Skeleton Loading(스켈레톤 로딩)",
-        "definition": "데이터를 불러오는 동안 빈 화면 대신 실제 구조와 비슷한 회색 윤곽을 먼저 보여 주는 방식입니다. 뼈대만 먼저 보여 주어 지금 불러오는 중이라는 것을 자연스럽게 알립니다.",
+        "definition": "데이터를 불러오는 동안 빈 화면 대신 실제 구조와 비슷한 회색 윤곽을 먼저 보여 주는 방식입니다. 구조만 먼저 보여 주어 지금 불러오는 중이라는 것을 자연스럽게 알립니다.",
         "category": "design",
         "icon": "💀",
         "origin": "ui-terms-video"
@@ -1130,14 +1143,14 @@
     },
     {
         "term": "Smooth Transition(스무스 트랜지션)",
-        "definition": "상태가 바뀔 때 뚝 끊기지 않고 자연스럽게 이어지도록 하는 전환 효과입니다. 버튼과 카드의 선택 상태가 0.2초 정도 부드럽게 바뀌게 하면 화면 완성도가 높아집니다.",
+        "definition": "색, 크기, 위치 같은 값이 바로 바뀌지 않고 0.2초 안팎의 짧은 시간에 걸쳐 서서히 이어지도록 만드는 효과입니다. 버튼이나 카드의 선택 상태를 부드럽게 바꿀 때 씁니다.",
         "category": "design",
         "icon": "🌊",
         "origin": "ui-terms-video"
     },
     {
         "term": "Glassmorphism(글래스모피즘)",
-        "definition": "뒤쪽이 흐릿하게 비치는 반투명 유리 질감의 화면 스타일입니다. 반투명 배경과 배경 흐림 효과로 만들며, 글자가 잘 안 읽힐 수 있어 대비를 충분히 확보해야 합니다.",
+        "definition": "뒤쪽이 흐릿하게 비치는 반투명 질감의 화면 스타일입니다. 반투명 배경과 배경 흐림 효과로 만들며, 글자가 잘 안 읽힐 수 있어 대비를 충분히 확보해야 합니다.",
         "category": "design",
         "icon": "🧊",
         "origin": "ui-terms-video"

@@ -35,7 +35,8 @@ test('같은 입력 감사에는 허용 코드와 재검사 절차가 같은 순
     assert.equal(first.phase, 'baseline');
     assert.equal(first.summary.entities, 184);
     assert.equal(first.summary.weakPathAssignments, 0);
-    assert.equal(first.summary.unansweredCompetencyQuestions, 3);
+    // 차이 비교 관계(cq-2)가 검토 완료로 올라와 미해결은 선행(cq-1)·연결 이유 등 2개만 남는다.
+    assert.equal(first.summary.unansweredCompetencyQuestions, 2);
     assert.equal(first.summary.ambiguousEntityTypes, 0);
     assert.equal(first.summary.propertyIssues, 0);
     assert.equal(

@@ -81,7 +81,9 @@ test('발견은 점수가 큰 것부터 나오고 순서가 흔들리지 않는�
 });
 
 test('학습에 직접 답하는 관계 유형이 비면 가장 위쪽으로 올라온다', () => {
-    const result = analyzeOntology(ontology);
+    // 실제 데이터에는 차이 비교 관계가 올라와 있으므로, 비어 있는 상황은 관계를 뺀 복사본으로 확인한다.
+    const withoutContrast = { ...ontology, relations: ontology.relations.filter(item => item.type !== 'contrasts_with') };
+    const result = analyzeOntology(withoutContrast);
     const unused = result.findings.filter(item => item.code === 'RELATION_TYPE_UNUSED');
     const prerequisite = unused.find(item => item.title.includes('먼저 학습'));
     const contrast = unused.find(item => item.title.includes('차이 비교'));
@@ -89,6 +91,8 @@ test('학습에 직접 답하는 관계 유형이 비면 가장 위쪽으로 올
     assert.ok(contrast, '차이 비교 관계 미사용이 보고되지 않았습니다');
     assert.equal(prerequisite.impact, TYPE_WEIGHTS.prerequisite_of);
     assert.equal(contrast.impact, TYPE_WEIGHTS.contrasts_with);
+    const real = analyzeOntology(ontology).findings.filter(item => item.code === 'RELATION_TYPE_UNUSED');
+    assert.ok(!real.some(item => item.title.includes('차이 비교')), '차이 비교 관계가 있는데도 미사용으로 보고됩니다');
 });
 
 test('어댑터는 검토 완료 관계만 그래프에 넣는다', () => {
