@@ -1,7 +1,7 @@
 (function exposeGlossaryLearning(root) {
     const stages = [
         { title: '준비하기', paths: ['path-runtime-and-commands', 'path-ai-coding-tools'] },
-        { title: '화면 만들기', paths: ['path-web-page-basics', 'path-web-rendering', 'path-app-framework-choice'] },
+        { title: '화면 만들기', paths: ['path-web-page-basics', 'path-web-rendering', 'path-app-framework-choice', 'path-ui-page-layouts', 'path-ui-components', 'path-ui-effects'] },
         { title: '정보 연결하기', paths: ['path-api-system-connection', 'path-backend-cloud-auth', 'path-data-files', 'path-data-analysis'] },
         { title: 'AI 활용하기', paths: ['path-llm-agents', 'path-machine-learning'] },
         { title: '공개하기', paths: ['path-git-collaboration', 'path-web-deployment'] },

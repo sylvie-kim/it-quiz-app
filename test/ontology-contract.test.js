@@ -9,9 +9,9 @@ const { buildRegistry } = require('../scripts/bootstrap-ontology-registry.js');
 const terms = require('../terms-data.js');
 const ontology = require('../ontology-data.js');
 
-test('160개 용어가 중복 없는 안정 ID와 주제를 가진다', () => {
-    assert.equal(ontology.termRegistry.length, 160);
-    assert.equal(new Set(ontology.termRegistry.map(item => item.id)).size, 160);
+test('184개 용어가 중복 없는 안정 ID와 주제를 가진다', () => {
+    assert.equal(ontology.termRegistry.length, 184);
+    assert.equal(new Set(ontology.termRegistry.map(item => item.id)).size, 184);
     assert.deepEqual(
         new Set(ontology.termRegistry.map(item => item.label)),
         new Set(terms.map(item => item.term)),
@@ -29,7 +29,7 @@ test('Routing은 네트워크 트래픽 경로를 정하는 개념으로 분류�
     assert.deepEqual(routing.topicIds, ['topic-interfaces-network']);
 });
 
-test('배포 등록부 ID는 부트스트랩이 만든 160개 안정 ID와 순서까지 같다', () => {
+test('배포 등록부 ID는 부트스트랩이 만든 184개 안정 ID와 순서까지 같다', () => {
     assert.deepEqual(
         ontology.termRegistry.map(item => item.id),
         buildRegistry(terms).map(item => item.id),
@@ -76,22 +76,22 @@ test('등록부는 정의를 복사하지 않고 12개 학습 주제만 참조�
     }
     const relationIds = ontology.relations.map(relation => relation.id);
     assert.equal(new Set(relationIds).size, relationIds.length, '관계 ID가 중복됩니다');
-    assert.equal(ontology.learningPaths.length, 15);
+    assert.equal(ontology.learningPaths.length, 18);
 });
 
-test('12개 기본 주제 묶음이 사전 분석의 160개 분류를 빠짐없이 보존한다', () => {
+test('12개 기본 주제 묶음이 사전 분석의 184개 분류를 빠짐없이 보존한다', () => {
     const primaryCounts = Object.fromEntries(ontology.topics.map(topic => [topic.id, 0]));
     for (const item of ontology.termRegistry) primaryCounts[item.topicIds[0]] += 1;
 
     assert.deepEqual(primaryCounts, {
         'topic-software-basics': 16,
-        'topic-web-ui': 21,
+        'topic-web-ui': 37,
         'topic-app-platforms': 12,
         'topic-runtime-cli-packages': 10,
         'topic-interfaces-network': 12,
         'topic-version-control-delivery': 12,
         'topic-developer-ai-tools': 13,
-        'topic-product-design': 10,
+        'topic-product-design': 18,
         'topic-backend-cloud-auth': 10,
         'topic-data-analysis': 18,
         'topic-ai-ml-agents': 17,
