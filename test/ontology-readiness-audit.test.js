@@ -33,7 +33,7 @@ test('같은 입력 감사에는 허용 코드와 재검사 절차가 같은 순
 
     assert.deepEqual(first, second);
     assert.equal(first.phase, 'baseline');
-    assert.equal(first.summary.entities, 160);
+    assert.equal(first.summary.entities, 184);
     assert.equal(first.summary.weakPathAssignments, 0);
     assert.equal(first.summary.unansweredCompetencyQuestions, 3);
     assert.equal(first.summary.ambiguousEntityTypes, 0);

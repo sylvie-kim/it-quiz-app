@@ -92,10 +92,10 @@ test('검색은 용어명·별칭·정의와 일치한 결과의 경로를 돌�
     assert.equal(result[0].primaryTopicId, 'topic-interfaces-network');
 });
 
-test('경로 선택지는 15개 경로의 제목·설명·보조 용어를 직접 제공한다', () => {
+test('경로 선택지는 18개 경로의 제목·설명·보조 용어를 직접 제공한다', () => {
     const views = ontology.learningPaths.map(path => buildLearningPathViewModel({ ontology, pathId: path.id }));
 
-    assert.equal(views.length, 15);
+    assert.equal(views.length, 18);
     assert.ok(views.every(view => view.title && view.description));
     assert.ok(views.some(view => view.supportingTermIds.length > 0));
     assert.deepEqual(
@@ -122,7 +122,7 @@ test('학습 분야는 첫 주제가 아니라 연결된 모든 topicId 아래�
         assert.deepEqual(getPathsForTopic(ontology, topic.id).map(path => path.id), expected, topic.id);
     }
 
-    assert.equal(new Set(ontology.learningPaths.map(path => path.id)).size, 15);
+    assert.equal(new Set(ontology.learningPaths.map(path => path.id)).size, 18);
 });
 
 test('선택 용어 상세는 현재 경로의 적합도와 REVIEWED 관계의 근거만 보여준다', () => {
@@ -207,7 +207,7 @@ test('다시 렌더링한 뒤에는 보이는 동일 용어 버튼으로 초점�
     assert.deepEqual(calls, ['visible']);
 });
 
-test('지도 DOM은 15개 경로와 선택한 주제·경로·본문 설명·퀴즈 대상을 함께 갱신한다', () => {
+test('지도 DOM은 18개 경로와 선택한 주제·경로·본문 설명·퀴즈 대상을 함께 갱신한다', () => {
     const focusCalls = [];
     const documentRef = makeLearningMapDom({
         focusControl: {
@@ -280,13 +280,13 @@ test('지도 DOM 상세는 REVIEWED 연결의 이유·출처를 보이고 INFERR
     assert.doesNotMatch(detail, /표시되면 안 되는 후보/);
 });
 
-test('A안은 160개 모든 용어를 적합도 평가와 함께 15개 경로에 포함한다', () => {
-    assert.equal(ontology.learningPaths.length, 15);
+test('A안은 184개 모든 용어를 적합도 평가와 함께 18개 경로에 포함한다', () => {
+    assert.equal(ontology.learningPaths.length, 18);
     const covered = new Set(ontology.learningPaths.flatMap(path => [
         ...path.primaryTermIds,
         ...path.supportingTermIds,
     ]));
-    assert.equal(covered.size, 160);
+    assert.equal(covered.size, 184);
     for (const item of ontology.termRegistry) {
         assert.ok(covered.has(item.id), `${item.label}: 학습 경로에서 누락됨`);
         assert.equal(Object.hasOwn(item, 'pathIds'), false);

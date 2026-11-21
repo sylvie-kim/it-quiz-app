@@ -6,10 +6,10 @@ const ontology = require('../ontology-data.js');
 
 const layout = computeGraphLayout(ontology);
 
-test('배치는 160개 용어와 12개 주제를 모두 담는다', () => {
-    assert.equal(layout.summary.terms, 160);
+test('배치는 184개 용어와 12개 주제를 모두 담는다', () => {
+    assert.equal(layout.summary.terms, 184);
     assert.equal(layout.summary.topics, 12);
-    assert.equal(layout.nodes.length, 160);
+    assert.equal(layout.nodes.length, 184);
     assert.equal(layout.clusters.length, 12);
 });
 
@@ -52,7 +52,7 @@ test('선은 승인된 관계만 그리고 양 끝 좌표가 노드와 일치한
 test('연결 수는 실제 관계 수와 맞고 외톨이가 몇 개인지 알려준다', () => {
     const connected = layout.nodes.filter(node => node.degree > 0);
     assert.equal(layout.summary.connectedTerms, connected.length);
-    assert.equal(layout.summary.isolatedTerms, 160 - connected.length);
+    assert.equal(layout.summary.isolatedTerms, 184 - connected.length);
     const totalDegree = layout.nodes.reduce((sum, node) => sum + node.degree, 0);
     assert.equal(totalDegree, layout.edges.length * 2);
 });
@@ -95,7 +95,7 @@ function svgWithLabels(options) {
 
 test('SVG에는 용어마다 점 하나, 관계마다 선 하나가 나온다', () => {
     const svg = svgWithLabels();
-    assert.equal((svg.match(/<circle/g) || []).length, 160);
+    assert.equal((svg.match(/<circle/g) || []).length, 184);
     assert.equal((svg.match(/<line/g) || []).length, ontology.relations.length);
 });
 

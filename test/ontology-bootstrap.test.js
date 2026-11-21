@@ -7,12 +7,12 @@ const terms = require('../terms-data.js');
 const bootstrapPath = path.join(__dirname, '..', 'scripts', 'bootstrap-ontology-registry.js');
 const { buildRegistry, makeStableId } = require(bootstrapPath);
 
-test('등록부는 정본 입력 순서를 보존하면서 160개 고유 ID를 만든다', () => {
+test('등록부는 정본 입력 순서를 보존하면서 184개 고유 ID를 만든다', () => {
     const registry = buildRegistry(terms);
 
-    assert.equal(registry.length, 160);
+    assert.equal(registry.length, 184);
     assert.deepEqual(registry.map(item => item.label), terms.map(item => item.term));
-    assert.equal(new Set(registry.map(item => item.id)).size, 160);
+    assert.equal(new Set(registry.map(item => item.id)).size, 184);
     assert.deepEqual(registry[0], {
         id: 'term-tdd',
         entityType: 'term',
@@ -52,10 +52,10 @@ test('생성 ID가 충돌하면 임의 번호를 붙이지 않고 중단한다',
     );
 });
 
-test('CLI는 로그가 섞이지 않은 160개 JSON 레코드만 출력한다', () => {
+test('CLI는 로그가 섞이지 않은 184개 JSON 레코드만 출력한다', () => {
     const stdout = execFileSync(process.execPath, [bootstrapPath], { encoding: 'utf8' });
     const registry = JSON.parse(stdout);
 
-    assert.equal(registry.length, 160);
-    assert.equal(new Set(registry.map(item => item.id)).size, 160);
+    assert.equal(registry.length, 184);
+    assert.equal(new Set(registry.map(item => item.id)).size, 184);
 });

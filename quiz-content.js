@@ -21,6 +21,9 @@
         ['RAG', '벡터DB', 'Tool Calling', 'AI Agent', 'LangChain', 'MCP(Model Context Protocol)', '컨텍스트 윈도우'],
         ['TDD(Test-Driven Development, 테스트 주도 개발)', 'Refactoring(리팩토링)', 'MVP', '린 스타트업', '사용자 테스트'],
         ['PNG', 'JPG', 'PDF', 'SVG'],
+        ['Hero Section(히어로 섹션)', 'Responsive Layout(반응형 레이아웃)', 'Card Layout(카드 레이아웃)', 'Bento Grid(벤토 그리드)', 'Sidebar Layout(사이드바 레이아웃)', 'Sticky Header(스티키 헤더)', 'Split Layout(스플릿 레이아웃)'],
+        ['Tabs(탭)', 'Accordion(아코디언)', 'Modal(모달)', 'Drawer(드로어)', 'Dropdown(드롭다운)', 'Tooltip(툴팁)', 'Toast(토스트)', 'Carousel(캐러셀)', 'Skeleton Loading(스켈레톤 로딩)'],
+        ['Hover Effect(호버 이펙트)', 'Scroll Reveal(스크롤 리빌)', 'Stagger Animation(스태거 애니메이션)', 'Smooth Transition(스무스 트랜지션)', 'Glassmorphism(글래스모피즘)', 'Parallax Scrolling(패럴랙스 스크롤링)', 'Scroll Snap(스크롤 스냅)', 'Micro-interaction(마이크로 인터랙션)'],
     ];
 
     const ambiguousDistractorPairs = [
@@ -38,6 +41,9 @@
         ['Hosting(호스팅)', 'Netlify'],
         ['React(리액트)', 'MUI(Material UI)'],
         ['머신러닝', '딥러닝'],
+        ['Accordion(아코디언)', 'Dropdown(드롭다운)'],
+        ['Hover Effect(호버 이펙트)', 'Smooth Transition(스무스 트랜지션)'],
+        ['Scroll Reveal(스크롤 리빌)', 'Stagger Animation(스태거 애니메이션)'],
     ];
 
     const reviewedFalseDefinitionPairs = [
@@ -105,6 +111,36 @@
             term: 'Interface(인터페이스)',
             scenario: '스마트폰 터치 화면처럼 사용자와 기계, 또는 두 시스템이 서로 정보를 주고받게 하는 접점은?',
             explanation: '인터페이스는 사용자와 기계 또는 서로 다른 시스템이 상호작용하는 접점입니다.',
+        },
+        {
+            term: 'Modal(모달)',
+            scenario: '삭제 버튼을 누르자 뒤 화면이 어두워지면서 "정말 삭제할까요?"라는 창이 떴고, 이 창부터 처리해야 다른 일을 할 수 있습니다. 이런 창을 무엇이라고 할까요?',
+            explanation: '모달은 화면 위에 별도의 창을 띄워 중요한 확인이나 입력을 먼저 처리하게 합니다. 뒤 화면을 어둡게 덮는 반투명한 막이 함께 나타납니다.',
+        },
+        {
+            term: 'Drawer(드로어)',
+            scenario: '설정 버튼을 누르면 오른쪽에서 패널이 밀려 나와서, 지금 보던 페이지를 벗어나지 않고 설정을 바꿀 수 있습니다. 이 패널을 무엇이라고 할까요?',
+            explanation: '드로어는 화면 옆에서 서랍처럼 열려서 하던 일을 덜 끊으면서 보조 작업을 할 수 있게 합니다.',
+        },
+        {
+            term: 'Toast(토스트)',
+            scenario: '저장 버튼을 누르자 화면 아래에 "저장되었습니다"라는 알림이 3초 동안 떴다가 저절로 사라졌습니다. 이런 알림을 무엇이라고 할까요?',
+            explanation: '토스트는 동작의 결과를 잠깐 보여 주고 저절로 사라지는 가벼운 알림이며, 스낵바라고도 부릅니다.',
+        },
+        {
+            term: 'Skeleton Loading(스켈레톤 로딩)',
+            scenario: '데이터를 불러오는 동안 빈 화면 대신 실제 카드와 비슷한 모양의 회색 윤곽을 먼저 보여 줍니다. 이런 로딩 방식을 무엇이라고 할까요?',
+            explanation: '스켈레톤 로딩은 뼈대만 먼저 보여 주어 지금 불러오는 중이라는 것을 자연스럽게 알립니다.',
+        },
+        {
+            term: 'Sticky Header(스티키 헤더)',
+            scenario: '페이지를 한참 아래로 내려도 상단 메뉴가 화면 위에 계속 붙어 있어서 어디서든 바로 누를 수 있습니다. 이런 상단 영역을 무엇이라고 할까요?',
+            explanation: '스티키 헤더는 스크롤해도 화면 위쪽에 달라붙어 따라오는 상단 영역입니다.',
+        },
+        {
+            term: 'Bento Grid(벤토 그리드)',
+            scenario: '핵심 기능은 큰 칸으로, 나머지 기능은 작은 칸으로 크기를 다르게 배치해 소개하는 섹션입니다. 이런 배치를 무엇이라고 할까요?',
+            explanation: '벤토 그리드는 중요한 항목은 크게, 보조 항목은 작게 보여 주는 배치이며 도시락을 뜻하는 일본어에서 이름을 따왔습니다.',
         },
     ];
 
@@ -225,8 +261,8 @@
         return shuffle([answer.term, ...distractors.map(item => item.term)]);
     }
 
-    function shuffleItems(values, seed) {
-        const shuffled = [...values];
+    // 시드당 난수 상태를 한 번만 만들어, 호출할 때마다 다른 순서가 나오게 한다.
+    function createShuffler(seed) {
         let currentSeed = Number.isFinite(seed) ? seed >>> 0 : null;
         const random = currentSeed === null
             ? Math.random
@@ -235,12 +271,17 @@
                 return currentSeed / 4294967296;
             };
 
-        for (let index = shuffled.length - 1; index > 0; index -= 1) {
-            const target = Math.floor(random() * (index + 1));
-            [shuffled[index], shuffled[target]] = [shuffled[target], shuffled[index]];
-        }
-        return shuffled;
+        return values => {
+            const shuffled = [...values];
+            for (let index = shuffled.length - 1; index > 0; index -= 1) {
+                const target = Math.floor(random() * (index + 1));
+                [shuffled[index], shuffled[target]] = [shuffled[target], shuffled[index]];
+            }
+            return shuffled;
+        };
     }
+
+    const shuffleItems = (values, seed) => createShuffler(seed)(values);
 
     function uniqueTerms(terms) {
         const seen = new Set();
@@ -274,7 +315,7 @@
     } = {}) {
         const randomize = typeof shuffle === 'function'
             ? shuffle
-            : values => shuffleItems(values, seed);
+            : createShuffler(seed);
         const candidates = uniqueTerms(answerPool).map(term => {
             const options = buildMultipleChoiceOptions({
                 answer: term,

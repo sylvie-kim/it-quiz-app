@@ -4,13 +4,13 @@ const ontology = require('../ontology-data.js');
 const terms = require('../terms-data.js');
 const { stages, pathTerms, getTermContext, createLessonState } = require('../glossary-learning.js');
 
-test('six stages cover all fifteen existing paths and all 160 glossary terms', () => {
+test('six stages cover all eighteen existing paths and all 184 glossary terms', () => {
     const ids = stages.flatMap(stage => stage.paths);
     assert.equal(stages.length, 6);
-    assert.equal(new Set(ids).size, 15);
+    assert.equal(new Set(ids).size, 18);
     assert.deepEqual(new Set(ids), new Set(ontology.learningPaths.map(path => path.id)));
     const covered = new Set(ontology.learningPaths.flatMap(pathTerms));
-    assert.equal(covered.size, 160);
+    assert.equal(covered.size, 184);
     ontology.termRegistry.forEach(term => {
         assert.ok(covered.has(term.id), term.label);
         assert.ok(terms.some(source => source.term === term.label), term.label);

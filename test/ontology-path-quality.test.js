@@ -3,9 +3,9 @@ const test = require('node:test');
 const ontology = require('../ontology-data.js');
 const { diagnosePathQuality } = require('../ontology-utils.js');
 
-test('A안의 약한 배치 세 건과 검토 관계 없는 15개 경로를 숨기지 않는다', () => {
+test('A안의 약한 배치 세 건과 검토 관계 없는 18개 경로를 숨기지 않는다', () => {
     const result = diagnosePathQuality(ontology);
-    assert.equal(result.coveredTerms, 160);
+    assert.equal(result.coveredTerms, 184);
     assert.deepEqual(result.weakAssignments.map(({ pathId, termId }) => ({ pathId, termId })), [
         { pathId: 'path-runtime-and-commands', termId: 'term-tdd' },
         { pathId: 'path-ai-coding-tools', termId: 'term-selenium' },

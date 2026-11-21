@@ -1,4 +1,5 @@
 // 기준: Google Sheet 76개 + AI 프로덕트 마스터 용어사전에서 선별·재작성한 83개 + 공식 문서 기반 Express 1개
+// UI 용어 24개는 '코드깎는 노인' UI 용어 영상 스크립트(사용자 제공)를 바탕으로 정의를 새로 썼습니다.
 // 원문 위치: https://note26.colabstart.workers.dev/%EC%9A%A9%EC%96%B4%EC%82%AC%EC%A0%84/
 // 정의는 퀴즈에서 정답이 직접 드러나지 않도록 짧게 재작성했습니다.
 (function exposeTerms(root) {
@@ -985,6 +986,182 @@
         "origin": "official-document",
         "sourceUrl": "https://expressjs.com/",
         "aliases": ["Express.js", "익스프레스"]
+    },
+    {
+        "term": "Hero Section(히어로 섹션)",
+        "definition": "웹사이트에 들어가자마자 가장 먼저 보이는 메인 소개 영역입니다. 제품이나 서비스가 무엇인지 첫눈에 알리려고 짧고 강한 제목, 설명, 방문자가 눌러 주길 바라는 핵심 버튼(CTA), 대표 이미지를 둡니다.",
+        "category": "design",
+        "icon": "🏁",
+        "origin": "ui-terms-video"
+    },
+    {
+        "term": "Responsive Layout(반응형 레이아웃)",
+        "definition": "화면 너비에 맞춰 배치가 자동으로 달라지는 구성입니다. 데스크톱은 3열, 태블릿은 2열, 모바일은 1열처럼 카드가 재배치되어 PC에서만 예쁘고 모바일에서는 깨지는 문제를 막아 줍니다.",
+        "category": "design",
+        "icon": "📱",
+        "origin": "ui-terms-video"
+    },
+    {
+        "term": "Card Layout(카드 레이아웃)",
+        "definition": "흩어져 있던 정보를 독립된 박스 여러 개로 나누어 보여 주는 구성입니다. 상품 목록, 블로그 글, 서비스 기능 소개처럼 반복되는 정보를 보여 줄 때 흔히 씁니다.",
+        "category": "design",
+        "icon": "🗂️",
+        "origin": "ui-terms-video"
+    },
+    {
+        "term": "Bento Grid(벤토 그리드)",
+        "definition": "중요한 항목은 큰 칸으로, 보조 항목은 작은 칸으로 크기를 다르게 배치하는 구성입니다. 도시락을 뜻하는 일본어 단어에서 이름을 따왔습니다.",
+        "category": "design",
+        "icon": "🍱",
+        "origin": "ui-terms-video"
+    },
+    {
+        "term": "Sidebar Layout(사이드바 레이아웃)",
+        "definition": "왼쪽에 고정된 메뉴를 두고 오른쪽을 작업 공간으로 쓰는 구조입니다. 메뉴를 눌러도 바뀌는 것은 오른쪽 내용뿐이며, 대시보드나 관리자 페이지에서 특히 많이 보입니다.",
+        "category": "design",
+        "icon": "📑",
+        "origin": "ui-terms-video"
+    },
+    {
+        "term": "Sticky Header(스티키 헤더)",
+        "definition": "페이지를 아래로 내려도 화면 위쪽에 달라붙어 따라오는 상단 영역입니다. 스크롤을 한참 내린 상태에서도 메뉴나 주요 버튼에 바로 접근할 수 있습니다.",
+        "category": "design",
+        "icon": "📌",
+        "origin": "ui-terms-video"
+    },
+    {
+        "term": "Split Layout(스플릿 레이아웃)",
+        "definition": "이미지와 글처럼 두 영역을 화면 좌우로 나누어 배치하는 구성입니다. 제품 소개나 기능 설명에 자주 쓰이며, 화면이 좁아지면 위아래로 쌓이게 만드는 것이 보통입니다.",
+        "category": "design",
+        "icon": "◧",
+        "origin": "ui-terms-video"
+    },
+    {
+        "term": "Tabs(탭)",
+        "definition": "여러 종류의 내용을 한 공간에서 바꿔 가며 보여 주는 구성 요소입니다. 페이지를 새로 열지 않고 그 구역 안의 내용만 바꿀 수 있어, 개요·기능·요금 정보를 나누어 보여 줄 때 씁니다.",
+        "category": "design",
+        "icon": "🔖",
+        "origin": "ui-terms-video"
+    },
+    {
+        "term": "Accordion(아코디언)",
+        "definition": "궁금한 항목만 위아래로 펼쳐 보는 구성 요소입니다. 질문을 누르면 답변이 펼쳐지고 다시 누르면 접히며, 내용이 길어지는 FAQ 같은 페이지에서 자주 보입니다.",
+        "category": "design",
+        "icon": "🪗",
+        "origin": "ui-terms-video"
+    },
+    {
+        "term": "Modal(모달)",
+        "definition": "화면 위에 별도의 창을 띄워 중요한 확인이나 입력을 먼저 처리하게 하는 구성 요소입니다. 뒤 화면을 반투명한 막으로 어둡게 덮는 것이 특징이며, 저장이나 삭제를 확인할 때 많이 씁니다.",
+        "category": "design",
+        "icon": "🪟",
+        "origin": "ui-terms-video",
+        "aliases": [
+            "Dialog",
+            "다이얼로그"
+        ]
+    },
+    {
+        "term": "Drawer(드로어)",
+        "definition": "화면 옆에서 서랍처럼 밀려 나오는 패널입니다. 지금 페이지를 벗어나지 않고 설정, 필터, 상세 정보 같은 보조 작업을 할 때 쓰며, 화면 한가운데서 집중을 요구하는 창보다 하던 일을 덜 끊습니다.",
+        "category": "design",
+        "icon": "🗄️",
+        "origin": "ui-terms-video"
+    },
+    {
+        "term": "Dropdown(드롭다운)",
+        "definition": "버튼 아래로 선택 목록이 펼쳐지는 구성 요소입니다. 옵션을 고르거나 정렬 방식을 바꾸는 메뉴에서 쉽게 볼 수 있습니다.",
+        "category": "design",
+        "icon": "🔽",
+        "origin": "ui-terms-video"
+    },
+    {
+        "term": "Tooltip(툴팁)",
+        "definition": "아이콘이나 버튼의 의미를 짧게 알려 주는 작은 안내창입니다. 마우스를 올리거나 키보드로 포커스를 두면 나타나서, 화면을 복잡하게 만들지 않고 필요한 사람에게만 정보를 보충합니다.",
+        "category": "design",
+        "icon": "💬",
+        "origin": "ui-terms-video"
+    },
+    {
+        "term": "Toast(토스트)",
+        "definition": "저장 같은 동작의 결과를 화면 아래쪽에 잠깐 띄웠다가 저절로 사라지게 하는 알림입니다. 계속 화면을 가리는 팝업보다 가볍게 결과를 알려 줍니다.",
+        "category": "design",
+        "icon": "🍞",
+        "origin": "ui-terms-video",
+        "aliases": [
+            "Snackbar",
+            "스낵바"
+        ]
+    },
+    {
+        "term": "Carousel(캐러셀)",
+        "definition": "여러 카드나 이미지를 옆으로 넘겨 가며 보여 주는 방식입니다. 회전목마라는 뜻이며, 공간이 한정될 때 고객 후기나 이미지 갤러리에서 자주 쓰고 좌우 버튼이나 모바일 스와이프로 넘깁니다.",
+        "category": "design",
+        "icon": "🎠",
+        "origin": "ui-terms-video"
+    },
+    {
+        "term": "Skeleton Loading(스켈레톤 로딩)",
+        "definition": "데이터를 불러오는 동안 빈 화면 대신 실제 구조와 비슷한 회색 윤곽을 먼저 보여 주는 방식입니다. 뼈대만 먼저 보여 주어 지금 불러오는 중이라는 것을 자연스럽게 알립니다.",
+        "category": "design",
+        "icon": "💀",
+        "origin": "ui-terms-video"
+    },
+    {
+        "term": "Hover Effect(호버 이펙트)",
+        "definition": "마우스를 올렸을 때 색이나 크기, 그림자가 달라지는 효과입니다. 사용자가 이곳을 누를 수 있음을 알아보는 데 도움이 됩니다.",
+        "category": "design",
+        "icon": "🖱️",
+        "origin": "ui-terms-video"
+    },
+    {
+        "term": "Scroll Reveal(스크롤 리빌)",
+        "definition": "스크롤하다가 콘텐츠가 화면에 들어오는 순간 자연스럽게 등장시키는 효과입니다. 랜딩 페이지의 기능 소개 구역이 아래에서 살짝 올라오며 나타나는 모습이 흔한 예입니다.",
+        "category": "design",
+        "icon": "👀",
+        "origin": "ui-terms-video"
+    },
+    {
+        "term": "Stagger Animation(스태거 애니메이션)",
+        "definition": "여러 요소가 한꺼번에 움직이지 않고 시간 차를 두고 차례로 나타나는 연출입니다. 똑같은 카드라도 순서가 생겨 리듬감이 느껴지며, 0.1초 같은 짧은 간격을 줍니다.",
+        "category": "design",
+        "icon": "🎞️",
+        "origin": "ui-terms-video"
+    },
+    {
+        "term": "Smooth Transition(스무스 트랜지션)",
+        "definition": "상태가 바뀔 때 뚝 끊기지 않고 자연스럽게 이어지도록 하는 전환 효과입니다. 버튼과 카드의 선택 상태가 0.2초 정도 부드럽게 바뀌게 하면 화면 완성도가 높아집니다.",
+        "category": "design",
+        "icon": "🌊",
+        "origin": "ui-terms-video"
+    },
+    {
+        "term": "Glassmorphism(글래스모피즘)",
+        "definition": "뒤쪽이 흐릿하게 비치는 반투명 유리 질감의 화면 스타일입니다. 반투명 배경과 배경 흐림 효과로 만들며, 글자가 잘 안 읽힐 수 있어 대비를 충분히 확보해야 합니다.",
+        "category": "design",
+        "icon": "🧊",
+        "origin": "ui-terms-video"
+    },
+    {
+        "term": "Parallax Scrolling(패럴랙스 스크롤링)",
+        "definition": "앞쪽과 뒤쪽 요소가 서로 다른 속도로 움직이게 해 깊이감을 만드는 효과입니다. 너무 세면 어지러울 수 있어 약하게 쓰고, 움직임 줄이기 설정을 켠 사용자에게는 효과를 줄입니다.",
+        "category": "design",
+        "icon": "🏔️",
+        "origin": "ui-terms-video"
+    },
+    {
+        "term": "Scroll Snap(스크롤 스냅)",
+        "definition": "스크롤을 놓으면 정해진 섹션에 맞춰 화면이 딱 정렬되는 방식입니다. 중간에 어정쩡하게 멈추지 않아, 전체 화면 단위로 이어지는 제품 소개나 슬라이드형 페이지에서 유용합니다.",
+        "category": "design",
+        "icon": "🧲",
+        "origin": "ui-terms-video"
+    },
+    {
+        "term": "Micro-interaction(마이크로 인터랙션)",
+        "definition": "좋아요를 누르면 하트가 톡 튀고 저장하면 체크로 바뀌는 것 같은 작은 반응입니다. 클릭이나 저장 같은 작은 행동에 바로 돌아오는 시각적 피드백으로, 사용성을 높입니다.",
+        "category": "design",
+        "icon": "❤️",
+        "origin": "ui-terms-video"
     }
 ];
 
