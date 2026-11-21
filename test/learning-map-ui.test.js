@@ -80,7 +80,7 @@ test('온톨로지 데이터와 유틸은 지도 컨트롤러보다 먼저 로�
 });
 
 test('정적 자산은 동일한 배포 버전과 학습 지도 의존성 순서를 사용한다', () => {
-    const versionedAssets = [...html.matchAll(/(?:href|src)="(?:style\.css|[^\"]+\.js)\?v=([^"]+)"/g)]
+    const versionedAssets = [...html.matchAll(/(?:href|src)="[^"]+\.(?:css|js)\?v=([^"]+)"/g)]
         .map(match => match[1]);
     assert.ok(versionedAssets.length >= 10);
     assert.ok(versionedAssets.every(version => version === versionedAssets[0]), '모든 정적 자산은 같은 버전이어야 한다');
